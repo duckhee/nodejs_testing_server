@@ -3,7 +3,8 @@
  * 첫번째 미들웨어는 알집 진행
  * 두번째 미들웨어 알집 파일 찾아서 있으면 다음으로 진행 아니면, alter
  * 세번째 미들웨어는 다운로드 진행
- * 네번째 미들웨어는 다운로드 완료 후 원래 페이지로 redirect 
+ * 네번째 미들웨어는 다운로드 완료 후 원래 페이지로 redirect
+ *  
  */
 
 
@@ -33,6 +34,17 @@ router.get('/', function(req, res, next) {
     });
 });
 
+//zip folder
+router.post('/process/zip', function(req, res, next) {
+
+});
+
+//post folder download
+router.post('/process/download/zip', function(req, res, next) {
+
+});
+
+//file download url get
 router.get('/file_downlaod', function(req, res, next) {
     var filename = req.query.filename || req.params.filename;
     console.log(filename);
@@ -66,5 +78,6 @@ router.get('/ajaxGetImage', function(req, res, next) {
     var endDate = req.query.endDate || req.params.endDate;
     next();
 });
+
 
 module.exports = router;
