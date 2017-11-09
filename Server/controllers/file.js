@@ -117,4 +117,6 @@ exports.file_csv = function(file_info, callback) {
     var date = moment().formant('YYYYMMDD');
     //make csv file or download file 
     csvfile.write('download_date ' + date + '.csv', file_info.response);
+    //만약 서버에 파일을 생성을 하고 싶으면 밑에 주석 풀고 위에 주석 처리
+    //csvfile.write('download_date'+date+'.csv);
 };
