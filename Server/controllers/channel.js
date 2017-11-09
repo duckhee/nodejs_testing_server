@@ -17,7 +17,9 @@ exports.insert_channel = function(channel_info, callback) {
 
 //find all list
 exports.list_channel = function(channel_info, callback) {
-    models.Channels.findAll({}).then(function(row) {
+    models.Channels.findAll({
+        where: {},
+    }).then(function(row) {
 
     }).catch(function(e) {
 
@@ -26,7 +28,9 @@ exports.list_channel = function(channel_info, callback) {
 
 //find one channel
 exports.find_channel = function(channel_info, callback) {
-    models.Channel.find({}).then(function(row) {
+    models.Channel.find({
+
+    }).then(function(row) {
 
     }).then(function(e) {
 
@@ -35,7 +39,9 @@ exports.find_channel = function(channel_info, callback) {
 
 //delete channel
 exports.delete_channel = function(channel_info, callback) {
-    models.Channel.destory({}).then(function(row) {
+    models.Channel.destory({
+
+    }).then(function(row) {
 
     }).catch(function(e) {
 

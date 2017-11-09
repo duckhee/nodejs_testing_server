@@ -14,7 +14,7 @@ var moment = require('moment'); //시간 모듈
 
 //controllers
 //var cameraControllers = require('../controllers/camera');
-//var fileControllers = require('../controllers/file');
+var fileControllers = require('../controllers/file');
 //var channelControllers = requir('../controllers/channel.js');
 //var valueContorllers = require('../controllers/value');
 
@@ -31,6 +31,16 @@ router.get('/', function(req, res, next) {
         img_path: 1,
         devices: 1,
         createdAt: ""
+    });
+});
+
+//download value download
+router.post('/process/value_download', function(req, res, next) {
+    //serial num 으로 데이터 검색 및 다운로드 진행 
+    var serial_Num = req.query.serialnum || req.params.serialnum;
+    var data_info = { "select_sensor": serial_Num, "response": res, };
+    fileControllers.file_csv(data_info, function(e) {
+
     });
 });
 
@@ -79,5 +89,15 @@ router.get('/ajaxGetImage', function(req, res, next) {
     next();
 });
 
+// //insert data
+// router.get('/insert', function(req, res, next) {
+//     //parameter get
+//     var channel = req.query.channel || req.params.channel;
 
-module.exports = router;
+
+//     var value_info = {};
+// });
+
+
+
+module.exports = route

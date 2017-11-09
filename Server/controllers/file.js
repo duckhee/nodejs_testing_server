@@ -14,6 +14,9 @@ var mime = require('mime');
 var formidable = require('formidable');
 var zip = require('node-zip');
 var folder_zip = require('zip-folder');
+//time module
+var moment = requir('moment');
+var excel = require('excel4node');
 
 //file zip file_info{name} callback
 exports.file_zip = function(file_info, callback) {
@@ -68,7 +71,50 @@ exports.file_download = function(file_info, callback) {
 
 // };
 
-//make log file
+//make data file .csv
 exports.file_csv = function(file_info, callback) {
+    var csvfile = new excel.Workbook();
+    //first sheet add file
+    var firt_sheet = csvfile.addWorksheet('sheet1');
+    //sheet style set up
+    var sheet_style = csvfile.createStyle({
+        alignment: {
+            horizontal: ['center'],
+            vertical: ['center']
+        },
+        font: {
+            size: 10,
+            bold: false,
+        },
+        border: {
+            left: {
+                style: 'thin',
+                color: '#000000'
+            },
+            right: {
+                style: 'thin',
+                color: '#000000'
+            },
+            top: {
+                style: 'thin',
+                color: '#000000'
+            },
+            bottom: {
+                style: 'thin',
+                color: '#000000'
+            }
+        }
+    });
+    //column width setting
+    firt_sheet.column().setWidth();
 
+    //row height setting
+    firt_sheet.row().setHight();
+
+    //write data 
+    firt_sheet.cell(1, 1).string().style(sheet_style);
+
+    var date = moment().formant('YYYYMMDD');
+    //make csv file or download file 
+    csvfile.write('download_date ' + date + '.csv', file_info.response);
 };
