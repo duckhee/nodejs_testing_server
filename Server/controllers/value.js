@@ -1,5 +1,5 @@
-var models = requrie('../models/index.js');
-var Value = requrie('../models/values.js');
+var models = require('../models/index.js');
+var Value = require('../models/values.js');
 var excel = require('excel4node');
 
 exports.insert_data = function(data_info, callback) {
@@ -92,4 +92,4 @@ exports.first_page =function(callback){
         return callback(err, null);
         //throw err;
     });
-}
+};

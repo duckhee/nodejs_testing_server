@@ -38,9 +38,13 @@ router.get('/', function(req, res, next) {
 router.post('/process/value_download', function(req, res, next) {
     //serial num 으로 데이터 검색 및 다운로드 진행 
     var serial_Num = req.query.serialnum || req.params.serialnum;
+    //파일을 만들기 위해서는 res를 넘겨 주어야한다.
     var data_info = { "select_sensor": serial_Num, "response": res, };
     fileControllers.file_csv(data_info, function(e) {
-
+        if(e){
+            console.log(e.stack);
+            res.redirect('/');
+        }
     });
     // next();
     res.redirect('/');

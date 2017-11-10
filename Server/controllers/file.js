@@ -74,7 +74,7 @@ exports.file_download = function(file_info, callback) {
 // };
 
 
-//make data file .csv
+//make data file .csv callback error file_info에 res를 담아주어야한다.
 exports.file_csv = function(file_info, callback) {
     
         var csvfile = new excel.Workbook();
@@ -122,7 +122,7 @@ exports.file_csv = function(file_info, callback) {
         //data 모두 가져오기 
         valueControllers.all_data(file_info, function(row, err) {
             if (row) {
-                
+                //setting title
                 first_sheet.cell(1, 1).string("no").style(sheet_style);
                 first_sheet.cell(1, 2).string("serial").style(sheet_style);
                 first_sheet.cell(1, 3).string("address").style(sheet_style);
@@ -139,11 +139,11 @@ exports.file_csv = function(file_info, callback) {
                     //for문 하나
                     //cell에 number type이 들어가야해서 변환 
                     var Num_i = parseInt(i);
-                    for (var j = 1; j <= 8; j++) {
-                        if (j === 4) {
-                            first_sheet.column(j).setWidth(44);
+                    for (var c = 1; c <= 8; c++) {
+                        if (c === 4) {
+                            first_sheet.column(c).setWidth(44);
                         } else {
-                            first_sheet.column(j).setWidth(20);
+                            first_sheet.column(c).setWidth(20);
                         }
                     }
                     //for문 끝
