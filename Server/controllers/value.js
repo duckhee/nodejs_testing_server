@@ -35,7 +35,7 @@ exports.all_data = function(data_info, callback) {
             ['createdAt', 'DESC']
         ]
     }).then(function(rows) {
-        callback(row, null);
+        callback(rows, null);
 
     }).catch(function(e) {
         callback(null, e);
@@ -62,8 +62,7 @@ exports.delete_data = function(data_info, callback) {
     });
 };
 
-var wb1 = new excel.Workbook();
-var ws = wb1.addWorksheet('sheet1');
+
 
 //make exel file 
 exports.make_exel = function(data_info, callback) {
@@ -77,3 +76,18 @@ exports.make_exel = function(data_info, callback) {
         }
     });
 };
+
+exports.first_page =function(callback){
+    models.Values.findAll({
+        attributes: [ 'field_id'],
+        group : ['field_id']
+    }).then(function(values) {
+        return callback(null, values);
+        //console.log(JSON.stringify(values));
+    }).catch(function(err){
+        console.log('error');
+        console.log(err.stack);
+        return callback(err, null);
+        //throw err;
+    });
+}

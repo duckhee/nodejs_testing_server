@@ -42,6 +42,8 @@ router.post('/process/value_download', function(req, res, next) {
     fileControllers.file_csv(data_info, function(e) {
 
     });
+    // next();
+    res.redirect('/');
 });
 
 //zip folder
@@ -62,6 +64,7 @@ router.get('/file_downlaod', function(req, res, next) {
     //  fileControllers.file_download(fileinfo, function(result, err) {
 
     //});
+    res.redirect('/');
 });
 
 

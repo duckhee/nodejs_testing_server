@@ -15,8 +15,10 @@ var formidable = require('formidable');
 var zip = require('node-zip');
 var folder_zip = require('zip-folder');
 //time module
-var moment = requir('moment');
+var moment = require('moment');
 var excel = require('excel4node');
+//controller value 
+var valueControllers = require('./value');
 
 //file zip file_info{name} callback
 exports.file_zip = function(file_info, callback) {
@@ -27,7 +29,7 @@ exports.file_zip = function(file_info, callback) {
 exports.folder_zip = function(folder_info, callback) {
     var folder_name = folder_info.name;
     //folder location found and zip
-    folder_zip.zipFolder(process.cwd() + '/camera_images/' + folder_info.channel + '/' + folder_info.name, process.cwd() + '/download/' + folder_info.channel + '/' + folder_info.name, function(err) {
+    folder_zip.zipFolder(process.cwd() + '/camera_images/' + folder_info.channel + '/' + folder_info.name, process.cwd() + '/download/' + folder_info.channel + '/' + folder_info.name + ',zip', function(err) {
         if (err) {
             console.log('failed make zip file', err.stack);
             callback(err);
@@ -71,52 +73,123 @@ exports.file_download = function(file_info, callback) {
 
 // };
 
+
 //make data file .csv
 exports.file_csv = function(file_info, callback) {
-    var csvfile = new excel.Workbook();
-    //first sheet add file
-    var firt_sheet = csvfile.addWorksheet('sheet1');
-    //sheet style set up
-    var sheet_style = csvfile.createStyle({
-        alignment: {
-            horizontal: ['center'],
-            vertical: ['center']
-        },
-        font: {
-            size: 10,
-            bold: false,
-        },
-        border: {
-            left: {
-                style: 'thin',
-                color: '#000000'
+    
+        var csvfile = new excel.Workbook();
+        //first sheet add file
+        var first_sheet = csvfile.addWorksheet('sheet1');
+        //sheet style set up
+        var sheet_style = csvfile.createStyle({
+            alignment: {
+                horizontal: ['center'],
+                vertical: ['center']
             },
-            right: {
-                style: 'thin',
-                color: '#000000'
+            font: {
+                size: 10,
+                bold: false,
             },
-            top: {
-                style: 'thin',
-                color: '#000000'
-            },
-            bottom: {
-                style: 'thin',
-                color: '#000000'
+            border: {
+                left: {
+                    style: 'thin',
+                    color: '#000000'
+                },
+                right: {
+                    style: 'thin',
+                    color: '#000000'
+                },
+                top: {
+                    style: 'thin',
+                    color: '#000000'
+                },
+                bottom: {
+                    style: 'thin',
+                    color: '#000000'
+                }
             }
-        }
-    });
-    //column width setting
-    firt_sheet.column().setWidth();
-
-    //row height setting
-    firt_sheet.row().setHight();
-
-    //write data 
-    firt_sheet.cell(1, 1).string().style(sheet_style);
-
-    var date = moment().formant('YYYYMMDD');
-    //make csv file or download file 
-    csvfile.write('download_date ' + date + '.csv', file_info.response);
-    //만약 서버에 파일을 생성을 하고 싶으면 밑에 주석 풀고 위에 주석 처리
-    //csvfile.write('download_date'+date+'.csv);
-};
+        });
+    
+        /*
+            column A : index
+            column B : serial 
+            column C : address
+            column D : date
+            column E ~  : value
+            serial, address, value, date, index
+        */
+    
+        //data 모두 가져오기 
+        valueControllers.all_data(file_info, function(err, row) {
+            if (row) {
+                
+                first_sheet.cell(1, 1).string("no").style(sheet_style);
+                first_sheet.cell(1, 2).string("serial").style(sheet_style);
+                first_sheet.cell(1, 3).string("address").style(sheet_style);
+                first_sheet.cell(1, 4).string("date").style(sheet_style);
+                
+                var testing = row[1].dataValues.s_etc.split(',');
+    
+                //value title setting
+                for (var j = 1; j <= testing.length; j++) {
+                    first_sheet.cell(1, 4 + j).string("value" + j).style(sheet_style);
+               }
+                for (var i in row) {
+                    //column width setting
+                    //for문 하나
+                    //cell에 number type이 들어가야해서 변환 
+                    var Num_i = parseInt(i);
+                    for (var j = 1; j <= 8; j++) {
+                        if (j === 4) {
+                            first_sheet.column(j).setWidth(44);
+                        } else {
+                            first_sheet.column(j).setWidth(20);
+                        }
+                    }
+                    //for문 끝
+                    //row height setting
+                    //first_sheet.row(ii + 1).setHeight(10);
+                    
+                    ////////////////for 문 제어 필요///////
+                    //번호 넣어주기
+                    first_sheet.cell(Num_i + 2, 1).number(ii + 1).style(sheet_style);
+                    
+                    //serial 넣어주기
+                    first_sheet.cell(Num_i + 2, 2).string(row[i].dataValues.s_id.toString()).style(sheet_style);
+                    
+                    //address 넣어주기
+                    first_sheet.cell(Num_i + 2, 3).string(row[i].dataValues.s_addr.toString()).style(sheet_style);
+                    
+                    //date 넣어주기
+                    first_sheet.cell(Num_i + 2, 4).string(row[i].dataValues.createdAt.toString()).style(sheet_style);
+                    //data parser
+                    var array = row[i].dataValues.s_etc.split(',');
+                    //write data 
+                    //여기서 부터 for문 하나
+                     for (var a in array) {
+                         //string을 number type으로 변환 
+                         var Num_a=parseInt(a);
+                         //write data
+                         first_sheet.cell(Num_i+2, Num_a+5).string(array[a].toString()).style(sheet_style);
+                     }
+                     
+                    //두번째 for문 끝
+                }
+    
+                ////////////여기 까지 ////////////////
+                var date = moment().format('YYYYMMDD');
+                console.log('success ! ');
+                //make csv file or download file 
+                csvfile.write('download_date ' + date + '.csv', file_info.response);
+                //만약 서버에 파일을 생성을 하고 싶으면 밑에 주석 풀고 위에 주석 처리
+                //csvfile.write('download_date'+date+'.csv);
+                callback(row, null);
+            } else if (err) {
+                console.log('error : ', err.stack);
+                callback(null, err);
+            } else {
+                callback(null, null);
+            }
+        });
+    
+    };
