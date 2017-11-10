@@ -30,7 +30,9 @@ exports.list_data = function(data_info, callback) {
 //all data show
 exports.all_data = function(data_info, callback) {
     models.Value.findAll({
-        where: {},
+        where: {
+            s_serial:data_info.s_serial
+        },
         order: [
             ['createdAt', 'DESC']
         ]

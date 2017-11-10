@@ -120,7 +120,7 @@ exports.file_csv = function(file_info, callback) {
         */
     
         //data 모두 가져오기 
-        valueControllers.all_data(file_info, function(err, row) {
+        valueControllers.all_data(file_info, function(row, err) {
             if (row) {
                 
                 first_sheet.cell(1, 1).string("no").style(sheet_style);
