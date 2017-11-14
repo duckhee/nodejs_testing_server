@@ -9,6 +9,13 @@ var downloader = require('../util/file');
 
 //get picture ajax
 router.get('/ajax_get_images', function(req, res, next) {
+    var serial_info = req.query.serial_Num || req.params.serial_Num;
+
+    camera_path = { "serial_Num": serial_info };
+
+    imagecontroller.find_camera(camera_info, function(row, err) {
+
+    });
 
 });
 

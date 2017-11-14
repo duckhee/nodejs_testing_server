@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      si_title: {
+      si_serial: {
         type: Sequelize.STRING
       },
       si_path: {

@@ -45,7 +45,7 @@ exports.slide_list = function(camera_info, callback) {
 exports.find_camera = function(camera_info, callback) {
     models.seosan_images.find({
         where: {
-
+            si_title: camera_info.serial_Num
         }
     }).then(function(row) {
         callback(row, null);

@@ -150,6 +150,9 @@ app.use('/images', express.static(path.join(__dirname, 'camera_images')));
 app.use('/upload', express.static(path.join(__dirname, 'upload')));
 //index router
 app.use('/', index);
+//testing router
+var test = require('./Server/routes/test_router');
+app.use('/test', test);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

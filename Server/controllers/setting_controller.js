@@ -24,7 +24,7 @@ exports.update_setting = function(setting_info, callback) {
 
     }, {
         where: {
-
+            st_serial: setting_info.serial_Num
         }
     }).then(function(row) {
         callback(row, null);
