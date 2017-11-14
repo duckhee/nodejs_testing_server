@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
 
 
     res.render('./pages/index', {
-        channel: 1,
+        serial: 1,
         img_path: 1,
         devices: 1,
         createdAt: ""
@@ -41,7 +41,7 @@ router.post('/process/value_download', function(req, res, next) {
     //파일을 만들기 위해서는 res를 넘겨 주어야한다.
     var data_info = { "select_sensor": serial_Num, "response": res, };
     fileControllers.file_csv(data_info, function(e) {
-        if(e){
+        if (e) {
             console.log(e.stack);
             res.redirect('/');
         }

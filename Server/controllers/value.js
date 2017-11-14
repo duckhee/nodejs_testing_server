@@ -65,20 +65,6 @@ exports.delete_data = function(data_info, callback) {
 };
 
 
-
-//make exel file 
-exports.make_exel = function(data_info, callback) {
-    all_data(data_info, function(row, err) {
-        if (row) {
-
-        } else if (err) {
-
-        } else {
-
-        }
-    });
-};
-
 exports.first_page =function(callback){
     models.Values.findAll({
         attributes: [ 'field_id'],

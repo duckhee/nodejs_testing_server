@@ -197,6 +197,7 @@
                 function getFormatDateHour(date) {
                     var hour = date.getHours(); //d
                     hour = hour >= 10 ? hour : '0' + hour; //day 두자리로 저장
+
                     return hour;
                 }
 
@@ -205,7 +206,7 @@
                     $.ajax({
 
                         type: "GET",
-                        url: "/ajax?channel=<%=channel%>",
+                        url: "/ajax?serial_Num=<%=serial%>",
                         dataType: "json",
                         error: function() {
                             var ajax_data;
@@ -300,7 +301,7 @@
                     $.ajax({
 
                         type: "GET",
-                        url: "/ajaxpath?channel=<%=channel%>",
+                        url: "/ajaxpath?serial_Num=<%=serial%>",
                         dataType: "json",
                         error: function() {
                             var ajax_path;
@@ -335,7 +336,7 @@
                         type: "GET",
                         url: "/ajaxGetImage",
                         data: {
-                            channel: "<%=channel%>",
+                            serial: "<%=serial%>",
                             startDate: startDate,
                             endDate: endDate
                         },
@@ -417,7 +418,7 @@
             <script>
                 $(document).ready(function() {
                     $('#value_download').click(function() {
-                        $.post('/process/value_download', function() {
+                        $.post('/process/download_csv?serial_Num=<%=serial%>', function() {
 
                         });
                     });

@@ -78,3 +78,17 @@ exports.find_picture = function(camera_info, callback) {
         callback(e, null);
     });
 };
+
+exports.delete_camera(camera_info, callback) {
+    models.Camera.destroy({
+        where: {
+
+        }
+    }).then(function(row) {
+        console.log('success : ', row);
+        callback(row, null);
+    }).catch(function(err) {
+        console.log('error : ', err.stack);
+        callback(null, err);
+    });
+};

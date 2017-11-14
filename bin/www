@@ -101,4 +101,15 @@ function onListening() {
         }
     }
     console.log(addresses + ':' + app.get('port'));
+
+    //종료 직전에 실행을 하는 것 로그 남기는 법 찾아서 여기다 적용하기 
+    // process.on('beforeExit', () => {
+
+    // });
+
+    //예외 처리 
+    // process.on('uncaughtException', function(){
+
+    // });
+
 }
