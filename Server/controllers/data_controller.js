@@ -40,7 +40,7 @@ exports.list_data = function(data_info, callback) {
 exports.list_limit = function(data_info, callback) {
     models.seosan_data.findAll({
         where: {
-
+            sd_serial: data_info.serial_Num
         },
         limit: 10,
         order: [

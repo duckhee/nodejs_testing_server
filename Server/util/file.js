@@ -193,3 +193,16 @@ exports.file_csv = function(file_info, callback) {
     });
 
 };
+
+//camera size check function make
+exports.get_filesize = function(file_info, callback) {
+    //file size get set
+    try {
+        const stat = fs.statSync(file_info.path);
+        const file_size = stat.size;
+        callback(file_size, null);
+    } catch (err) {
+        console.log('error : ', err.stack);
+        callback(null, err);
+    }
+};
