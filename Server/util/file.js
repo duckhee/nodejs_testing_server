@@ -128,7 +128,7 @@ exports.file_csv = function(file_info, callback) {
             first_sheet.cell(1, 3).string("address").style(sheet_style);
             first_sheet.cell(1, 4).string("date").style(sheet_style);
 
-            var testing = row[1].dataValues.s_etc.split(',');
+            var testing = row[1].dataValues.sd_data.split(',');
 
             //value title setting
             for (var j = 1; j <= testing.length; j++) {
@@ -155,15 +155,15 @@ exports.file_csv = function(file_info, callback) {
                 first_sheet.cell(Num_i + 2, 1).number(ii + 1).style(sheet_style);
 
                 //serial 넣어주기
-                first_sheet.cell(Num_i + 2, 2).string(row[i].dataValues.s_id.toString()).style(sheet_style);
+                first_sheet.cell(Num_i + 2, 2).string(row[i].dataValues.sd_serial.toString()).style(sheet_style);
 
                 //address 넣어주기
-                first_sheet.cell(Num_i + 2, 3).string(row[i].dataValues.s_addr.toString()).style(sheet_style);
+                first_sheet.cell(Num_i + 2, 3).string(row[i].dataValues.sd_address.toString()).style(sheet_style);
 
                 //date 넣어주기
                 first_sheet.cell(Num_i + 2, 4).string(row[i].dataValues.createdAt.toString()).style(sheet_style);
                 //data parser
-                var array = row[i].dataValues.s_etc.split(',');
+                var array = row[i].dataValues.sd_data.split(',');
                 //write data 
                 //여기서 부터 for문 하나
                 for (var a in array) {
