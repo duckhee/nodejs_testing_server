@@ -106,7 +106,6 @@ exports.get_address_data = function(data_info, callback) {
         where: {
             sd_address: data_info.address_Num
         },
-        limit: 10,
         order: [
             ['createdAt', 'DESC']
         ],
