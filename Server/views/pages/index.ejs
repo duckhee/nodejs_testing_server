@@ -59,7 +59,7 @@
                 <ol class="breadcrumb">
                     <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
                     <li><i class="ffa fa-dshboard"></i>Channel</li>
-                    <li class="active"><a href="/channel/detail">show</a></li>
+                    <li class="active"><a href="/">show</a></li>
                 </ol>
             </section>
             <div class="content">
@@ -69,16 +69,17 @@
                         <div class="box box-primary">
                             <div class="box-header with-border">
                                 <i class="fa fa-bar-chart-o"></i>
-                                <h3 class="box-title">Senser Value</h3><button class="pull-right" id="value_download" name="value_download"><i class="fa fa-fw fa-download"></i>download</button>
+                                <h3 class="box-title">Senser Value</h3>
+                                <button class="pull-right" id="value_download" name="value_download"><i class="fa fa-fw fa-download"></i>download</button>
                             </div>
                             <div class="box-body">
                                 <div id="sensor-chart" style="height: 300px;"></div>
-
                             </div>
                             <!-- /.box-body-->
                         </div>
                         <!-- /.box -->
                     </div>
+                    <!-- chart end -->
                 </div>
 
                 <div class="row">
@@ -86,6 +87,7 @@
                         <div class="box box-primary">
                             <div class="box-header with-border">
                                 <h3 class="box-title">최근 촬영 사진</h3>
+                                <button class="pull-right"><i class="fa fa-fw fa-download" id="image_download" name="image_download"></i>download</button>
                                 <div class="box-tools pull-right" id="camera-date">
                                     <%
 										var d = new Date(createdAt); 
@@ -138,10 +140,11 @@
                         <!-- /.box -->
                     </div>
                     <!-- /.col -->
+                    <!-- end 캘린더 -->
                 </div>
                 <!-- / camera infomation -->
-                <!-- infomation -->
-                <!-- /.weather, camera widget -->
+                
+                
             </div>
         </div>
     </div>
@@ -216,9 +219,8 @@
 
                             var chart_data;
                             //ajax_data = JSON.stringify(data);
-                            chart_data = data;
 
-                            var get_data = chart_data;
+                            var get_data = data;
 
                             var show_data = [];
 

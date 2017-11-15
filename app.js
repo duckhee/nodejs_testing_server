@@ -25,6 +25,9 @@ io.sockets.on('connection', function(socket) {
         //채널별 폴더유무 체크
         console.log("delivery on");
         var params = file.params;
+
+        console.log('file size', file.size);
+
         var date_folder = moment().format('YYYYMMDD');
 
         //일별 폴더 유무 체크
@@ -76,6 +79,7 @@ io.sockets.on('connection', function(socket) {
                     console.log('File could not be saved: ' + err);
                 } else {
                     var camera_info = {};
+
                     camera_info = { "field_id": params.channel, "folder_path": date_folder, "img_name": params.img_name };
                     cameraControllers.insert_picture(camera_info, function(err, row) {
                         if (err) {

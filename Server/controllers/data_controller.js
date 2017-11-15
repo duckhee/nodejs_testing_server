@@ -9,7 +9,9 @@ exports.insert_data = function(data_info, callback) {
 
         },
         default: {
-
+            sd_address: '',
+            sd_serial: '',
+            sd_data: ''
         }
     }).then(function(row) {
         callback(row, null);
@@ -23,7 +25,7 @@ exports.insert_data = function(data_info, callback) {
 exports.list_data = function(data_info, callback) {
     models.seosan_data.findAll({
         where: {
-
+            sd_serial: data_info.serial_Num
         },
         order: [
             ['createdAt', 'DESC']
@@ -58,7 +60,7 @@ exports.list_limit = function(data_info, callback) {
 exports.find_Onedata = function(data_info, callback) {
     models.seosan_data.find({
         where: {
-
+            sd_serial: data_info.serial_Num
         }
     }).then(function(row) {
         callback(row, null);
@@ -72,7 +74,7 @@ exports.find_Onedata = function(data_info, callback) {
 exports.delete_data = function(data_info, callback) {
     models.seosan_data.destroy({
         where: {
-
+            sd_serial: data_info.serial_Num
         }
     }).then(function(row) {
         callback(row, null);
@@ -86,7 +88,7 @@ exports.delete_data = function(data_info, callback) {
 exports.download_data = function(data_info, callback) {
     models.seosan_data.findAll({
         where: {
-            sd_serial: data_info.sd_serial
+            sd_serial: data_info.serial_Num
         },
         order: [
             ['createdAt', 'DESC']

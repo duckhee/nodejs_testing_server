@@ -105,6 +105,11 @@ router.get('/ajaxGetImage', function(req, res, next) {
 //     var value_info = {};
 // });
 
+//change setting
+router.post('/process/setting', function(req, res, next) {
+
+});
+
 
 
 module.exports = route

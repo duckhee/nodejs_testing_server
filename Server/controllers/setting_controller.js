@@ -21,7 +21,10 @@ exports.create_setting = function(setting_info, callback) {
 //update setting callback(row, err);
 exports.update_setting = function(setting_info, callback) {
     models.seosan_setting.update({
-
+        st_gps: setting_info.gps,
+        st_title: setting_info.title,
+        st_address: setting_info.address,
+        st_group: setting_info.group
     }, {
         where: {
             st_serial: setting_info.serial_Num
@@ -38,7 +41,7 @@ exports.update_setting = function(setting_info, callback) {
 exports.delete_setting = function(setting_info, callback) {
     models.seosan_setting.destroy({
         where: {
-
+            st_serial: setting_info.serial_Num
         }
     }).then(function(row) {
         callback(row, null);
@@ -52,7 +55,7 @@ exports.delete_setting = function(setting_info, callback) {
 exports.find_setting = function(setting_info, callback) {
     models.seosan_setting.find({
         where: {
-
+            st_serial: setting_info.serial_Num
         }
     }).then(function(row) {
         callback(row, null);
