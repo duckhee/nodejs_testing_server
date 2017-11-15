@@ -1,5 +1,5 @@
 var models = require('../models/index');
-var seosan_data = requrie('../models/seosan_data.js');
+var seosan_data = require('../models/seosan_data.js');
 
 
 //insert data callback(row, err);
@@ -100,3 +100,20 @@ exports.download_data = function(data_info, callback) {
         callback(null, err);
     });
 };
+
+exports.get_address_data = function(data_info, callback) {
+    models.seosan_data.findAll({
+        where: {
+            sd_address: data_info.address_Num
+        },
+        limit: 10,
+        order: [
+            ['createdAt', 'DESC']
+        ],
+    }).then(function(rows) {
+        callback(rows, null);
+    }).catch(function(err) {
+        console.log('error : ', err.stack);
+        callback(null, err);
+    });
+}

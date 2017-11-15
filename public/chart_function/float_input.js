@@ -7,7 +7,8 @@
             function ec_data(ec_datainfo) {
 
                 var ec_data = [];
-
+                // var array;
+                // var array = ec_datainfo[i].sd_data.split(',');
                 for (var i = 0; i < 8; i++) {
                     ec_data.push(getDateFromJSON[ec_datainfo[i].createdAt], ec_datainfo[i].sd_data);
                 }
@@ -16,7 +17,7 @@
                     color: "#3c8dbc",
                 }
 
-                $.plot("#ec-chart", ec_data_obj, {
+                $.plot("#ec-chart", [ec_data_obj], {
                     grid: {
                         hoverable: true,
                         borderColor: "#f3f3f3",
@@ -82,7 +83,7 @@
                     data: temperature.reverse(),
                     color: "#3c8dbc",
                 }
-                $.plot("#temperature-chart", temperature_obj, {
+                $.plot("#temperature-chart", [temperature_obj], {
                     grid: {
                         hoverable: true,
                         borderColor: "#f3f3f3",
@@ -149,7 +150,7 @@
                     color: "#3c8dbc",
                 }
 
-                $.plot("#moisture-chart", moisture_obj, {
+                $.plot("#moisture-chart", [moisture_obj], {
                     grid: {
                         hoverable: true,
                         borderColor: "#f3f3f3",
