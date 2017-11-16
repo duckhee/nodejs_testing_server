@@ -8,9 +8,17 @@ controller.get_address_data(models, function(row, err) {
 
         for (var i in row) {
             var array = row[i].dataValues.sd_data.split(',');
+            console.log('first data : ', row[i].dataValues.id);
             for (var j in array) {
                 //console.log('array type : ', typeof(array[j]));
-                console.log('array : ' + j, array[j]);
+                //console.log('array ' + j + ' : ', array[j]);
+                if (j < 8) {
+                    console.log('ec ' + j + ': ', array[j]);
+                } else if (j < 16) {
+                    console.log('온도 ' + j + ' : ', array[j]);
+                } else {
+                    console.log('수분 ' + j + ' : ', array[j]);
+                }
             }
 
         }
