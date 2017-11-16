@@ -116,3 +116,19 @@ exports.get_address_data = function(data_info, callback) {
         callback(null, err);
     });
 }
+
+exports.get_test_data = function(data_info, callback) {
+    models.seosan_data.findAll({
+        where: {
+            sd_address: '013EP100G-08'
+        },
+        order: [
+            ['createdAt', 'DESC']
+        ],
+    }).then(function(rows) {
+        callback(rows, null);
+    }).catch(function(er) {
+        console.log('error : ', err.stack);
+        callback(null, err);
+    });
+};

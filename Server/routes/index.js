@@ -14,9 +14,8 @@ var moment = require('moment'); //시간 모듈
 
 //controllers
 //var cameraControllers = require('../controllers/camera');
-var fileControllers = require('../controllers/file');
-//var channelControllers = requir('../controllers/channel.js');
-//var valueContorllers = require('../controllers/value');
+var fileControllers = require('../util/file');
+var dataControllers = require('../controllers/data_controller');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -26,11 +25,11 @@ router.get('/', function(req, res, next) {
 
 
 
-    res.render('./pages/index', {
+    res.render('./pages/test_index', {
         serial: 1,
         img_path: 1,
-        devices: 1,
-        createdAt: ""
+        devices: 2,
+        createdAt: ''
     });
 });
 
@@ -75,22 +74,34 @@ router.get('/file_downlaod', function(req, res, next) {
 //get data ajax
 router.get('/ajax', function(req, res, next) {
     //parameter value
-    var channel = req.query.channel || req.params.channel;
-    next();
+    var serial_data = req.query.serial_Num || req.params.serial_Num;
+    var address_data = req.query.address || req.params.address;
+    console.log('test');
+    dataControllers.get_test_data([], function(row, err) {
+            if (row) {
+                res.json(row);
+            } else if (err) {
+                res.json(err);
+            } else {
+                res.json(null);
+            }
+        })
+        // next();
 });
 
 //get image path ajax
 router.get('/ajaxpath', function(req, res, next) {
     //parameter value
-    var channel = req.query.channel || req.params.channel;
+    var channel = req.query.serial_Num || req.params.serial_Num;
     var path = req.query.path || req.params.path;
-    next();
+    //next();
+    res.json(2);
 });
 
 //get image slide ajax
 router.get('/ajaxGetImage', function(req, res, next) {
     //parameter value
-    var channel = req.query.channel || req.params.channel;
+    var channel = req.query.serial_Num || req.params.serial_Num;
     var startDate = req.query.startDate || req.params.startDate;
     var endDate = req.query.endDate || req.params.endDate;
     next();
@@ -112,4 +123,4 @@ router.post('/process/setting', function(req, res, next) {
 
 
 
-module.exports = route
+module.exports = router;

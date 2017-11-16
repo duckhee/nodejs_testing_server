@@ -59,16 +59,6 @@ io.sockets.on('connection', function(socket) {
 
 
                 });
-
-                //일별 폴더 유무 체크
-                //fs.mkdir('./camera_images/' + params.channel + "/" + date_folder, '0777', function(err){
-                // if(err) {
-                // console.log('mkdir second err');
-                // console.log(err.stack);
-                // throw err;
-                //   }
-                //    console.log('dir date writed');
-                //   });
             }
 
             //이미지일 경우만 저장
@@ -123,7 +113,7 @@ var index = require('./Server/routes/index');
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, '/Server/views'));
+app.set('views', path.join(__dirname, './Server/views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
@@ -138,13 +128,6 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
 }));
-
-// app.use(sassMiddleware({
-//     src: path.join(__dirname, 'public'),
-//     dest: path.join(__dirname, 'public'),
-//     indentedSyntax: true, // true = .sass and false = .scss
-//     sourceMap: true
-// }));
 
 //get public folder url (css, javascript, bootstrap)
 app.use('/static', express.static(path.join(__dirname, 'public')));
@@ -171,7 +154,7 @@ app.use(function(err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+    console.log('error : ', err.stack);
     // render the error page
     res.status(err.status || 500);
     res.render('./error/500');

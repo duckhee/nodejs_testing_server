@@ -20,7 +20,6 @@ controller.get_address_data(models, function(row, err) {
                     console.log('수분 ' + j + ' : ', array[j]);
                 }
             }
-
         }
         //console.log('data : ', row);
     } else if (err) {

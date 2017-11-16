@@ -20,43 +20,25 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <%
-                    if (locals.devices) {                     
-                        var myObj = JSON.parse(devices);                
-                        
-                        for(var i=0; i < myObj.length; i++){ 
+            <%   if (locals.devices) {                     
+                        // var myObj = JSON.parse(devices);                       
+                        for(var i=0; i < devices.length; i++){ 
                             var class_active = "";
-                            if( channel == myObj[i].field_id ){
+                            if( channel == devices[i] ){
                                 class_active = "active";
                             }
-                %>
-                <li class="<%=class_active %>">
-                    <a href="/test?channel=<%=myObj[i].field_id%>"><i class="fa fa-circle-o"></i><%=myObj[i].field_id%></a>
+            %>    
+                <li class="<%= class_active %>">
+                    <a href="/test?channel=<%= devices %>"><i class="fa fa-circle-o"></i><%= devices %></a>
                 </li>
-                <%      } 
+            <%         
+                     } 
                     }
-                %>
+            %>    
                     <!-- <li><a href="/channel/create"><i class="fa fa-circle-o"></i>create channel</a></li>
             <li><a href="/channel/show_setting"><i class="fa fa-circle-o"></i>channel setting</a></li>
             <li><a href="/channel/detail"><i class="fa fa-circle-o"></i>show channel</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Dashboard v2</a></li> -->
         </ul>
     </li>
-    <!-- <li class="treeview">
-        <a href="#">
-            <i class="fa fa-dashboard"></i> <span>group <%=%></span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-        </a>
-        <ul class="treeview-menu">
-            <li><a href="?serial=<%=%>"><i class="fa fa-circle-o"></i><%=%></a></li>
-
-
-            <li><a href="#"><i class="fa fa-circle-o"></i>create Dashboard</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i>Dashboard v1</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-        </ul>
-    </li> -->
-
 </ul>

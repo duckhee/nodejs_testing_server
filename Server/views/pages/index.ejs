@@ -94,7 +94,7 @@
 										var str = "";
 										if(createdAt){
 											str = d.getFullYear() + "-" + (d.getMonth() + 1 ) + "-" + d.getDate() + "-" + d.getHours() + "-" + d.getMinutes();
-										}                                           
+										}
                                     %>
                                         <%= str %>
                                 </div>
@@ -143,8 +143,7 @@
                     <!-- end 캘린더 -->
                 </div>
                 <!-- / camera infomation -->
-                
-                
+
             </div>
         </div>
     </div>
@@ -209,7 +208,7 @@
                     $.ajax({
 
                         type: "GET",
-                        url: "/ajax?serial_Num=<%=serial%>",
+                        url: "/ajax?serial_Num=<%= serial %>",
                         dataType: "json",
                         error: function() {
                             var ajax_data;
@@ -303,7 +302,7 @@
                     $.ajax({
 
                         type: "GET",
-                        url: "/ajaxpath?serial_Num=<%=serial%>",
+                        url: "/ajaxpath?serial_Num=<%= serial %>",
                         dataType: "json",
                         error: function() {
                             var ajax_path;
@@ -338,7 +337,7 @@
                         type: "GET",
                         url: "/ajaxGetImage",
                         data: {
-                            serial: "<%=serial%>",
+                            serial: "<%= serial %>",
                             startDate: startDate,
                             endDate: endDate
                         },
@@ -420,7 +419,7 @@
             <script>
                 $(document).ready(function() {
                     $('#value_download').click(function() {
-                        $.post('/process/download_csv?serial_Num=<%=serial%>', function() {
+                        $.post('/process/download_csv?serial_Num=<%= serial %>', function() {
 
                         });
                     });
