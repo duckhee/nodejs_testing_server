@@ -11,6 +11,7 @@
                 // var array = ec_datainfo[i].sd_data.split(',');
                 for (var i = 0; i < 8; i++) {
                     ec_data.push(getDateFromJSON[ec_datainfo[i].createdAt], ec_datainfo[i].sd_data);
+
                 }
                 var ec_data_obj = {
                     data: ec_data.reverse(),

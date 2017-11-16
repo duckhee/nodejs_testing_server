@@ -284,33 +284,27 @@
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <div id="camera-info">
-    
-                                    </div>
+                                    <div id="camera-info"></div>
                                 </div>
                             </div>
                         </div>
                         <!-- /.col -->
-                        
                     </div>
                     <!-- / camera infomation -->
                     <!-- infomation -->
                     <!-- /.weather, camera widget -->
                 </div>
             </div>
-        </div>
-        
-        <!-- /.content-wrapper -->
         <% include ../partials/footer.ejs %>
+            <div class="control-sidebar-bg"></div>
+        </div>
+        <!-- /.content-wrapper -->
       
             <!-- /.control-sidebar -->
             <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
-            <div class="control-sidebar-bg"></div>
     </div>
-
     <% include ../partials/footer_graph_javascript.ejs %>
-        
         <script>
             //var socket = io("http://http://192.168.0.34:5001/");
             /*
@@ -377,33 +371,60 @@
                         var get_data = chart_data;
 
                         var ec_data1 = [];
-
+                        var ec_data2 = [];
+                        var ec_data3 = [];
                         //  for (var i = 0, max_data = get_data.length; i < max_data; i++) {
                         //      show_data.push([getDateFromJSON(get_data[i].createdAt), get_data[i].value]);
                         //  }
+                         //var test_array = new Array();
                         console.log('test : ',data);
                         for (var i in data) {
-                            var array = data[i].sd_data.split(',');
+                            var array1 = data[i].sd_data.split(',');
                             console.log('first data : ', data[i].id);
-                            for (var j in array) {
+                            for (var j in array1) {
+                                
+
                                 if (j < 8) {
-                                    ec_data1.push(getDateFromJSON(data[1]), array[1]);
-                                    console.log('ec ' + j + ': ', array[j]);
+                                    console.log('first ec data : ', data[i].id);
+                                    if(j == 0){
+                                        ec_data1.push([getDateFromJSON(data[i].createdAt), array1[i]]);
+                                    console.log('ec ' + j + ': ', array1[j]);
+                                    }else if(j == 1){
+                                        //ec_data2.push([getDateFromJSON(data[i].createdAt), array1[i]]);
+                                        console.log('ec ' + j + ': ', array1[j]);
+                                    }else if(j == 2){
+                                        //ec_data3.push([getDateFromJSON(data[i].createdAt), array1[i]]);
+                                        console.log('ec ' + j + ': ', array1[j]);
+                                    }else if(j == 3){
+                                        console.log('ec ' + j + ': ', array1[j]);
+                                    }else if(j == 4){
+                                        console.log('ec ' + j + ': ', array1[j]);
+                                    }else if(j == 5){
+                                        console.log('ec ' + j + ': ', array1[j]);
+                                    }else if(j == 6){
+                                        console.log('ec ' + j + ': ', array1[j]);
+                                    }else if(j == 7){
+                                        console.log('ec ' + j + ': ', array1[j]);
+                                    }
                                 } else if (j < 16) {
-                                    console.log('온도 ' + j + ' : ', array[j]);
+                                    console.log('온도 ' + j + ' : ', array1[j]);
                                 } else {
-                                    console.log('수분 ' + j + ' : ', array[j]);
+                                    console.log('수분 ' + j + ' : ', array1[j]);
                                 }
                             }
                         }
-
+                        
                         var line_data1 = {
                             data: ec_data1.reverse(),
                             color: "#3c8dbc",
                         };
+                        var line_data2 = {
+                            data: ec_data2.reverse(),
+                            color: "#ac8dbc",
+                        };
 
                         //flot.html 에서 가져옴
-                        $.plot("#sensor-chart", [line_data1], {
+                        $.plot("#sensor-chart", [line_data1, line_data2], {
                             grid: {
                                 hoverable: true,
                                 borderColor: "#f3f3f3",
