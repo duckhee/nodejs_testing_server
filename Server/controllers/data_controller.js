@@ -120,7 +120,7 @@ exports.get_address_data = function(data_info, callback) {
 exports.get_test_data = function(data_info, callback) {
     models.seosan_data.findAll({
         where: {
-            sd_address: '013EP100G-08'
+            sd_address: '013EP100G-08' //data_info.sd_serial
         },
         order: [
             ['createdAt', 'DESC']

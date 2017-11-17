@@ -8,7 +8,11 @@ exports.create_setting = function(setting_info, callback) {
 
         },
         default: {
-
+            st_serial: setting_info.st_serial,
+            st_address: setting_info.st_address,
+            st_title: setting_info.st_title,
+            st_gps: setting_info.st_gps,
+            st_group: setting_info.st_group
         }
     }).then(function(row) {
         callback(row, null);
@@ -20,6 +24,12 @@ exports.create_setting = function(setting_info, callback) {
 
 //update setting callback(row, err);
 exports.update_setting = function(setting_info, callback) {
+
+    //변경사항만 가져오기
+    var changing;
+
+
+
     models.seosan_setting.update({
         st_gps: setting_info.gps,
         st_title: setting_info.title,
@@ -27,7 +37,7 @@ exports.update_setting = function(setting_info, callback) {
         st_group: setting_info.group
     }, {
         where: {
-            st_serial: setting_info.serial_Num
+            st_serial: setting_info.st_serial
         }
     }).then(function(row) {
         callback(row, null);
@@ -41,7 +51,7 @@ exports.update_setting = function(setting_info, callback) {
 exports.delete_setting = function(setting_info, callback) {
     models.seosan_setting.destroy({
         where: {
-            st_serial: setting_info.serial_Num
+            st_serial: setting_info.st_serial
         }
     }).then(function(row) {
         callback(row, null);
@@ -69,7 +79,7 @@ exports.find_setting = function(setting_info, callback) {
 exports.all_setting = function(setting_info, callback) {
     models.seosan_setting.findAll({
         where: {
-
+            st_serial: setting_info.st_serial
         }
     }).then(function(rows) {
         callback(rows, null);

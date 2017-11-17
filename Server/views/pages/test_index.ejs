@@ -376,42 +376,42 @@
                         //  for (var i = 0, max_data = get_data.length; i < max_data; i++) {
                         //      show_data.push([getDateFromJSON(get_data[i].createdAt), get_data[i].value]);
                         //  }
-                         //var test_array = new Array();
+                        
                         console.log('test : ',data);
                         for (var i in data) {
                             var array1 = data[i].sd_data.split(',');
                             console.log('first data : ', data[i].id);
                             for (var j in array1) {
-                                
-
+                                 
                                 if (j < 8) {
-                                    console.log('first ec data : ', data[i].id);
+                                    // console.log('first ec data : ', data[i].id);
                                     if(j == 0){
                                         ec_data1.push([getDateFromJSON(data[i].createdAt), array1[i]]);
-                                    console.log('ec ' + j + ': ', array1[j]);
+                               //     console.log('ec ' + j + ': ', array1[j]);
                                     }else if(j == 1){
-                                        //ec_data2.push([getDateFromJSON(data[i].createdAt), array1[i]]);
-                                        console.log('ec ' + j + ': ', array1[j]);
+                                        ec_data2.push([getDateFromJSON(data[i].createdAt), array1[i]]);
+                               //         console.log('ec ' + j + ': ', array1[j]);
                                     }else if(j == 2){
-                                        //ec_data3.push([getDateFromJSON(data[i].createdAt), array1[i]]);
-                                        console.log('ec ' + j + ': ', array1[j]);
+                                        ec_data3.push([getDateFromJSON(data[i].createdAt), array1[i]]);
+                               //         console.log('ec ' + j + ': ', array1[j]);
                                     }else if(j == 3){
-                                        console.log('ec ' + j + ': ', array1[j]);
+                               //         console.log('ec ' + j + ': ', array1[j]);
                                     }else if(j == 4){
-                                        console.log('ec ' + j + ': ', array1[j]);
+                                //        console.log('ec ' + j + ': ', array1[j]);
                                     }else if(j == 5){
-                                        console.log('ec ' + j + ': ', array1[j]);
+                                 //       console.log('ec ' + j + ': ', array1[j]);
                                     }else if(j == 6){
-                                        console.log('ec ' + j + ': ', array1[j]);
+                                 //       console.log('ec ' + j + ': ', array1[j]);
                                     }else if(j == 7){
-                                        console.log('ec ' + j + ': ', array1[j]);
+                                  //      console.log('ec ' + j + ': ', array1[j]);
                                     }
                                 } else if (j < 16) {
                                     console.log('온도 ' + j + ' : ', array1[j]);
                                 } else {
-                                    console.log('수분 ' + j + ' : ', array1[j]);
+                            //        console.log('수분 ' + j + ' : ', array1[j]);
                                 }
                             }
+                            
                         }
                         
                         var line_data1 = {

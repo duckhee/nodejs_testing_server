@@ -213,7 +213,7 @@
                         success: function(data) {
 
                             var chart_data;
-                            //ajax_data = JSON.stringify(data);
+                            
 
                             var get_data = data;
 
@@ -247,7 +247,7 @@
                                 },
                                 lines: {
                                     fill: false,
-                                    color: ["#3c8dbc", "#f56954"],
+                                    
                                 },
                                 yaxis: {
                                     min: 0,
@@ -255,14 +255,7 @@
                                     show: true,
                                 },
                                 xaxis: {
-                                    // 이 설정은 x축의 보여지는 것이 날짜 기준으로 하기 위해서 있는 것이다.
-                                    /*
-                                        mode: "time",
-                                        min: (new Date("2017/08/08")).getTime(),
-                                        max: (new Date("2017/08/18")).getTime(),
-                                        // min: (new Date("2010/11/01")).getTime(),
-                                        // max: (new Date("2011/02/01")).getTime(),
-                                    */
+                                    
                                     mode: "categories",
                                     show: true,
                                 }
@@ -280,7 +273,7 @@
                                     var x = item.datapoint[0].toFixed(2),
                                         y = item.datapoint[1].toFixed(2);
 
-                                    //$("#sensor-chart-tooltip").html(item.series.label + " of " + x + " = " + y)
+                                    
                                     $("#sensor-chart-tooltip").html(y).css({
                                         top: item.pageY + 5,
                                         left: item.pageX + 5
@@ -303,7 +296,7 @@
                         error: function() {
                             var ajax_path;
                             ajax_path = '/images/failed/failed/failed.jpg';
-                            //console.log(ajax_path);
+                            
                             $("#camera-info").find("img").attr("src", ajax_path);
 
                         },
@@ -384,27 +377,10 @@
 
                     slide_getImage(getMinusOneDate(picker.startDate.format('YYYY-MM-DD')) + " 22:00:00", picker.endDate.format('YYYY-MM-DD') + " 09:00:00");
 
-                    /*
-                $(".carousel-indicators").append('<li data-target="#carousel-example-generic" data-slide-to="3" ></li>');
-                $(".carousel-inner").append('<div class="item"><img src="http://placehold.it/900x500/f39c12/ffffff&amp;text=I+Love+Bootstrap" alt="Third slide"><div class="carousel-caption">Third Slide</div></div>');
-                $('#carousel-example-generic').carousel('next');
-               
-                $("#carousel-example-generic").carousel("pause").removeData();
-                var content_indi = "";
-                var content_inner = "";
-                $.each(data, function (i, obj) {
-                    content_indi += '<li data-target="#carousel-example-generic" data-slide-to="' + i + '"></li>';
-                    content_inner += '<div class="item" style="background:url(&#39/images/' + obj.img_filename + '&#39) no-repeat center center;background-size: cover"></div>';
-                });
-                $('#car_id').html(content_indi);
-                $('#car_inner').html(content_inner);
-                $('#car_inner .item').first().addClass('active');
-                $('#car_indi > li').first().addClass('active');
-                $('#carousel-example-generic').carousel();
-                */
+                  
                 });
 
-                //alert($('#reservation').data("daterangepicker").startDate.format('YYYY-MM-DD'));
+                
                 slide_getImage(getMinusOneDate($('#reservation').data("daterangepicker").startDate.format('YYYY-MM-DD')) + " 22:00:00", $('#reservation').data("daterangepicker").endDate.format('YYYY-MM-DD') + " 09:00:00");
 
 
