@@ -26,14 +26,12 @@ exports.create_setting = function(setting_info, callback) {
 exports.update_setting = function(setting_info, callback) {
 
     //변경사항만 가져오기
-    var changing;
-
-
+    //    var changing = {};
 
     models.seosan_setting.update({
         st_gps: setting_info.gps,
         st_title: setting_info.title,
-        st_address: setting_info.address,
+        //st_address: setting_info.address,
         st_group: setting_info.group
     }, {
         where: {
