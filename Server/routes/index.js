@@ -58,7 +58,7 @@ router.post('/process/zip', function(req, res, next) {
 
 //post folder download
 router.post('/process/download/zip', function(req, res, next) {
-
+    next();
 });
 
 //file download url get
