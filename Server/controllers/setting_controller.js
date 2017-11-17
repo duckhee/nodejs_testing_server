@@ -3,17 +3,12 @@ var seosan_setting = require('../models/seosan_setting');
 
 //setting insert callback(row, err);
 exports.create_setting = function(setting_info, callback) {
-    models.seosan_setting.findOrCreate({
-        where: {
-
-        },
-        default: {
+    models.seosan_setting.create({        
             st_serial: setting_info.st_serial,
             st_address: setting_info.st_address,
             st_title: setting_info.st_title,
             st_gps: setting_info.st_gps,
             st_group: setting_info.st_group
-        }
     }).then(function(row) {
         callback(row, null);
     }).catch(function(err) {
@@ -29,10 +24,10 @@ exports.update_setting = function(setting_info, callback) {
     //    var changing = {};
 
     models.seosan_setting.update({
-        st_gps: setting_info.gps,
-        st_title: setting_info.title,
+        st_gps: setting_info.st_gps,
+        st_title: setting_info.st_title,
         //st_address: setting_info.address,
-        st_group: setting_info.group
+        st_group: setting_info.st_group
     }, {
         where: {
             st_serial: setting_info.st_serial

@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var fs = require('fs');
 var dataControllers = require('./server/controllers/data_controller');
+var cameraControllers = require('./server/controllers/camera_controller');
+var settingControllers = require('./server/controllers/setting_controller');
 var socketIo = require('socket.io');
 
 
@@ -27,18 +29,16 @@ io.sockets.on('connection', function(socket) {
         console.log("delivery on");
         var params = file.params;
 
-        console.log('file size', file.size);
-
-        var date_folder = moment().format('YYYYMMDD');
+        var date_folder = moment().format('YYYYMM');
 
         //일별 폴더 유무 체크
-        fs.exists(process.cwd() + '/camera_images/' + params.channel + "/" + date_folder, function(exists) {
+        fs.exists(process.cwd() + '/camera_images/' + params.serial + "/" + date_folder, function(exists) {
             console.log(exists);
             if (!exists) {
                 //채널 폴더 유무 체크
-                fs.exists(process.cwd() + '/camera_images/' + params.channel, function(exists) {
+                fs.exists(process.cwd() + '/camera_images/' + params.serial, function(exists) {
                     if (!exists) {
-                        fs.mkdir(process.cwd() + '/camera_images/' + params.channel, '0777', function(err) {
+                        fs.mkdir(process.cwd() + '/camera_images/' + params.serial, '0777', function(err) {
                             if (err) {
                                 console.log('mkdir first error');
                                 console.log(err.stack);
@@ -47,7 +47,7 @@ io.sockets.on('connection', function(socket) {
                             console.log('dir channel writed');
                         });
                     }
-                    fs.mkdir(process.cwd() + '/camera_images/' + params.channel + '/' + date_folder, '0777', function(err) {
+                    fs.mkdir(process.cwd() + '/camera_images/' + params.serial + '/' + date_folder, '0777', function(err) {
                         if (err) {
                             console.log('mkdir seconde err');
                             console.log(err.stack);
@@ -63,46 +63,86 @@ io.sockets.on('connection', function(socket) {
             }
 
             //이미지일 경우만 저장
-            console.log("image test start");
-            console.log('folder:' + date_folder + ', img name:' + params.img_name);
-            fs.writeFile(process.cwd() + '/camera_images/' + params.channel + "/" + date_folder + "/" + params.img_name, file.buffer, function(err) {
+            console.log("image upload start");
+            fs.writeFile(process.cwd() + '/camera_images/' + params.serial + "/" + date_folder + "/" + params.filename, file.buffer, function(err) {
                 if (err) {
                     console.log('File could not be saved: ' + err);
                 } else {
-                    var camera_info = {};
-
-                    camera_info = { "field_id": params.channel, "folder_path": date_folder, "img_name": params.img_name };
-                    cameraControllers.insert_picture(camera_info, function(err, row) {
+                    var camera_info = { 
+                        "si_serial": params.serial, 
+                        "si_path": date_folder, 
+                        "si_filename": params.filename,
+                        "si_filesize": params.filesize
+                    };
+                    
+                    cameraControllers.insert_image(camera_info, function(err, row) {
                         if (err) {
-                            console.log(err.stack);
+                            //console.log(err);
                         } else if (row) {
-                            //console.log(row);
+                            console.log(row.stack);
                         } else {
                             console.log('error');
                         }
                     });
-                    console.log('File ' + params.img_name + " saved");
+                    console.log('File ' + params.filename + " saved");
                 };
             });
 
         });
 
-
-
     });
 
     socket.on('disconnect', function() {
         console.log('user disconnected');
+        
     });
     //디바이스 정보 입력
     socket.on('device_setting_request', function(data){
-		console.log(data);
-		//io.emit(data.field_id, data.shooting_time);
-	});
+        //console.log(data);        
+        //처음 디바이스 등록일 경우
+        if(data.msg == 0){ 
+            settingControllers.create_setting(data.info, function(row, err) {
+                settingControllers.find_setting(data.info, function(row, err) {
+                    if (row) {                   
+                        io.emit('device_setting_receive_'+row.st_serial, row);
+                    } else if (err) {
+                        console.log('ajax data insert error : ', err.stack);
+                    } else {
+                        console.log('null');
+                    }
+                });
+            });
+        }
 
+        //기존 디바이스 정보 수정 일 경우
+        if(data.msg == 1){ 
+            settingControllers.update_setting(data.info, function(row, err) {
+                settingControllers.find_setting(data.info, function(row, err) {
+                    if (row) {                   
+                        io.emit('device_setting_receive_'+row.st_serial, row);
+                    } else if (err) {
+                        console.log('ajax data insert error : ', err.stack);
+                    } else {
+                        console.log('null');
+                    }
+                });
+            });
+        }
+        
+	});
+    
+    //센서정보 저장
     socket.on('sensor_data_request', function(data){
-        console.log(data);
-		io.emit('device_setting_receive_'+data.sd_serial, {msg:1});
+        //console.log(data);
+        dataControllers.insert_data(data, function(row, err) {
+            if (row) {
+                io.emit('sensor_data_receive_'+data.sd_serial, {msg:1});
+            } else if (err) {
+                console.log('ajax data insert error : ', err.stack);
+            } else {
+                console.log('null');
+            }
+        });		
     });
 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
