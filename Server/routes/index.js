@@ -11,7 +11,7 @@
 var express = require('express');
 var router = express.Router();
 var moment = require('moment'); //시간 모듈
-
+var excel = require('excel4node');
 //controllers
 //var cameraControllers = require('../controllers/camera');
 var fileControllers = require('../util/file');
@@ -34,19 +34,21 @@ router.get('/', function(req, res, next) {
 });
 
 //download value download
-router.post('/process/value_download', function(req, res, next) {
+router.post('/process/value_download', function(req, res) {
     //serial num 으로 데이터 검색 및 다운로드 진행 
     var serial_Num = req.query.serialnum || req.params.serialnum;
     //파일을 만들기 위해서는 res를 넘겨 주어야한다.
-    var data_info = { "select_sensor": serial_Num, "response": res, };
-    fileControllers.file_csv(data_info, function(e) {
+    var data_info = { "serial_Num": serial_Num, "response": res };
+
+    fileControllers.file_csv(data_info, function(row, e) {
+
         if (e) {
             console.log(e.stack);
             res.redirect('/');
         }
     });
     // next();
-    res.redirect('/');
+    //res.redirect('/');
 });
 
 //zip folder
@@ -76,8 +78,8 @@ router.get('/ajax', function(req, res, next) {
     //parameter value
     var serial_data = req.query.serial_Num || req.params.serial_Num;
     var address_data = req.query.address || req.params.address;
-    console.log('test');
-    dataControllers.get_test_data([], function(row, err) {
+
+    dataControllers.list_limit([], function(row, err) {
             if (row) {
                 res.json(row);
             } else if (err) {

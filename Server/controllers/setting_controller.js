@@ -12,6 +12,7 @@ exports.create_setting = function(setting_info, callback) {
             st_address: setting_info.st_address,
             st_title: setting_info.st_title,
             st_gps: setting_info.st_gps,
+            st_ping: setting_info.st_ping,
             st_group: setting_info.st_group
         }
     }).then(function(row) {
