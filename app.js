@@ -94,14 +94,14 @@ io.sockets.on('connection', function(socket) {
         console.log('user disconnected');
     });
 
-    socket.on('chat', function(data) {
-        console.log('send: ' + data.shooting_time + "/" + data.field_id);
-        io.emit(data.field_id, data.shooting_time);
-    });
+    socket.on('device_setting_request', function(data){
+		console.log(data);
+		//io.emit(data.field_id, data.shooting_time);
+	});
 
-    socket.on('shoot', function(data) {
-        console.log('send: ' + data.cmd + "/" + data.field_id);
-        io.emit(data.field_id, data.cmd);
+    socket.on('sensor_data_request', function(data){
+        console.log(data);
+		io.emit('device_setting_receive_'+data.sd_serial, {msg:1});
     });
 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -378,6 +378,23 @@
                         //  }
                          //var test_array = new Array();
                         console.log('test : ',data);
+                        var ec_data = [][];
+                        var temp_data = [][];
+                        var moist_data = [][];
+
+                        for ( var i in data){   
+                            var array1 = data[i].sd_data.split(',');    
+                            for (var j in array1) {
+                                if( j < 8 ){
+                                    ec_data[j][i] = array1[j];
+                                } else if( j < 16 ) {
+                                    temp_data[j-8][i] = array1[j];
+                                } else if( j < 24 ) {
+                                    moist_data[j-16][i] = array1[j];
+                                }
+                            }
+                        }
+                            
                         for (var i in data) {
                             var array1 = data[i].sd_data.split(',');
                             console.log('first data : ', data[i].id);
