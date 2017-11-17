@@ -13,8 +13,8 @@ exports.create_image = function(image_info, callback) {
     }).catch(function(err) {
         console.log('error : ', err.stack);
         callback(null, err);
-    })
-}
+    });
+};
 
 
 //insert camera_info callback(row, err);
