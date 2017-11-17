@@ -136,17 +136,17 @@ exports.file_csv = function(file_info, callback) {
                 if (j <= 8) {
                     //처음 명령어가 ec 정보 가져오기
                     for (var number = 1; number <= 8; number++) {
-                        first_sheet.cell(1, 4 + number).string("ec" + number).style(sheet_style);
+                        first_sheet.cell(1, 4 + number).string("ec " + number).style(sheet_style);
                     }
                 } else if (j <= 16) {
                     //두번째 명령어가 온도 정보 가져오기
                     for (var number = 1; number <= 8; number++) {
-                        first_sheet.cell(1, 12 + number).string("Temperature" + number).style(sheet_style);
+                        first_sheet.cell(1, 12 + number).string("Temperature " + number).style(sheet_style);
                     }
                 } else if (j <= 24) {
                     //세번째 명령어가 수분 정보 가져오기
                     for (var number = 1; number <= 8; number++) {
-                        first_sheet.cell(1, 20 + number).string("moisture" + number).style(sheet_style);
+                        first_sheet.cell(1, 20 + number).string("moisture " + number).style(sheet_style);
                     }
                 }
             }

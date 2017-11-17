@@ -1,8 +1,29 @@
 var models = require('../models/index');
 var seosan_setting = require('../models/seosan_setting');
 
-//setting insert callback(row, err);
+
+
+//insert data callback(row, err);
 exports.create_setting = function(setting_info, callback) {
+    models.seosan_setting.create({
+        st_serial: setting_info.st_serial,
+        st_address: setting_info.st_address,
+        st_title: setting_info.st_title,
+        st_gps: setting_info.st_gps,
+        st_ping: setting_info.st_ping,
+        st_group: setting_info.st_group
+    }).then(function(row) {
+        callback(row, null);
+    }).catch(function(err) {
+        console.log('error : ', err.stack);
+        callback(null, err);
+    });
+};
+
+
+
+//setting insert callback(row, err);
+exports.insert_setting = function(setting_info, callback) {
     models.seosan_setting.findOrCreate({
         where: {
 
