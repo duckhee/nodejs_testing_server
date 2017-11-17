@@ -364,84 +364,47 @@
 
                         var chart_data;
                         //ajax_data = JSON.stringify(data);
-                        console.log(typeof(data));
-                        console.log(data);
                         chart_data = data;
 
                         var get_data = chart_data;
 
-                        var ec_data1 = [];
-                        var ec_data2 = [];
-                        var ec_data3 = [];
+                        
                         //  for (var i = 0, max_data = get_data.length; i < max_data; i++) {
                         //      show_data.push([getDateFromJSON(get_data[i].createdAt), get_data[i].value]);
                         //  }
-                        
-                        console.log('test : ',data);
-                        var ec_data = [][];
-                        var temp_data = [][];
-                        var moist_data = [][];
-
+                         //var test_array = new Array();
+                        var ec_data = new Array();
+                        var temp_data = new Array();
+                        var moist_data = new Array();
+                            
                         for ( var i in data){   
-                            var array1 = data[i].sd_data.split(',');    
+                            var array1 = data[i].sd_data.split(','); 
                             for (var j in array1) {
+                                if(i == 0 && j < 8){
+                                    ec_data[j] = new Array();
+                                    temp_data[j] = new Array();
+                                    moist_data[j] = new Array();
+                                }
+
                                 if( j < 8 ){
-                                    ec_data[j][i] = array1[j];
+                                    ec_data[j][i] = [getDateFromJSON(data[i].createdAt), array1[j]];                                    
                                 } else if( j < 16 ) {
-                                    temp_data[j-8][i] = array1[j];
+                                    temp_data[j-8][i] = [getDateFromJSON(data[i].createdAt), array1[j]];
                                 } else if( j < 24 ) {
-                                    moist_data[j-16][i] = array1[j];
+                                    moist_data[j-16][i] = [getDateFromJSON(data[i].createdAt), array1[j]];
                                 }
                             }
                         }
-                            
-                        for (var i in data) {
-                            var array1 = data[i].sd_data.split(',');
-                            console.log('first data : ', data[i].id);
-                            for (var j in array1) {
-                                 
-                                if (j < 8) {
-                                    // console.log('first ec data : ', data[i].id);
-                                    if(j == 0){
-                                        ec_data1.push([getDateFromJSON(data[i].createdAt), array1[i]]);
-                               //     console.log('ec ' + j + ': ', array1[j]);
-                                    }else if(j == 1){
-                                        ec_data2.push([getDateFromJSON(data[i].createdAt), array1[i]]);
-                               //         console.log('ec ' + j + ': ', array1[j]);
-                                    }else if(j == 2){
-                                        ec_data3.push([getDateFromJSON(data[i].createdAt), array1[i]]);
-                               //         console.log('ec ' + j + ': ', array1[j]);
-                                    }else if(j == 3){
-                               //         console.log('ec ' + j + ': ', array1[j]);
-                                    }else if(j == 4){
-                                //        console.log('ec ' + j + ': ', array1[j]);
-                                    }else if(j == 5){
-                                 //       console.log('ec ' + j + ': ', array1[j]);
-                                    }else if(j == 6){
-                                 //       console.log('ec ' + j + ': ', array1[j]);
-                                    }else if(j == 7){
-                                  //      console.log('ec ' + j + ': ', array1[j]);
-                                    }
-                                } else if (j < 16) {
-                                    console.log('온도 ' + j + ' : ', array1[j]);
-                                } else {
-                            //        console.log('수분 ' + j + ' : ', array1[j]);
-                                }
-                            }
-                            
+                       
+                        var color_arr = ["#3c8dbc","#ac8dbc","#ac8dd","#acsdbc","#3c77bc","#3c88bc","#3c88bc","#398dbc"];
+                        var ec_data_line = new Array();
+
+                        for( var i = 0 ; i < ec_data.length; i++){
+                            ec_data_line[i] = { data: ec_data[i].reverse(), color: color_arr[i] , level:(i+1)*10};
                         }
-                        
-                        var line_data1 = {
-                            data: ec_data1.reverse(),
-                            color: "#3c8dbc",
-                        };
-                        var line_data2 = {
-                            data: ec_data2.reverse(),
-                            color: "#ac8dbc",
-                        };
 
                         //flot.html 에서 가져옴
-                        $.plot("#sensor-chart", [line_data1, line_data2], {
+                        $.plot("#sensor-chart", ec_data_line, {
                             grid: {
                                 hoverable: true,
                                 borderColor: "#f3f3f3",
@@ -458,25 +421,18 @@
                                 }
                             },
                             lines: {
-                                fill: false,
+                                fill: false
                                 // color: ["#3c8dbc", "#f56954"]
                             },
                             yaxis: {
                                 min: 0,
                                 max: 1200,
-                                show: true,
+                                show: true
                             },
                             xaxis: {
-                                // 이 설정은 x축의 보여지는 것이 날짜 기준으로 하기 위해서 있는 것이다.
-                                /*
-                                    mode: "time",
-                                    min: (new Date("2017/08/08")).getTime(),
-                                    max: (new Date("2017/08/18")).getTime(),
-                                    // min: (new Date("2010/11/01")).getTime(),
-                                    // max: (new Date("2011/02/01")).getTime(),
-                                */
+                                // 이 설정은 x축의 보여지는 것이 날짜 기준으로 하기 위해서 있는 것이다.                                
                                 mode: "categories",
-                                show: true,
+                                show: true
                             }
                         });
                         //Initialize tooltip on hover
@@ -487,13 +443,13 @@
                         }).appendTo("body");
 
                         $("#sensor-chart").bind("plothover", function(event, pos, item) {
-
+                           
                             if (item) {
                                 var x = item.datapoint[0].toFixed(2),
                                     y = item.datapoint[1].toFixed(2);
 
                                 //$("#sensor-chart-tooltip").html(item.series.label + " of " + x + " = " + y)
-                                $("#sensor-chart-tooltip").html(y).css({
+                                $("#sensor-chart-tooltip").html(item.series.level + " of  level = " + y).css({
                                     top: item.pageY + 5,
                                     left: item.pageX + 5
                                 }).fadeIn(200);
@@ -540,8 +496,8 @@
             }
 
             get_Data();
-            setInterval("get_Data()", 1000 * 30);
-            setInterval("get_image()", 1000 * 30);
+            setInterval("get_Data()", 1000 * 60*30);
+            setInterval("get_image()", 1000 * 60*30);
         </script>
 
 </body>
