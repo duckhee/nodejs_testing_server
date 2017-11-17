@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 //var sassMiddleware = require('node-sass-middleware');
 var session = require('express-session');
 var fs = require('fs');
+var dataControllers = require('./server/controllers/data_controller');
 var socketIo = require('socket.io');
 
 
@@ -93,7 +94,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('disconnect', function() {
         console.log('user disconnected');
     });
-
+    //디바이스 정보 입력
     socket.on('device_setting_request', function(data){
 		console.log(data);
 		//io.emit(data.field_id, data.shooting_time);
