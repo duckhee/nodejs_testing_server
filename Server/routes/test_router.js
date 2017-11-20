@@ -87,8 +87,7 @@ router.post('/insert_data', function(req, res, next) {
     var rowdata_info = '';
     //get json data
     req.on('data', function(data) {
-        rowdata_info = JSON.parse(data);
-        var data_info = {};
+        var data_info = JSON.parse(data);;
         datacontroller.insert_data(data_info, function(row, err) {
             if (row) {
                 res.json(row);
@@ -109,35 +108,17 @@ router.post('/insert_data', function(req, res, next) {
 router.post('/process/download_zip', function(req, res, next) {
     var serial = req.query.serial || req.params.serial;
     var camera_info = {
-        "si_serial": '01171030130408',
+        "si_serial": serial,
     };
-    console.log('post get ===========');
-    //get image folder path use serial
-    // imagecontroller.find_camera(camera_info, function(row, err) {
-    //     if (row) {
-
-    //         console.log(camera_info.si_path);
-    //         //downloader.zipping_folder()
-    //     }
-    // });
-    downloader.zipping_folder(camera_info, function(err) {
-            if (err) {
-                console.log('zipping error : ', err.stack);
-                res.redirect('/');
-            } else {
-                next('/process/download_zip');
-            }
-        })
-        //res.download('/download', )
-
+    downloader.zipping_folder(camera_info, function(name, err) {
+        if (err) {
+            console.log('zipping error : ', err.stack);
+            res.redirect('/');
+        } else if (name) {
+            res.download(process.cwd() + '/download/' + name);
+        }
+    });
 });
-
-//download page router 
-router.post('/process/download_zip', function(req, res, next) {
-    //download
-    //res.download();
-})
-
 
 //download csv
 router.post('/process/download_csv', function(req, res, next) {

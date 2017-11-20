@@ -88,8 +88,14 @@ router.post('/insert_data', function(req, res, next) {
     //get json data
     req.on('data', function(data) {
         rowdata_info = JSON.parse(data);
-        var data_info = {};
-        datacontroller.insert_data(data_info, function(row, err) {
+        var data_info = {
+            "sd_address": rowdata_info.sd_address,
+            "sd_serial": rowdata_info.sd_serial,
+            "sd_data": rowdata_info.sd_data,
+            "createdAt": rowdata_info.createdAt,
+            "updatedAt": rowdata_info.updatedAt
+        };
+        datacontroller.insert_data(rowdata_info, function(row, err) {
             if (row) {
                 res.json(row);
             } else if (err) {
@@ -109,33 +115,23 @@ router.post('/insert_data', function(req, res, next) {
 router.post('/process/download_zip', function(req, res, next) {
     var serial = req.query.serial || req.params.serial;
     var camera_info = {
-        "si_serial": '01171030130408',
+        "si_serial": serial //'01171030130408',
     };
-    console.log('post get ===========');
-    //get image folder path use serial
-    // imagecontroller.find_camera(camera_info, function(row, err) {
-    //     if (row) {
-
-    //         console.log(camera_info.si_path);
-    //         //downloader.zipping_folder()
-    //     }
-    // });
-    downloader.zipping_folder(camera_info, function(err) {
-            if (err) {
-                console.log('zipping error : ', err.stack);
-                res.redirect('/');
-            } else {
-                next('/process/download_zip');
-            }
-        })
-        //res.download('/download', )
-
+    downloader.zipping_folder(camera_info, function(name, err) {
+        if (err) {
+            console.log('zipping error : ', err.stack);
+            res.redirect('/');
+        } else if (name) {
+            res.download(process.cwd() + '/download/' + name);
+        }
+    });
 });
 
 //download page router 
 router.post('/process/download_zip', function(req, res, next) {
+    var serial = req.query.serial_Num || req.params.serial_Num;
     //download
-    //res.download();
+    //res.download('/download/');
 })
 
 
