@@ -1,5 +1,6 @@
 //var controller = require('./controllers/data_controller');
 var file_util = require('./util/file');
+var imageController = require('./controllers/camera_controller');
 
 //var models = { "address_Num": "013EP100G-08" };
 
@@ -29,12 +30,20 @@ var file_util = require('./util/file');
 //         console.log('null');
 //     }
 // });
-var folder_info = { "si_serial": 1, "si_path": 1 };
-file_util.folder_zipping(folder_info, function(err) {
-    if (err) {
+console.log('test');
+var folder_info = {
+    "si_serial": '01171030130408',
+    "si_path": null
+};
+imageController.find_camera(folder_info, function(row, err) {
+    console.log('find image ========');
+    if (row) {
+        console.log('row : ', row);
+        folder_info.si_path = row.si_path;
+        console.log('folder path : ', folder_info.si_path);
+    } else if (err) {
         console.log(err.stack);
-    } else {
-        console.log('success');
     }
-})
-process.exit();
+
+    process.exit();
+});

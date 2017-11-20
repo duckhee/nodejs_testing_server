@@ -177,12 +177,12 @@ app.use('/images', express.static(path.join(__dirname, 'camera_images')));
 //get upload file url
 app.use('/upload', express.static(path.join(__dirname, 'upload')));
 //zip file download
-app.use('/zipdownload', express.static(path.json(__dirname, 'download')));
+app.use('/zipdownload', express.static(path.join(__dirname, 'download')));
 //index router
-app.use('/', index);
+app.use('/test', index);
 //testing router
 var test = require('./Server/routes/test_router');
-app.use('/test', test);
+app.use('/', test);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -25,7 +25,43 @@ exports.file_zip = function(file_info, callback) {
 
 };
 
-//folder zip
+exports.zipping_folder = function(folder_info, callback) {
+    var zip_target = folder_info.si_serial;
+    //download name
+    var zip_name = zip_target + moment().format('YYYYMMDD');
+    var check_serialfolder;
+    try {
+        check_serialfolder = fs.existsSync(process.cwd() + '/download')
+    } catch (err) {
+        console.log(err.stack);
+        callback(err);
+    }
+    if (!check_serialfolder) {
+        fs.mkdir(process.cwd() + '/download/' + zip_target, '0777', function(err) {
+            if (err) {
+                console.log(err.stack);
+                callback(err);
+            } else {
+                console.log('make folder success');
+            }
+        });
+    }
+    //folder location found and zip
+    folder_zip(process.cwd() + '/camera_images/' + zip_target,
+        process.cwd() + '/download/' + zip_target + '/' + zip_target + '/' + ' download_image ' + zip_name + '.zip',
+        function(err) {
+            if (err) {
+                console.log('failed make zip file', err.stack);
+                callback(err);
+            } else {
+                console.loog('make zip folder success');
+                callback(null);
+            }
+        });
+
+}
+
+//if serial/si_path want              ::::::::folder zip
 exports.folder_zipping = function(folder_info, callback) {
     var folder_name = folder_info.name;
     //download name
@@ -54,7 +90,7 @@ exports.folder_zipping = function(folder_info, callback) {
                 } else {
                     console.log('make folder success');
                 }
-            })
+            });
         }
         fs.mkdir(process.cwd() + '/download/' + folder_info.si_serial + '/' + folder_info.si_path, '0777', function(err) {
             if (err) {
@@ -74,7 +110,7 @@ exports.folder_zipping = function(folder_info, callback) {
                 console.log('failed make zip file', err.stack);
                 callback(err);
             } else {
-                console.loog('success');
+                console.loog('make zip folder success');
                 callback(null);
             }
         });

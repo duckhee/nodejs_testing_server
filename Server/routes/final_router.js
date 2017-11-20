@@ -105,13 +105,39 @@ router.post('/insert_data', function(req, res, next) {
     res.redirect('/');
 });
 
-//download zip
+//zipping router path: download + / + si_serial + / + si_path + download_image date.zip
 router.post('/process/download_zip', function(req, res, next) {
     var serial = req.query.serial || req.params.serial;
+    var camera_info = {
+        "si_serial": '01171030130408',
+    };
+    console.log('post get ===========');
+    //get image folder path use serial
+    // imagecontroller.find_camera(camera_info, function(row, err) {
+    //     if (row) {
 
-
+    //         console.log(camera_info.si_path);
+    //         //downloader.zipping_folder()
+    //     }
+    // });
+    downloader.zipping_folder(camera_info, function(err) {
+            if (err) {
+                console.log('zipping error : ', err.stack);
+                res.redirect('/');
+            } else {
+                next('/process/download_zip');
+            }
+        })
+        //res.download('/download', )
 
 });
+
+//download page router 
+router.post('/process/download_zip', function(req, res, next) {
+    //download
+    //res.download();
+})
+
 
 //download csv
 router.post('/process/download_csv', function(req, res, next) {

@@ -21,15 +21,16 @@
         </a>
         <ul class="treeview-menu">
             <%   if (locals.devices) {                     
-                        // var myObj = JSON.parse(devices);                       
-                        for(var i=0; i < devices.length; i++){ 
+                         var myObj = JSON.parse(devices);                       
+                        
+                        for(var i=0; i < myObj.length; i++){ 
                             var class_active = "";
-                            if( channel == devices[i] ){
+                            if( serial_Num == myObj[i].sd_serial ){
                                 class_active = "active";
                             }
             %>    
                 <li class="<%= class_active %>">
-                    <a href="/test?channel=<%= devices %>"><i class="fa fa-circle-o"></i><%= devices %></a>
+                    <a href="/?serial_Num=<%=myObj[i].sd_serial%>"><i class="fa fa-circle-o"></i><%= myObj[i].sd_serial %></a>
                 </li>
             <%         
                      } 

@@ -19,7 +19,7 @@ exports.create_image = function(image_info, callback) {
 
 //insert camera_info callback(row, err);
 exports.insert_image = function(image_info, callback) {
-    models.seosan_images.create({        
+    models.seosan_images.create({
         si_serial: image_info.si_serial,
         si_path: image_info.si_path,
         si_filename: image_info.si_filename,
@@ -59,7 +59,7 @@ exports.slide_list = function(camera_info, callback) {
 exports.find_camera = function(camera_info, callback) {
     models.seosan_images.find({
         where: {
-            si_serial: '01171030130408' //camera_info.si_serial
+            si_serial: camera_info.si_serial //'01171030130408'
         }
     }).then(function(row) {
         callback(row, null);

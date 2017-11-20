@@ -75,10 +75,10 @@
                                 </div>
                                 <div class="box-body">
                                 <p> click button download.</p>
-                                <form action="/process/value_download" method="post">
+                                <form action="/process/download_csv?serial_Num=<%=serial_Num%>" method="post">
                                     <button type="submit" class="btn btn-block btn-success" name="sensor_download" id="sensor_download"><i class="fa fa-fw fa-download"></i>Sensor Data Download</button>
                                 </form>
-                                <form action="/process/download/zip" method="post">
+                                <form action="/process/download_zip?serial_Num=<%=serial_Num%>" method="post">
                                     <button type="submit" class="btn btn-block btn-danger" name="image_download" id="image_download"><i class="fa fa-fw fa-download"></i>Picture Data Download</button>
                                 </form>
                                 </div>
@@ -221,7 +221,7 @@
             var get_Data = function() {
                 $.ajax({
                     type: "GET",
-                    url: "/ajax?serial=<%=serial%>",
+                    url: "/ajax_get_data?serial_Num=<%=serial_Num%>",
                     dataType: "json",
                     error: function() {
                         var ajax_data;
@@ -330,7 +330,7 @@
             var get_image = function() {
                 $.ajax({
                     type: "GET",
-                    url: "/ajaxpath?serial_Num=<%=serial%>",
+                    url: "/ajax_get_images?serial_Num=<%=serial_Num%>",
                     dataType: "json",
                     error: function() {
                         var ajax_path;

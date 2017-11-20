@@ -30,8 +30,17 @@ router.get('/ajax_get_images', function(req, res, next) {
             if (row) {
                 //get file path 
                 //경로에 있는 폴더와 이미지파일이 존재하는지 확인 
-                //if (!fs.existsSync(process.cwd() + '/camera_images/' + path_info + '/' + row.folder_name + '/' + ))
-                res.json(row);
+                try {
+                    var get_imgpath = fs.existsSync(process.cwd() + '/camera_images/' + serial_info + '/' + row.si_path + '/' + row.si_filename);
+                } catch (err) {
+                    console.log('ajax image error : ', err.stack);
+                    res.json(failed_path);
+                }
+                if (!get_imgpath) {
+                    res.json(failed_path);
+                } else {
+                    res.json(row);
+                }
 
             } else if (err) {
                 console.log('ajax get images error : ', err.stack);
@@ -96,10 +105,39 @@ router.post('/insert_data', function(req, res, next) {
     res.redirect('/');
 });
 
-//download zip
+//zipping router path: download + / + si_serial + / + si_path + download_image date.zip
 router.post('/process/download_zip', function(req, res, next) {
+    var serial = req.query.serial || req.params.serial;
+    var camera_info = {
+        "si_serial": '01171030130408',
+    };
+    console.log('post get ===========');
+    //get image folder path use serial
+    // imagecontroller.find_camera(camera_info, function(row, err) {
+    //     if (row) {
+
+    //         console.log(camera_info.si_path);
+    //         //downloader.zipping_folder()
+    //     }
+    // });
+    downloader.zipping_folder(camera_info, function(err) {
+            if (err) {
+                console.log('zipping error : ', err.stack);
+                res.redirect('/');
+            } else {
+                next('/process/download_zip');
+            }
+        })
+        //res.download('/download', )
 
 });
+
+//download page router 
+router.post('/process/download_zip', function(req, res, next) {
+    //download
+    //res.download();
+})
+
 
 //download csv
 router.post('/process/download_csv', function(req, res, next) {
@@ -109,7 +147,7 @@ router.post('/process/download_csv', function(req, res, next) {
     downloader.file_csv(csv_info, function(row, err) {
         if (row) {
             console.log('success : ', row);
-            res.redirect('/');
+
         } else if (err) {
             console.log('down load csv file error : ', err.stack);
             res.render('./error/500');
@@ -123,13 +161,16 @@ router.post('/process/download_csv', function(req, res, next) {
 //index router 
 router.get('/', function(req, res, next) {
     //get serial num ???
-    var serial = req.query.serial_Num || req.param.serial_Num || req.params.serial_Num;
+    var serial = req.query.serial_Num || req.params.serial_Num;
     //camera 정보를 가져오기 위해서 serial 정보 JSON으로 담아주기
+    if (!serial) {
+        serial = '01171030130408';
+    }
     var camera_info = {
         'si_serial': serial
     };
     var devices;
-    var path = '/images/failed/failed/failed.jpg'
+    var path = '/camera_images/failed/failed/failed.jpg'
     datacontroller.group_device(function(group_row, err) {
         if (group_row) {
             devices = JSON.stringify(group_row);
@@ -139,7 +180,7 @@ router.get('/', function(req, res, next) {
                         var get_filepath = fs.existsSync(process.cwd() + '/camera_images/' + group_row + '/' + rows.si_path + '/' + rows.si_filename);
                     } catch (err) {
                         console.log('error : ', err.stack);
-                        res.render('', {
+                        res.render('./pages/test_index', {
                             serial_Num: serial,
                             img_path: path,
                             devices: devices,
@@ -151,7 +192,7 @@ router.get('/', function(req, res, next) {
                         path = '/images' + group_row + '/' + rows.si_path + '/' + rows.si_filename;
                     }
 
-                    res.render('test_index', {
+                    res.render('./pages/test_index', {
                         serial_Num: serial,
                         img_path: path,
                         devices: devices,
@@ -162,7 +203,7 @@ router.get('/', function(req, res, next) {
                     res.redirect('/');
                 } else {
                     console.log('null');
-                    res.render('', {
+                    res.render('./pages/test_index', {
                         serial_Num: serial,
                         img_path: path,
                         devices: devices,
