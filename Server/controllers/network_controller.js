@@ -29,15 +29,10 @@ exports.create_network = function(network_info, callback) {
 
 //insert network data callback(row, err);
 exports.insert_network = function(network_info, callback) {
-    models.seosan_network.findOrCreate({
-        where: {
-
-        },
-        default: {
+    models.seosan_network.create({        
             sn_serial: network_info.sn_serial,
             sn_address: network_info.sn_address,
             sn_type: network_info.sn_type
-        }
     }).then(function(row) {
         callback(row, null);
     }).catch(function(err) {

@@ -19,13 +19,11 @@ exports.create_image = function(image_info, callback) {
 
 //insert camera_info callback(row, err);
 exports.insert_image = function(image_info, callback) {
-    models.seosan_images.findOrCreate({
-        where: {
-
-        },
-        default: {
-
-        }
+    models.seosan_images.create({        
+        si_serial: image_info.si_serial,
+        si_path: image_info.si_path,
+        si_filename: image_info.si_filename,
+        si_filesize: image_info.si_filesize
     }).then(function(row) {
         callback(row, null);
     }).catch(function(err) {

@@ -18,15 +18,10 @@ exports.create_data = function(data_info, callback) {
 
 //insert data callback(row, err);
 exports.insert_data = function(data_info, callback) {
-    models.seosan_data.findOrCreate({
-        where: {
-
-        },
-        default: {
-            sd_address: '',
-            sd_serial: '',
-            sd_data: ''
-        }
+    models.seosan_data.create({
+            sd_address: data_info.sd_address,
+            sd_serial: data_info.sd_serial,
+            sd_data: data_info.sd_data
     }).then(function(row) {
         callback(row, null);
     }).catch(function(err) {
