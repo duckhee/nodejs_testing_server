@@ -22,11 +22,12 @@ router.get('/ajax_get_images', function(req, res, next) {
     };
     //serial 정보로 넘어온 게 있을 경우
     if (serial_info) {
-        camera_path = {
+        var camera_path = {
             "si_serial": serial_info
         };
+        
         //get path in db
-        imagecontroller.find_camera(camera_info, function(row, err) {
+        imagecontroller.find_camera(camera_path, function(row, err) {
             if (row) {
                 //get file path 
                 //경로에 있는 폴더와 이미지파일이 존재하는지 확인 
