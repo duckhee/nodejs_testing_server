@@ -7,7 +7,9 @@ exports.create_image = function(image_info, callback) {
         si_serial: image_info.si_serial,
         si_path: image_info.si_path,
         si_filename: image_info.si_filename,
-        si_filesize: image_info.si_filesize
+        si_filesize: image_info.si_filesize,
+        createdAt: createdAt,
+        updatedAt: updatedAt
     }).then(function(row) {
         callback(row, null);
     }).catch(function(err) {
@@ -23,7 +25,9 @@ exports.insert_image = function(image_info, callback) {
         si_serial: image_info.si_serial,
         si_path: image_info.si_path,
         si_filename: image_info.si_filename,
-        si_filesize: image_info.si_filesize
+        si_filesize: image_info.si_filesize,
+        createdAt: createdAt,
+        updatedAt: updatedAt
     }).then(function(row) {
         callback(row, null);
     }).catch(function(err) {
