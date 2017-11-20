@@ -68,13 +68,13 @@ io.sockets.on('connection', function(socket) {
                 if (err) {
                     console.log('File could not be saved: ' + err);
                 } else {
-                    var camera_info = { 
-                        "si_serial": params.serial, 
-                        "si_path": date_folder, 
+                    var camera_info = {
+                        "si_serial": params.serial,
+                        "si_path": date_folder,
                         "si_filename": params.filename,
                         "si_filesize": params.filesize
                     };
-                    
+
                     cameraControllers.insert_image(camera_info, function(err, row) {
                         if (err) {
                             //console.log(err);
@@ -94,17 +94,17 @@ io.sockets.on('connection', function(socket) {
 
     socket.on('disconnect', function() {
         console.log('user disconnected');
-        
+
     });
     //디바이스 정보 입력
-    socket.on('device_setting_request', function(data){
+    socket.on('device_setting_request', function(data) {
         //console.log(data);        
         //처음 디바이스 등록일 경우
-        if(data.msg == 0){ 
+        if (data.msg == 0) {
             settingControllers.create_setting(data.info, function(row, err) {
                 settingControllers.find_setting(data.info, function(row, err) {
-                    if (row) {                   
-                        io.emit('device_setting_receive_'+row.st_serial, row);
+                    if (row) {
+                        io.emit('device_setting_receive_' + row.st_serial, row);
                     } else if (err) {
                         console.log('ajax data insert error : ', err.stack);
                     } else {
@@ -115,11 +115,11 @@ io.sockets.on('connection', function(socket) {
         }
 
         //기존 디바이스 정보 수정 일 경우
-        if(data.msg == 1){ 
+        if (data.msg == 1) {
             settingControllers.update_setting(data.info, function(row, err) {
                 settingControllers.find_setting(data.info, function(row, err) {
-                    if (row) {                   
-                        io.emit('device_setting_receive_'+row.st_serial, row);
+                    if (row) {
+                        io.emit('device_setting_receive_' + row.st_serial, row);
                     } else if (err) {
                         console.log('ajax data insert error : ', err.stack);
                     } else {
@@ -128,21 +128,21 @@ io.sockets.on('connection', function(socket) {
                 });
             });
         }
-        
-	});
-    
+
+    });
+
     //센서정보 저장
-    socket.on('sensor_data_request', function(data){
+    socket.on('sensor_data_request', function(data) {
         //console.log(data);
         dataControllers.insert_data(data, function(row, err) {
             if (row) {
-                io.emit('sensor_data_receive_'+data.sd_serial, {msg:1});
+                io.emit('sensor_data_receive_' + data.sd_serial, { msg: 1 });
             } else if (err) {
                 console.log('ajax data insert error : ', err.stack);
             } else {
                 console.log('null');
             }
-        });		
+        });
     });
 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

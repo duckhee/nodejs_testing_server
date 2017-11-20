@@ -22,7 +22,9 @@ router.get('/ajax_get_images', function(req, res, next) {
     };
     //serial 정보로 넘어온 게 있을 경우
     if (serial_info) {
-        camera_path = { "si_serial": serial_info };
+        camera_path = {
+            "si_serial": serial_info
+        };
         //get path in db
         imagecontroller.find_camera(camera_info, function(row, err) {
             if (row) {
@@ -57,14 +59,17 @@ router.get('/ajax_get_data', function(req, res, next) {
                 res.json(rows);
             } else if (err) {
                 console.log('ajax get data error : ', err.stack);
-                res.render('./error/500');
+                res.json(0);
+                //res.render('./error/500');
             } else {
                 console.log('could not get ajax data');
-                res.render('./error/404');
+                res.json(0);
+                //res.render('./error/404');
             }
         });
     } else {
-        res.render('./error/404');
+        res.json(0);
+        //res.render('./error/404');
     }
 });
 
@@ -130,12 +135,44 @@ router.get('/', function(req, res, next) {
             devices = JSON.stringify(group_row);
             imagecontroller.find_camera(camera_info, function(rows, err) {
                 if (rows) {
-                    if (fs.existsSync(process.cwd() + '/camera_images/' + ))
+                    try {
+                        var get_filepath = fs.existsSync(process.cwd() + '/camera_images/' + group_row + '/' + rows.si_path + '/' + rows.si_filename);
+                    } catch (err) {
+                        console.log('error : ', err.stack);
+                        res.render('', {
+                            serial_Num: serial,
+                            img_path: path,
+                            devices: devices,
+                            createdAt: ''
+                        });
+                        //res.redirect('/');
+                    }
+                    if (get_filepath) {
+                        path = '/images' + group_row + '/' + rows.si_path + '/' + rows.si_filename;
+                    }
+
+                    res.render('test_index', {
+                        serial_Num: serial,
+                        img_path: path,
+                        devices: devices,
+                        createdAt: rows.createdAt
+                    });
+                } else if (err) {
+                    console.log('render error : ', err.stack);
+                    res.redirect('/');
+                } else {
+                    console.log('null');
+                    res.render('', {
+                        serial_Num: serial,
+                        img_path: path,
+                        devices: devices,
+                        createdAt: ''
+                    });
                 }
             });
         }
     });
-    res.render('./pages/index');
+    //res.render('./pages/index');
 });
 
 
