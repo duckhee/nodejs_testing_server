@@ -26,18 +26,58 @@ exports.file_zip = function(file_info, callback) {
 };
 
 //folder zip
-exports.folder_zip = function(folder_info, callback) {
+exports.folder_zipping = function(folder_info, callback) {
     var folder_name = folder_info.name;
-    //folder location found and zip
-    folder_zip.zipFolder(process.cwd() + '/camera_images/' + folder_info.si_serial + '/' + folder_info.si_path, process.cwd() + '/download/' + folder_info.si_serial + '/' + folder_info.si_path + ',zip', function(err) {
-        if (err) {
-            console.log('failed make zip file', err.stack);
+    //download name
+    var date = moment().format('YYYYMMDD');
+    //check folder exist and make folder(download)
+    var first_folder_check;
+    var second_folder_check;
+    try {
+        second_folder_check = fs.existsSync(process.cwd() + '/download/' + folder_info.si_serial + '/' + folder_info.si_path);
+    } catch (err) {
+        console.log(err.stack);
+        callback(err);
+    }
+    if (!second_folder_check) {
+        try {
+            first_folder_check = fs.existsSync(process.cwd() + '/download/' + folder_info.si_serial);
+        } catch (err) {
+            console.log(err.stack);
             callback(err);
-        } else {
-            console.loog('success');
-            callback(null);
         }
-    });
+        if (!first_folder_check) {
+            fs.mkdir(process.cwd() + '/download/' + folder_info.si_serial, '0777', function(err) {
+                if (err) {
+                    console.log(err.stack);
+                    callback(err);
+                } else {
+                    console.log('make folder success');
+                }
+            })
+        }
+        fs.mkdir(process.cwd() + '/download/' + folder_info.si_serial + '/' + folder_info.si_path, '0777', function(err) {
+            if (err) {
+                console.log(err.stack);
+                callback(err);
+            } else {
+                console.log('make folder success');
+            }
+        });
+    }
+
+    //folder location found and zip
+    folder_zip(process.cwd() + '/camera_images/' + folder_info.si_serial + '/' + folder_info.si_path,
+        process.cwd() + '/download/' + folder_info.si_serial + '/' + folder_info.si_path + '/' + 'download_image ' + date + '.zip',
+        function(err) {
+            if (err) {
+                console.log('failed make zip file', err.stack);
+                callback(err);
+            } else {
+                console.loog('success');
+                callback(null);
+            }
+        });
 };
 
 //find file
@@ -227,6 +267,7 @@ exports.get_filesize = function(file_info, callback) {
 
 //file_info에 sd_serial 정보가 들어가야한다.
 //make data file .csv callback error file_info에 res를 담아주어야한다.
+/*
 exports.data_one_csv = function(file_info, callback) {
 
         var csvfile = new excel.Workbook();
@@ -262,15 +303,15 @@ exports.data_one_csv = function(file_info, callback) {
             }
         });
 
-        /*
-            column A : index
-            column B : serial 
-            column C : address
-            column D : date
-            column E ~  : value
-            serial, address, value, date, index
-        */
-        /*
+        
+        //    column A : index
+        //    column B : serial 
+        //    column C : address
+        //    column D : date
+        //    column E ~  : value
+        //    serial, address, value, date, index
+        
+        
             //data 모두 가져오기 
             valueControllers.download_data(file_info, function(row, err) {
                 if (row) {

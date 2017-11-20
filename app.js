@@ -176,6 +176,8 @@ app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'camera_images')));
 //get upload file url
 app.use('/upload', express.static(path.join(__dirname, 'upload')));
+//zip file download
+app.use('/zipdownload', express.static(path.json(__dirname, 'download')));
 //index router
 app.use('/', index);
 //testing router

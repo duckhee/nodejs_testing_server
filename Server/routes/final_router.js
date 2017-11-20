@@ -107,6 +107,9 @@ router.post('/insert_data', function(req, res, next) {
 
 //download zip
 router.post('/process/download_zip', function(req, res, next) {
+    var serial = req.query.serial || req.params.serial;
+
+
 
 });
 
