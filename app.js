@@ -68,13 +68,16 @@ io.sockets.on('connection', function(socket) {
                 if (err) {
                     console.log('File could not be saved: ' + err);
                 } else {
+                    var filename_arr = params.filename.split(".");
                     var camera_info = {
                         "si_serial": params.serial,
                         "si_path": date_folder,
                         "si_filename": params.filename,
-                        "si_filesize": params.filesize
+                        "si_filesize": params.filesize,
+                        "createdAt": filename_arr[0],
+                        "updatedAt": filename_arr[0]
                     };
-
+                    console.log(camera_info);
                     cameraControllers.insert_image(camera_info, function(err, row) {
                         if (err) {
                             //console.log(err);
@@ -133,7 +136,7 @@ io.sockets.on('connection', function(socket) {
 
     //센서정보 저장
     socket.on('sensor_data_request', function(data) {
-        //console.log(data);
+        console.log(data);
         dataControllers.insert_data(data, function(row, err) {
             if (row) {
                 io.emit('sensor_data_receive_' + data.sd_serial, { msg: 1 });
