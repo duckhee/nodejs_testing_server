@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
         si_serial: DataTypes.STRING,
         si_path: DataTypes.STRING,
         si_filename: DataTypes.STRING,
-        si_filesize: DataTypes.INTEGER
+        si_filesize: DataTypes.INTEGER,
     }, {
         classMethods: {
             associate: function(models) {

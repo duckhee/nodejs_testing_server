@@ -36,29 +36,6 @@ exports.insert_image = function(image_info, callback) {
     })
 };
 
-//web camera info slide callback(row, err)
-exports.slide_list = function(camera_info, callback) {
-    models.seosan_images.findAll({
-        where: {
-
-        },
-        createdAt: {
-            between: [camera_info.startDate, camera_info.endDate]
-        },
-        $or: [
-
-        ],
-        order: [
-            ['createdAt', 'ASC']
-        ]
-    }).then(function(row) {
-        callback(row, null);
-    }).catch(function(err) {
-        console.log('error : ', err.stack);
-        callback(null, err);
-    });
-};
-
 //find camera info callback(row, err)
 exports.find_camera = function(camera_info, callback) {
     models.seosan_images.find({

@@ -33,17 +33,10 @@ var imageController = require('./controllers/camera_controller');
 console.log('test');
 var folder_info = {
     "si_serial": '01171030130408',
-    "si_path": null
 };
-imageController.find_camera(folder_info, function(row, err) {
-    console.log('find image ========');
-    if (row) {
-        console.log('row : ', row);
-        folder_info.si_path = row.si_path;
-        console.log('folder path : ', folder_info.si_path);
-    } else if (err) {
-        console.log(err.stack);
+file_util.zipping_folder(folder_info, function(err) {
+    if (err) {
+        console.log('error :::: ', err.stack);
     }
-
-    process.exit();
 });
+//process.exit();

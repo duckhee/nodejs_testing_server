@@ -120,24 +120,17 @@ router.post('/process/download_zip', function(req, res, next) {
     //         //downloader.zipping_folder()
     //     }
     // });
-    downloader.zipping_folder(camera_info, function(err) {
+    downloader.zipping_folder(camera_info, function(name, err) {
             if (err) {
                 console.log('zipping error : ', err.stack);
                 res.redirect('/');
-            } else {
-                next('/process/download_zip');
+            } else if (name) {
+                res.download(process.cwd() + '/download/' + name);
             }
         })
         //res.download('/download', )
 
 });
-
-//download page router 
-router.post('/process/download_zip', function(req, res, next) {
-    //download
-    //res.download();
-})
-
 
 //download csv
 router.post('/process/download_csv', function(req, res, next) {

@@ -107,9 +107,9 @@ router.post('/insert_data', function(req, res, next) {
 
 //zipping router path: download + / + si_serial + / + si_path + download_image date.zip
 router.post('/process/download_zip', function(req, res, next) {
-    var serial = req.query.serial || req.params.serial;
+    var serial = req.query.serial_Num || req.params.serial_Num;
     var camera_info = {
-        "si_serial": '01171030130408',
+        "si_serial": serial,
     };
     console.log('post get ===========');
     //get image folder path use serial
@@ -134,8 +134,9 @@ router.post('/process/download_zip', function(req, res, next) {
 
 //download page router 
 router.post('/process/download_zip', function(req, res, next) {
+    var serial = req.query.serial_Num || req.params.serial_Num;
     //download
-    //res.download();
+    //res.download('/download/');
 })
 
 

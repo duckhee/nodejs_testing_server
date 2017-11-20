@@ -25,22 +25,24 @@ exports.file_zip = function(file_info, callback) {
 
 };
 
+//zipping folder serial 
 exports.zipping_folder = function(folder_info, callback) {
     var zip_target = folder_info.si_serial;
     //download name
-    var zip_name = zip_target + moment().format('YYYYMMDD');
+    var zip_name = moment().format('YYYYMMDD');
     var check_serialfolder;
     try {
-        check_serialfolder = fs.existsSync(process.cwd() + '/download')
+        check_serialfolder = fs.existsSync(process.cwd() + '/download/' + zip_target);
     } catch (err) {
         console.log(err.stack);
-        callback(err);
+        callback(null, err);
     }
     if (!check_serialfolder) {
+
         fs.mkdir(process.cwd() + '/download/' + zip_target, '0777', function(err) {
             if (err) {
                 console.log(err.stack);
-                callback(err);
+                callback(null, err);
             } else {
                 console.log('make folder success');
             }
@@ -48,14 +50,15 @@ exports.zipping_folder = function(folder_info, callback) {
     }
     //folder location found and zip
     folder_zip(process.cwd() + '/camera_images/' + zip_target,
-        process.cwd() + '/download/' + zip_target + '/' + zip_target + '/' + ' download_image ' + zip_name + '.zip',
+        process.cwd() + '/download/' + zip_target + '/' + zip_target + ' download_image ' + zip_name + '.zip',
         function(err) {
             if (err) {
                 console.log('failed make zip file', err.stack);
-                callback(err);
+                callback(null, err);
             } else {
-                console.loog('make zip folder success');
-                callback(null);
+                console.log('make zip folder success');
+                var name = zip_target + '/' + zip_target + ' download_image ' + zip_name + '.zip';
+                callback(name, null);
             }
         });
 
