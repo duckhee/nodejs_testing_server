@@ -135,10 +135,6 @@ exports.file_find = function(file_info, callback) {
 
 };
 
-//zip file download
-exports.zip_downlaod = function(zip_info, callback) {
-
-};
 
 //file downlaod file_info{name} callback
 exports.file_download = function(file_info, callback) {
