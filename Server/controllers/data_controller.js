@@ -19,9 +19,9 @@ exports.create_data = function(data_info, callback) {
 //insert data callback(row, err);
 exports.insert_data = function(data_info, callback) {
     models.seosan_data.create({
-            sd_address: data_info.sd_address,
-            sd_serial: data_info.sd_serial,
-            sd_data: data_info.sd_data
+        sd_address: data_info.sd_address,
+        sd_serial: data_info.sd_serial,
+        sd_data: data_info.sd_data
     }).then(function(row) {
         callback(row, null);
     }).catch(function(err) {
@@ -34,7 +34,7 @@ exports.insert_data = function(data_info, callback) {
 exports.list_data = function(data_info, callback) {
     models.seosan_data.findAll({
         where: {
-            sd_serial: data_info.serial_Num
+            sd_serial: data_info.sd_serial
         },
         order: [
             ['createdAt', 'DESC']
@@ -51,7 +51,7 @@ exports.list_data = function(data_info, callback) {
 exports.list_limit = function(data_info, callback) {
     models.seosan_data.findAll({
         where: {
-            sd_serial: '01171030130408' //data_info.sd_serial
+            sd_serial: data_info.sd_serial //'01171030130408'
         },
         limit: 10,
         order: [
@@ -98,7 +98,7 @@ exports.download_data = function(data_info, callback) {
     models.seosan_data.findAll({
         where: {
             // sd_serial: data_info.serial_Num
-            sd_address: '013EP100G-08' //data_info.sd_serial
+            sd_serial: data_info.sd_serial //'01171030130408'
         },
         order: [
             ['createdAt', 'DESC']
@@ -130,7 +130,7 @@ exports.get_address_data = function(data_info, callback) {
 exports.get_test_data = function(data_info, callback) {
     models.seosan_data.findAll({
         where: {
-            sd_address: '013EP100G-08' //data_info.sd_serial
+            sd_serial: data_info.sd_serial //'01171030130408'
         },
         order: [
             ['createdAt', 'DESC']

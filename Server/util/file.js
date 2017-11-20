@@ -29,13 +29,12 @@ exports.file_zip = function(file_info, callback) {
 exports.folder_zip = function(folder_info, callback) {
     var folder_name = folder_info.name;
     //folder location found and zip
-    folder_zip.zipFolder(process.cwd() + '/camera_images/' + folder_info.channel + '/' + folder_info.name, process.cwd() + '/download/' + folder_info.channel + '/' + folder_info.name + ',zip', function(err) {
+    folder_zip.zipFolder(process.cwd() + '/camera_images/' + folder_info.si_serial + '/' + folder_info.si_path, process.cwd() + '/download/' + folder_info.si_serial + '/' + folder_info.si_path + ',zip', function(err) {
         if (err) {
             console.log('failed make zip file', err.stack);
             callback(err);
         } else {
             console.loog('success');
-
             callback(null);
         }
     });
