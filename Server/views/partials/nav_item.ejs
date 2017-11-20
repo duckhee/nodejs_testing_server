@@ -25,12 +25,12 @@
                         
                         for(var i=0; i < myObj.length; i++){ 
                             var class_active = "";
-                            if( serial_Num == myObj[i].sd_serial ){
+                            if( serial_Num == myObj[i].st_serial ){
                                 class_active = "active";
                             }
             %>    
                 <li class="<%= class_active %>">
-                    <a href="/?serial_Num=<%=myObj[i].sd_serial%>"><i class="fa fa-circle-o"></i><%= myObj[i].sd_serial %></a>
+                    <a href="/?serial_Num=<%=myObj[i].st_serial%>"><i class="fa fa-circle-o"></i><%= myObj[i].st_serial %></a>
                 </li>
             <%         
                      } 

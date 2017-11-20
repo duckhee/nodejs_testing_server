@@ -144,18 +144,27 @@ router.post('/process/download_csv', function(req, res, next) {
     var serial_Num = req.query.serial_Num || req.param.serial_Num || req.params.serial_Num;
     //파라미터를 넘겨주기 위한 객체 생성
     var csv_info = { "sd_serial": serial_Num, "response": res };
-    downloader.file_csv(csv_info, function(row, err) {
-        if (row) {
-            console.log('success : ', row);
-
-        } else if (err) {
-            console.log('down load csv file error : ', err.stack);
-            res.render('./error/500');
-        } else {
-            console.log('null');
-            res.render('./error/404');
+    settingcontroller.group_device(function(group_row, err) {
+        var devices = group_row;
+        if (devices) {
+            downloader.file_csv(csv_info, function(row, err) {
+                if (row) {
+                    console.log('success : ', row);
+                } else if (err) {
+                    console.log('down load csv file error : ', err.stack);
+                    res.render('./error/500', {
+                        device: devices
+                    });
+                } else {
+                    console.log('null');
+                    res.render('./error/404', {
+                        device: devices
+                    });
+                }
+            });
         }
     })
+
 });
 
 //index router 
@@ -171,7 +180,7 @@ router.get('/', function(req, res, next) {
     };
     var devices;
     var path = '/camera_images/failed/failed/failed.jpg'
-    datacontroller.group_device(function(group_row, err) {
+    settingcontroller.group_device(function(group_row, err) {
         if (group_row) {
             devices = JSON.stringify(group_row);
             imagecontroller.find_camera(camera_info, function(rows, err) {

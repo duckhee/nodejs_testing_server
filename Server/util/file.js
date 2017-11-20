@@ -198,7 +198,7 @@ exports.file_csv = function(file_info, callback) {
     valueControllers.download_data(file_info, function(row, err) {
         if (row) {
             //setting title
-            console.log(row);
+            //console.log(row);
             first_sheet.cell(1, 1).string("no").style(sheet_style);
             first_sheet.cell(1, 2).string("serial").style(sheet_style);
             first_sheet.cell(1, 3).string("address").style(sheet_style);
@@ -277,7 +277,7 @@ exports.file_csv = function(file_info, callback) {
             //csvfile.write('download_date'+date+'.csv);
             callback(row, null);
         } else if (err) {
-            console.log('error : ', err.stack);
+            console.log('csv file make error : ', err.stack);
             callback(null, err);
         } else {
             callback(null, null);

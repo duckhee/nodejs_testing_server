@@ -3,12 +3,12 @@ var seosan_setting = require('../models/seosan_setting');
 
 //setting insert callback(row, err);
 exports.create_setting = function(setting_info, callback) {
-    models.seosan_setting.create({        
-            st_serial: setting_info.st_serial,
-            st_address: setting_info.st_address,
-            st_title: setting_info.st_title,
-            st_gps: setting_info.st_gps,
-            st_group: setting_info.st_group
+    models.seosan_setting.create({
+        st_serial: setting_info.st_serial,
+        st_address: setting_info.st_address,
+        st_title: setting_info.st_title,
+        st_gps: setting_info.st_gps,
+        st_group: setting_info.st_group
     }).then(function(row) {
         callback(row, null);
     }).catch(function(err) {
@@ -81,3 +81,18 @@ exports.all_setting = function(setting_info, callback) {
         callback(null, err);
     });
 };
+
+
+//group device callback(row, err) models attribute로 해결이 가능하다. 더 알아보기 
+exports.group_device = function(callback) {
+    models.seosan_setting.findAll({
+        attributes: ['st_serial'],
+        group: ['st_serial']
+    }).then(function(rows) {
+        console.log('group ::::::::: ', rows);
+        callback(rows, null);
+    }).catch(function(err) {
+        console.log('group error : ', err.stack);
+        callback(null, err);
+    });
+}
