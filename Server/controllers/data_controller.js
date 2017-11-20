@@ -56,7 +56,7 @@ exports.list_data = function(data_info, callback) {
 exports.list_limit = function(data_info, callback) {
     models.seosan_data.findAll({
         where: {
-            sd_address: '013EP100G-08' //data_info.sd_serial
+            sd_serial: '01171030130408' //data_info.sd_serial
         },
         limit: 10,
         order: [
@@ -147,3 +147,17 @@ exports.get_test_data = function(data_info, callback) {
         callback(null, err);
     });
 };
+
+
+//group device callback(row, err) models attribute로 해결이 가능하다. 더 알아보기 
+exports.group_device = function(callback) {
+    models.seosan_data.findAll({
+        attributes: ['sd_serial'],
+        group: ['sd_serial']
+    }).then(function(rows) {
+        callback(rows, null);
+    }).catch(function(err) {
+        console.log('group error : ', err.stack);
+        callback(null, err);
+    })
+}

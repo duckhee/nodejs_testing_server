@@ -93,7 +93,7 @@
                             <div class="box box-primary">
                                 <div class="box-header with-border">
                                     <i class="fa fa-bar-chart-o"></i>
-                                    <h3 class="box-title">Senser Value</h3>
+                                    <h3 class="box-title">EC Value</h3>
                                     <!--<button class="pull-right" id="value_download" name="value_download"><i class="fa fa-fw fa-download"></i>download</button>-->
                                 </div>
                                 <div class="box-body">
@@ -110,12 +110,11 @@
                             <div class="box box-primary">
                                 <div class="box-header with-border">
                                     <i class="fa fa-bar-chart-o"></i>
-                                    <h3 class="box-title">Senser Value</h3>
+                                    <h3 class="box-title">Temperature Value</h3>
                                     <!-- <button class="pull-right" id="value_download" name="value_download"><i class="fa fa-fw fa-download"></i>download</button> -->
                                 </div>
                                 <div class="box-body">
                                     <div id="sensor-chart" style="height: 300px;"></div>
-    
                                 </div>
                                 <!-- /.box-body-->
                             </div>
@@ -127,7 +126,7 @@
                             <div class="box box-primary">
                                 <div class="box-header with-border">
                                     <i class="fa fa-bar-chart-o"></i>
-                                    <h3 class="box-title">Senser Value</h3>
+                                    <h3 class="box-title">Moisture Value</h3>
                                     <!--<button class="pull-right" id="value_download" name="value_download"><i class="fa fa-fw fa-download"></i>download</button> -->
                                 </div>
                                 <div class="box-body">
@@ -155,7 +154,6 @@
                                             }                                           
                                         %>
                                             <%= str %>
-                                            <!--<button class="pull-right"><i class="fa fa-fw fa-download" id="image_download" name="image_download"></i>download</button>-->
                                     </div>
                                 </div>
                                 <!-- /.box-header -->
@@ -235,10 +233,6 @@
                         chart_data = data;
                         var get_data = chart_data;
                         
-                        //  for (var i = 0, max_data = get_data.length; i < max_data; i++) {
-                        //      show_data.push([getDateFromJSON(get_data[i].createdAt), get_data[i].value]);
-                        //  }
-                         //var test_array = new Array();
                         var ec_data = new Array();
                         var temp_data = new Array();
                         var moist_data = new Array();
@@ -263,8 +257,19 @@
                        
                         var color_arr = ["#3c8dbc","#ac8dbc","#ac8dd","#acsdbc","#3c77bc","#3c88bc","#3c88bc","#398dbc"];
                         var ec_data_line = new Array();
+                        var temp_data_line = new Array();
+                        var moist_data_line = new Array();
+                        //ec data
                         for( var i = 0 ; i < ec_data.length; i++){
                             ec_data_line[i] = { data: ec_data[i].reverse(), color: color_arr[i] , level:(i+1)*10};
+                        }
+                        //temperature data
+                        for( var i = 0 ; i < temp_data.length; i++){
+                            temp_data_line[i] = { data: temp_data[i].reverse(), color: color_arr[i] , level:(i+1)*10};
+                        }
+                        //moisture data
+                        for( var i = 0 ; i < moist_data.length; i++){
+                            moist_data_line[i] = { data: moist_data[i].reverse(), color: color_arr[i] , level:(i+1)*10};
                         }
                         //flot.html 에서 가져옴
                         $.plot("#sensor-chart", ec_data_line, {
@@ -285,7 +290,7 @@
                             },
                             lines: {
                                 fill: false
-                                // color: ["#3c8dbc", "#f56954"]
+                                
                             },
                             yaxis: {
                                 min: 0,
