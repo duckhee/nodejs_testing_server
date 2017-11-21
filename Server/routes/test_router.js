@@ -25,7 +25,7 @@ router.get('/ajax_get_images', function(req, res, next) {
         var camera_path = {
             "si_serial": serial_info
         };
-        
+
         //get path in db
         imagecontroller.find_camera(camera_path, function(row, err) {
             if (row) {
@@ -116,11 +116,17 @@ router.post('/process/download_zip', function(req, res, next) {
             console.log('zipping error : ', err.stack);
             res.redirect('/');
         } else if (name) {
-            try{
-            res.download(process.cwd() + '/download/' + name);
-        }catch(e){
-            res.redirect('/');
-        }
+            try {
+                var exist_zip = fs.existsSync(process.cwd() + '/download/' + name);
+
+            } catch (e) {
+                res.redirect('/');
+            }
+            if (!exist_zip) {
+                res.redirect('/');
+            } else {
+                res.download(process.cwd() + '/download/' + name);
+            }
         }
     });
 });

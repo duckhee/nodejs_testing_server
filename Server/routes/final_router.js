@@ -124,9 +124,15 @@ router.post('/process/download_zip', function(req, res, next) {
             res.redirect('/');
         } else if (name) {
             try {
-                res.download(process.cwd() + '/download/' + name);
+                var exist_zip = fs.existsSync(process.cwd() + '/download/' + name);
+
             } catch (e) {
                 res.redirect('/');
+            }
+            if (!exist_zip) {
+                res.redirect('/');
+            } else {
+                res.download(process.cwd() + '/download/' + name);
             }
         }
     });
@@ -178,7 +184,7 @@ router.get('/', function(req, res, next) {
         'si_serial': serial
     };
     var devices;
-    var path = '/images/failed/failed/failed.jpg'
+    var path = '/images/failed/failed/failed.jpg';
     settingcontroller.group_device(function(group_row, err) {
         if (group_row) {
             devices = JSON.stringify(group_row);
