@@ -123,7 +123,11 @@ router.post('/process/download_zip', function(req, res, next) {
             console.log('zipping error : ', err.stack);
             res.redirect('/');
         } else if (name) {
-            res.download(process.cwd() + '/download/' + name);
+            try {
+                res.download(process.cwd() + '/download/' + name);
+            } catch (e) {
+                res.redirect('/');
+            }
         }
     });
 });
@@ -133,7 +137,7 @@ router.post('/process/download_zip', function(req, res, next) {
     var serial = req.query.serial_Num || req.params.serial_Num;
     //download
     //res.download('/download/');
-})
+});
 
 
 //download csv
@@ -159,10 +163,10 @@ router.post('/process/download_csv', function(req, res, next) {
                         devices: devices
                     });
                 }
-            })
+            });
 
         }
-    })
+    });
 });
 
 //index router 
