@@ -116,7 +116,11 @@ router.post('/process/download_zip', function(req, res, next) {
             console.log('zipping error : ', err.stack);
             res.redirect('/');
         } else if (name) {
+            try{
             res.download(process.cwd() + '/download/' + name);
+        }catch(e){
+            res.redirect('/');
+        }
         }
     });
 });

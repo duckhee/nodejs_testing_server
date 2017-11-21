@@ -11,9 +11,9 @@
         "username": "candh",
         "password": "candh123",
         "database": "candh",        
-        "host": "13.124.28.87",
+        "host": "candh.ci1dwbaztoy8.ap-northeast-2.rds.amazonaws.com",
         "dialect": "mysql",
-        "port": "3308"
+        "port": "3306"
     },
     "production": {
         "username": "candh",
