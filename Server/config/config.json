@@ -4,8 +4,8 @@
         "password": "candh123",
         "database": "candh",        
         "host": "13.124.28.87",
-        "dialect": "mysql",
-        "port": "3308"
+        "host": "candh.ci1dwbaztoy8.ap-northeast-2.rds.amazonaws.com",
+        "port": "3306"
     },
     "test": {
         "username": "root",
