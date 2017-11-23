@@ -144,3 +144,22 @@ exports.get_test_data = function(data_info, callback) {
         callback(null, err);
     });
 };
+//check last data
+exports.check_connection = function(serial, callback) {
+    models.seosan_data.find({
+        where: {
+            sd_serial: serial
+        },
+        order: [
+            ['createdAt', 'DESC']
+        ],
+        attributes: ['sd_serial', 'createdAt'],
+        limit: 1
+    }).then(function(row) {
+        //console.log('check connection : ', row);
+        callback(row, null);
+    }).catch(function(err) {
+        console.log('error : ', err.stack);
+        callback(null, err);
+    });
+}

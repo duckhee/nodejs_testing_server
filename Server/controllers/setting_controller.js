@@ -87,11 +87,26 @@ exports.all_setting = function(setting_info, callback) {
 exports.group_device = function(callback) {
     models.seosan_setting.findAll({
         attributes: ['st_serial'],
-        group: ['st_serial']
+        group: ['st_serial'],
     }).then(function(rows) {
         callback(rows, null);
     }).catch(function(err) {
         console.log('group error : ', err.stack);
+        callback(null, err);
+    });
+}
+
+//get serial number callback(row, err)
+exports.get_serial = function(callback) {
+    models.seosan_setting.findAll({
+        attributes: ['st_serial'],
+        order: [
+            ['createdAt', 'DESC']
+        ]
+    }).then(function(row) {
+        //console.log(row);
+        callback(row, null);
+    }).catch(function(err) {
         callback(null, err);
     });
 }
