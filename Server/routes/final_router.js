@@ -15,9 +15,9 @@ router.get('/ajax_get_images', function(req, res, next) {
     var serial_info = req.query.serial_Num || req.params.serial_Num;
     //실패할시에 가져올 이미지 경로
     var failed_path = {
-        "field_id": "failed",
-        "folder_name": "failed",
-        "img_name": "failed.jpg",
+        "si_serial": "failed",
+        "si_path": "failed",
+        "si_filename": "failed.jpg",
         "createdAt": ""
     };
     //serial 정보로 넘어온 게 있을 경우
@@ -137,14 +137,6 @@ router.post('/process/download_zip', function(req, res, next) {
         }
     });
 });
-
-//download page router 
-router.post('/process/download_zip', function(req, res, next) {
-    var serial = req.query.serial_Num || req.params.serial_Num;
-    //download
-    //res.download('/download/');
-});
-
 
 //download csv
 router.post('/process/download_csv', function(req, res, next) {
