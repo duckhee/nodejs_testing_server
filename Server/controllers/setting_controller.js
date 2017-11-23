@@ -58,7 +58,7 @@ exports.delete_setting = function(setting_info, callback) {
 exports.find_setting = function(setting_info, callback) {
     models.seosan_setting.find({
         where: {
-            st_serial: setting_info.serial_Num
+            st_serial: setting_info.st_serial
         }
     }).then(function(row) {
         callback(row, null);
