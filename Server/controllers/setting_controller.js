@@ -89,7 +89,6 @@ exports.group_device = function(callback) {
         attributes: ['st_serial'],
         group: ['st_serial']
     }).then(function(rows) {
-        console.log('group ::::::::: ', rows);
         callback(rows, null);
     }).catch(function(err) {
         console.log('group error : ', err.stack);
