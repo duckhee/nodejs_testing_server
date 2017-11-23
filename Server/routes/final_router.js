@@ -191,7 +191,7 @@ router.get('/', function(req, res, next) {
             imagecontroller.find_camera(camera_info, function(rows, err) {
                 if (rows) {
                     try {
-                        var get_filepath = fs.existsSync(process.cwd() + '/camera_images/' + group_row + '/' + rows.si_path + '/' + rows.si_filename);
+                        var get_filepath = fs.existsSync(process.cwd() + '/camera_images/' + rows.si_serial + '/' + rows.si_path + '/' + rows.si_filename);
                     } catch (err) {
                         console.log('error : ', err.stack);
                         res.render('', {
@@ -203,7 +203,7 @@ router.get('/', function(req, res, next) {
                         //res.redirect('/');
                     }
                     if (get_filepath) {
-                        path = '/images' + group_row + '/' + rows.si_path + '/' + rows.si_filename;
+                        path = '/images' + rows.si_serial + '/' + rows.si_path + '/' + rows.si_filename;
                     }
 
                     res.render('test_index', {

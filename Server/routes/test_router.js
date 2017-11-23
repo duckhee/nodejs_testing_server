@@ -120,6 +120,7 @@ router.post('/process/download_zip', function(req, res, next) {
                 var exist_zip = fs.existsSync(process.cwd() + '/download/' + name);
 
             } catch (e) {
+                console.log('zip file download error : ', e.stack);
                 res.redirect('/');
             }
             if (!exist_zip) {
@@ -171,14 +172,14 @@ router.get('/', function(req, res, next) {
         'si_serial': serial
     };
     var devices;
-    var path = '/camera_images/failed/failed/failed.jpg'
+    var path = '/images/failed/failed/failed.jpg'
     settingcontroller.group_device(function(group_row, err) {
         if (group_row) {
             devices = JSON.stringify(group_row);
             imagecontroller.find_camera(camera_info, function(rows, err) {
                 if (rows) {
                     try {
-                        var get_filepath = fs.existsSync(process.cwd() + '/camera_images/' + group_row + '/' + rows.si_path + '/' + rows.si_filename);
+                        var get_filepath = fs.existsSync(process.cwd() + '/camera_images/' + rows.si_serial + '/' + rows.si_path + '/' + rows.si_filename);
                     } catch (err) {
                         console.log('error : ', err.stack);
                         res.render('./pages/test_index', {
@@ -190,7 +191,7 @@ router.get('/', function(req, res, next) {
                         //res.redirect('/');
                     }
                     if (get_filepath) {
-                        path = '/images' + group_row + '/' + rows.si_path + '/' + rows.si_filename;
+                        path = '/images' + rows.si_serial + '/' + rows.si_path + '/' + rows.si_filename;
                     }
 
                     res.render('./pages/test_index', {
