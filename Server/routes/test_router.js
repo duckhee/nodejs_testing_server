@@ -15,9 +15,9 @@ router.get('/ajax_get_images', function(req, res, next) {
     var serial_info = req.query.serial_Num || req.params.serial_Num;
     //실패할시에 가져올 이미지 경로
     var failed_path = {
-        "field_id": "failed",
-        "folder_name": "failed",
-        "img_name": "failed.jpg",
+        "si_serial": "failed",
+        "si_path": "failed",
+        "si_filename": "failed.jpg",
         "createdAt": ""
     };
     //serial 정보로 넘어온 게 있을 경우
@@ -120,8 +120,13 @@ router.post('/process/download_zip', function(req, res, next) {
             try {
                 var exist_zip = fs.existsSync(process.cwd() + '/download/' + name);
 
+<<<<<<< HEAD
             } catch (err) {
                 console.log('error : ', err.stack);
+=======
+            } catch (e) {
+                console.log('zip file download error : ', e.stack);
+>>>>>>> 5ab2e1e800f4a6cf769169504f150a97ec787dc9
                 res.redirect('/');
             }
             if (!exist_zip) {
@@ -174,14 +179,14 @@ router.get('/', function(req, res, next) {
         'si_serial': serial
     };
     var devices;
-    var path = '/camera_images/failed/failed/failed.jpg'
+    var path = '/images/failed/failed/failed.jpg'
     settingcontroller.group_device(function(group_row, err) {
         if (group_row) {
             devices = JSON.stringify(group_row);
             imagecontroller.find_camera(camera_info, function(rows, err) {
                 if (rows) {
                     try {
-                        var get_filepath = fs.existsSync(process.cwd() + '/camera_images/' + group_row + '/' + rows.si_path + '/' + rows.si_filename);
+                        var get_filepath = fs.existsSync(process.cwd() + '/camera_images/' + rows.si_serial + '/' + rows.si_path + '/' + rows.si_filename);
                     } catch (err) {
                         console.log('error : ', err.stack);
                         res.render('./pages/test_index', {
@@ -193,7 +198,7 @@ router.get('/', function(req, res, next) {
                         //res.redirect('/');
                     }
                     if (get_filepath) {
-                        path = '/images' + group_row + '/' + rows.si_path + '/' + rows.si_filename;
+                        path = '/images' + rows.si_serial + '/' + rows.si_path + '/' + rows.si_filename;
                     }
 
                     res.render('./pages/test_index', {

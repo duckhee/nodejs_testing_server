@@ -145,7 +145,7 @@
                             <div class="box box-primary">
                                 <div class="box-header with-border">
                                     <h3 class="box-title">최근 촬영 사진</h3>
-                                    <div class="box-tools pull-right" id="camera-date">
+                                    <div class="box-tools pull-right" id="camera-date"  style="height:300px">
                                         <%
                                             var d = new Date(createdAt); 
                                             var str = "";
@@ -159,7 +159,7 @@
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <div id="camera-info">
-                                        <img ></img>
+                                        <img style="height:300px"></img>
                                     </div>
                                 </div>
                             </div>
@@ -484,7 +484,7 @@
                     dataType: "json",
                     error: function() {
                         var ajax_path;
-                        ajax_path = '/upload/failed/failed/failed.jpg';
+                        ajax_path = '/images/failed/failed/failed.jpg';
                         //console.log(ajax_path);
                         $("#camera-info").find("img").attr("src", ajax_path);
                     },

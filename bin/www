@@ -8,6 +8,8 @@ var app = require('../app');
 var debug = require('debug')('server-express:server');
 var http = require('http');
 var os = require('os');
+//report module
+//var report = require('../library/report/report.js');
 /**
  * Get port from environment and store in Express.
  */
@@ -102,6 +104,16 @@ function onListening() {
     }
     console.log(addresses + ':' + app.get('port'));
 
+    //report connection function here
+    // setInterval(report.connection_report(function(row, err) {
+
+    // }), 1000 * 60 * 60 * 24);
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////////
+
     //종료 직전에 실행을 하는 것 로그 남기는 법 찾아서 여기다 적용하기 
     // process.on('beforeExit', () => {
 
@@ -111,6 +123,5 @@ function onListening() {
     // process.on('uncaughtException', function(){
 
     // });
-
 
 }
