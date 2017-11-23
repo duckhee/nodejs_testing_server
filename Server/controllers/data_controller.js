@@ -154,7 +154,6 @@ exports.check_connection = function(serial, callback) {
             ['createdAt', 'DESC']
         ],
         attributes: ['sd_serial', 'createdAt'],
-        limit: 1
     }).then(function(row) {
         //console.log('check connection : ', row);
         callback(row, null);

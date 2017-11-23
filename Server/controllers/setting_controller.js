@@ -102,7 +102,8 @@ exports.get_serial = function(callback) {
         attributes: ['st_serial'],
         order: [
             ['createdAt', 'DESC']
-        ]
+        ],
+        group: ['st_serial']
     }).then(function(row) {
         //console.log(row);
         callback(row, null);

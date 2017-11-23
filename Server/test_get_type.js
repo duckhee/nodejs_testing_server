@@ -61,6 +61,7 @@ settingController.get_serial(function(row, err) {
                 var set_date = new Date(get_date[0]);
                 console.log('test     : ', set_date);
                 console.log('now date : ', now_data);
+
                 console.log(row.dataValues.sd_serial + ' : ' + row.dataValues.createdAt);
                 // console.log('-------------', set_date - now_date);
                 var data_info = { "serial": row.dataValues.sd_serial, "createdAt": row.dataValues.createdAt }
