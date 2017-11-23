@@ -130,6 +130,7 @@ router.post('/process/download_zip', function(req, res, next) {
                 res.redirect('/');
             }
             if (!exist_zip) {
+                console.log(exist_zip);
                 res.redirect('/');
             } else {
                 res.download(process.cwd() + '/download/' + name);

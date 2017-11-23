@@ -129,7 +129,8 @@ exports.file_find = function(file_info, callback) {
             callback(null);
         } else {
             console.log('exist');
-            callback(exists);
+            var name = process.cwd() + '/camera_images/' + folder_path + '/' + file_name + '.jpg';
+            callback();
         }
     });
 
