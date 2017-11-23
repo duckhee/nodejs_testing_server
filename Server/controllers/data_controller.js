@@ -154,6 +154,12 @@ exports.check_connection = function(serial, callback) {
             ['createdAt', 'DESC']
         ],
         attributes: ['sd_serial', 'createdAt'],
+        /*       
+        $notBetween: [
+                   models.sequelize.where(models.sequelize.fn('HOUR', models.sequelize.col('createdAt')), '>=', 22),
+                   models.sequelize.where(models.sequelize.fn('HOUR', models.sequelize.col('createdAt')), '<=', 9)
+               ] 
+               */
     }).then(function(row) {
         //console.log('check connection : ', row);
         callback(row, null);
