@@ -8,7 +8,6 @@ module.exports = function(sequelize, DataTypes) {
         createdAt: {
             allowNull: false,
             type: 'TIMESTAMP',
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
         updatedAt: DataTypes.DATE
     }, {
