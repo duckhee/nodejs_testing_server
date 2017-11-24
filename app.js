@@ -69,13 +69,14 @@ io.sockets.on('connection', function(socket) {
                     console.log('File could not be saved: ' + err);
                 } else {
                     var filename_arr = params.filename.split(".");
+                    console.log('image time :::::: ', filename_arr[0]);
                     var camera_info = {
                         "si_serial": params.serial,
                         "si_path": date_folder,
                         "si_filename": params.filename,
                         "si_filesize": params.filesize,
-                        // "createdAt": filename_arr[0],
-                        // "updatedAt": filename_arr[0]
+                        "createdAt": filename_arr[0],
+                        "updatedAt": filename_arr[0]
                     };
                     console.log(camera_info);
                     cameraControllers.insert_image(camera_info, function(err, row) {

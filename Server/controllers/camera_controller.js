@@ -26,8 +26,8 @@ exports.insert_image = function(image_info, callback) {
         si_path: image_info.si_path,
         si_filename: image_info.si_filename,
         si_filesize: image_info.si_filesize,
-        //  createdAt: image_info.createdAt,
-        //  updatedAt: image_info.updatedAt
+        createdAt: image_info.createdAt,
+        updatedAt: image_info.updatedAt
     }).then(function(row) {
         callback(row, null);
     }).catch(function(err) {
