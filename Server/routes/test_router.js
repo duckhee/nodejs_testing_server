@@ -130,9 +130,15 @@ router.post('/process/download_zip', function(req, res, next) {
             } else {
                 res.download(process.cwd() + '/download/' + name);
             }
+<<<<<<< HEAD
         }else{
 		res.redirect('/');
 	}
+=======
+        } else {
+            res.redirect('/');
+        }
+>>>>>>> db655c0639239fcbdae3a724a15bd11fbd7ea9b5
     });
 });
 
@@ -150,12 +156,12 @@ router.post('/process/download_csv', function(req, res, next) {
                 } else if (err) {
                     console.log('down load csv file error : ', err.stack);
                     res.render('./error/500', {
-                        device: devices
+                        devices: devices
                     });
                 } else {
                     console.log('null');
                     res.render('./error/404', {
-                        device: devices
+                        devices: devices
                     });
                 }
             });
@@ -170,7 +176,7 @@ router.get('/', function(req, res, next) {
     var serial = req.query.serial_Num || req.params.serial_Num;
     //camera 정보를 가져오기 위해서 serial 정보 JSON으로 담아주기
     if (!serial) {
-        serial = '01171030130408';
+        serial = '01171030125745';
     }
     var camera_info = {
         'si_serial': serial

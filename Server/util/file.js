@@ -51,12 +51,13 @@ exports.zipping_folder = function(folder_info, callback) {
         }
         if (!check_serialfolder) {
             try {
-                fs.mkdir(process.cwd() + '/download/' + zip_target, '0777');
+                fs.mkdirSync(process.cwd() + '/download/' + zip_target, '0777');
             } catch (err) {
                 console.log('mkdir : ', err.stack);
                 callback(null, err);
             }
         }
+
         //folder location found and zip
         folder_zip(process.cwd() + '/camera_images/' + zip_target,
             process.cwd() + '/download/' + zip_target + '/' + zip_target + ' download_image ' + zip_name + '.zip',

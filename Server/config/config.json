@@ -5,7 +5,8 @@
         "database": "candh",
         "host": "candh.ci1dwbaztoy8.ap-northeast-2.rds.amazonaws.com",
         "dialect": "mysql",
-        "port": "3306"
+        "port": "3306",
+        "timezione": "+09:00"
     },
     "test": {
         "username": "candh",
@@ -21,6 +22,7 @@
         "database": "candh",
         "host": "candh.ci1dwbaztoy8.ap-northeast-2.rds.amazonaws.com",
         "dialect": "mysql",
-        "port": "3306"
+        "port": "3306",
+        "timezione": "+09:00"
     }
 }
