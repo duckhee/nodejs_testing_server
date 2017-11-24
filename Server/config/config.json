@@ -6,7 +6,7 @@
         "host": "candh.ci1dwbaztoy8.ap-northeast-2.rds.amazonaws.com",
         "dialect": "mysql",
         "port": "3306",
-        "timezione": "+09:00"
+        "timezone": "+09:00"
     },
     "test": {
         "username": "candh",
@@ -23,6 +23,6 @@
         "host": "candh.ci1dwbaztoy8.ap-northeast-2.rds.amazonaws.com",
         "dialect": "mysql",
         "port": "3306",
-        "timezione": "+09:00"
+        "timezone": "+09:00"
     }
 }
