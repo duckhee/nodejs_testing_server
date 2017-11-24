@@ -74,8 +74,8 @@ io.sockets.on('connection', function(socket) {
                         "si_path": date_folder,
                         "si_filename": params.filename,
                         "si_filesize": params.filesize,
-                        "createdAt": filename_arr[0],
-                        "updatedAt": filename_arr[0]
+                        // "createdAt": filename_arr[0],
+                        // "updatedAt": filename_arr[0]
                     };
                     console.log(camera_info);
                     cameraControllers.insert_image(camera_info, function(err, row) {
