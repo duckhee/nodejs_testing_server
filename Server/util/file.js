@@ -31,6 +31,7 @@ exports.zipping_folder = function(folder_info, callback) {
     //download name
     var zip_name = moment().format('YYYYMMDD');
     var check_serialfolder;
+    //image file state check
     var image_filecheck;
     try {
         image_filecheck = fs.existsSync(process.cwd() + '/camera_images/' + zip_target);
@@ -56,7 +57,6 @@ exports.zipping_folder = function(folder_info, callback) {
                 callback(null, err);
             }
         }
-
         //folder location found and zip
         folder_zip(process.cwd() + '/camera_images/' + zip_target,
             process.cwd() + '/download/' + zip_target + '/' + zip_target + ' download_image ' + zip_name + '.zip',
