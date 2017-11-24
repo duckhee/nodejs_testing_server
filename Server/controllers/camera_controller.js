@@ -43,7 +43,7 @@ exports.find_camera = function(camera_info, callback) {
             si_serial: camera_info.si_serial //'01171030130408'
         },
         order: [
-            ['updatedAt', 'DESC']
+            ['createdAt', 'DESC']
         ]
     }).then(function(row) {
         callback(row, null);
