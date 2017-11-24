@@ -41,7 +41,10 @@ exports.find_camera = function(camera_info, callback) {
     models.seosan_images.find({
         where: {
             si_serial: camera_info.si_serial //'01171030130408'
-        }
+        },
+        order: [
+            ['updatedAt', 'DESC']
+        ]
     }).then(function(row) {
         callback(row, null);
     }).catch(function(err) {
