@@ -41,7 +41,7 @@ exports.zipping_folder = function(folder_info, callback) {
     }
     if (!image_filecheck) {
         console.log('not iamges');
-        callback(null, err);
+        callback(null, null);
     } else if (image_filecheck) {
         try {
             check_serialfolder = fs.existsSync(process.cwd() + '/download/' + zip_target);
@@ -51,7 +51,7 @@ exports.zipping_folder = function(folder_info, callback) {
         }
         if (!check_serialfolder) {
             try {
-                fs.mkdir(process.cwd() + '/download/' + zip_target, '0777');
+                fs.mkdirSync(process.cwd() + '/download/' + zip_target, '0777');
             } catch (err) {
                 console.log('mkdir : ', err.stack);
                 callback(null, err);
