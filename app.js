@@ -7,9 +7,9 @@ var bodyParser = require('body-parser');
 //var sassMiddleware = require('node-sass-middleware');
 var session = require('express-session');
 var fs = require('fs');
-var dataControllers = require('./server/controllers/data_controller');
-var cameraControllers = require('./server/controllers/camera_controller');
-var settingControllers = require('./server/controllers/setting_controller');
+var dataControllers = require('./Server/controllers/data_controller');
+var cameraControllers = require('./Server/controllers/camera_controller');
+var settingControllers = require('./Server/controllers/setting_controller');
 var socketIo = require('socket.io');
 
 

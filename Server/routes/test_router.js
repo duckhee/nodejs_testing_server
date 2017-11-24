@@ -120,8 +120,8 @@ router.post('/process/download_zip', function(req, res, next) {
             try {
                 var exist_zip = fs.existsSync(process.cwd() + '/download/' + name);
 
-            } catch (e) {
-                console.log('zip file download error : ', e.stack);
+            } catch (err) {
+                console.log('error : ', err.stack);
                 res.redirect('/');
             }
             if (!exist_zip) {
