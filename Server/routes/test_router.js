@@ -130,7 +130,9 @@ router.post('/process/download_zip', function(req, res, next) {
             } else {
                 res.download(process.cwd() + '/download/' + name);
             }
-        }
+        }else{
+		res.redirect('/');
+	}
     });
 });
 
