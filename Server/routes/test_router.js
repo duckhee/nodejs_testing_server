@@ -111,6 +111,7 @@ router.post('/process/download_zip', function(req, res, next) {
     var camera_info = {
         "si_serial": serial,
     };
+    console.log('process/download_zip router');
     downloader.zipping_folder(camera_info, function(name, err) {
         if (err) {
             console.log('zipping error : ', err.stack);
@@ -119,11 +120,17 @@ router.post('/process/download_zip', function(req, res, next) {
             try {
                 var exist_zip = fs.existsSync(process.cwd() + '/download/' + name);
 
+<<<<<<< HEAD
+            } catch (err) {
+                console.log('error : ', err.stack);
+=======
             } catch (e) {
                 console.log('zip file download error : ', e.stack);
+>>>>>>> 5ab2e1e800f4a6cf769169504f150a97ec787dc9
                 res.redirect('/');
             }
             if (!exist_zip) {
+                console.log(exist_zip);
                 res.redirect('/');
             } else {
                 res.download(process.cwd() + '/download/' + name);

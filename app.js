@@ -136,7 +136,7 @@ io.sockets.on('connection', function(socket) {
 
     //센서정보 저장
     socket.on('sensor_data_request', function(data) {
-        console.log(data);
+        console.log("socket : " + data);
         dataControllers.insert_data(data, function(row, err) {
             if (row) {
                 io.emit('sensor_data_receive_' + data.sd_serial, { msg: 1 });
