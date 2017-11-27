@@ -20,11 +20,6 @@ var dataControllers = require('../controllers/data_controller');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-
-
-
-
-
     res.render('./pages/test_index', {
         serial: 1,
         img_path: 1,
