@@ -195,17 +195,19 @@ exports.test_check_connection = function(serial, callback) {
             */
         /*
         $notBetween: [
-            models.sequelize.where(models.sequelize.fn('HOUR', models.sequelize.col('createdAt')), '<=', 22),
-            models.sequelize.where(models.sequelize.fn('HOUR', models.sequelize.col('createdAt')), '>=', 9)
+            models.sequelize.where(models.sequelize.fn('date', models.sequelize.col('createdAt')), '>=', new Date()),
+            models.sequelize.where(models.sequelize.fn('date', models.sequelize.col('createdAt')), '<=', new Date())
         ]
         */
         /*
-        $Between:[
-
+        $Between: [
+            models.sequelize.where(models.sequelize.fn('date', models.sequelize.col('createdAt')), '<=', ),
+            models.sequelize.where(models.sequelize.fn('date', models.sequelize.col('createdAt')), '<=', 3)
         ]
         */
     }).then(function(row) {
         //console.log('check connection : ', row);
+        // console.log('testtest::::', row);
         callback(row, null);
     }).catch(function(err) {
         console.log('error : ', err.stack);

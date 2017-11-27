@@ -39,6 +39,7 @@ console.log('test');
 settingController.get_serial(function(row, err) {
 
     var test = new Array();
+    var data_info;
     if (row) {
         // console.log('serial : ', row);
         for (var i in row) {
@@ -64,7 +65,30 @@ settingController.get_serial(function(row, err) {
 
                 console.log(row.dataValues.sd_serial + ' : ' + row.dataValues.createdAt);
                 // console.log('-------------', set_date - now_date);
-                var data_info = { "serial": row.dataValues.sd_serial, "createdAt": row.dataValues.createdAt }
+                data_info = { "serial": row.dataValues.sd_serial, "createdAt": row.dataValues.createdAt }
+                console.log('data info : ', data_info.serial);
+                console.log('data info time : ', data_info.createdAt);
+
+                ///////////////////////////////////////////////////////////
+                var now_month = new Date().getMonth() + 1;
+                var now_date = new Date().getDate();
+
+
+                var get_month = new Date(data_info.createdAt).getMonth() + 1;
+                var get_date = new Date(data_info.createdAt).getDate();
+
+
+                console.log('local time spilt : ', now_month);
+                console.log('local time spilt : ', now_date);
+                console.log('local time spilt : ', now_hour);
+
+                console.log('time split : ', get_month);
+                console.log('time split : ', get_date);
+                console.log('time split : ', get_hour);
+                if (now_month !== get_month || now_date >= get_date >= now_date - 1) {
+                    console.log('wrong');
+                }
+
             } else if (err) {
                 console.log('error : ', err.stack);
             } else {
@@ -73,6 +97,7 @@ settingController.get_serial(function(row, err) {
             }
         });
     }
+
     //process.exit();
     //process.exit();
 });
