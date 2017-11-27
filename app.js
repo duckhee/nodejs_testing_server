@@ -7,9 +7,9 @@ var bodyParser = require('body-parser');
 //var sassMiddleware = require('node-sass-middleware');
 var session = require('express-session');
 var fs = require('fs');
-var dataControllers = require('./server/controllers/data_controller');
-var cameraControllers = require('./server/controllers/camera_controller');
-var settingControllers = require('./server/controllers/setting_controller');
+var dataControllers = require('./Server/controllers/data_controller');
+var cameraControllers = require('./Server/controllers/camera_controller');
+var settingControllers = require('./Server/controllers/setting_controller');
 var socketIo = require('socket.io');
 
 
@@ -69,6 +69,7 @@ io.sockets.on('connection', function(socket) {
                     console.log('File could not be saved: ' + err);
                 } else {
                     var filename_arr = params.filename.split(".");
+                    console.log('image time :::::: ', filename_arr[0]);
                     var camera_info = {
                         "si_serial": params.serial,
                         "si_path": date_folder,
@@ -136,7 +137,7 @@ io.sockets.on('connection', function(socket) {
 
     //센서정보 저장
     socket.on('sensor_data_request', function(data) {
-        console.log(data);
+        console.log("socket : " + data);
         dataControllers.insert_data(data, function(row, err) {
             if (row) {
                 io.emit('sensor_data_receive_' + data.sd_serial, { msg: 1 });

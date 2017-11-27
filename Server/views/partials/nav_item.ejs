@@ -22,7 +22,6 @@
         <ul class="treeview-menu">
             <%   if (locals.devices) {                     
                          var myObj = JSON.parse(devices);                       
-                        
                         for(var i=0; i < myObj.length; i++){ 
                             var class_active = "";
                             if( serial_Num == myObj[i].st_serial ){

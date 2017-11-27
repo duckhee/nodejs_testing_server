@@ -5,7 +5,10 @@ module.exports = function(sequelize, DataTypes) {
         si_path: DataTypes.STRING,
         si_filename: DataTypes.STRING,
         si_filesize: DataTypes.INTEGER,
-        createdAt: DataTypes.DATE,
+        createdAt: {
+            allowNull: false,
+            type: 'TIMESTAMP',
+        },
         updatedAt: DataTypes.DATE
     }, {
         classMethods: {
