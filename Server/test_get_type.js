@@ -52,7 +52,7 @@ settingController.get_serial(function(row, err) {
     }
     for (var i = 0; i < test.length; i++) {
         //console.log('send serial :::::::::::' + i, test[i]);
-        dataController.check_connection(test[i], function(row, err) {
+        dataController.test_check_connection(test[i], function(row, err) {
             if (row) {
                 //console.log('row :::::::: ', row);
                 // console.log('setting serial ::::: ', row.dataValues.sd_serial);

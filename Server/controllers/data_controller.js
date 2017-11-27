@@ -146,6 +146,39 @@ exports.get_test_data = function(data_info, callback) {
 };
 //check last data
 exports.check_connection = function(serial, callback) {
+        models.seosan_data.find({
+            where: {
+                sd_serial: serial
+            },
+            order: [
+                ['createdAt', 'DESC']
+            ],
+            attributes: ['sd_serial', 'createdAt'],
+            /*
+            $and:[ 
+                        models.sequelize.where(models.sequelize.fn('date', models.sequelize.col('createdAt')), '>=', camera_info.startDate), 
+                        models.sequelize.where(models.sequelize.fn('date', models.sequelize.col('createdAt')), '<=', camera_info.endDate)             
+                ],
+                */
+            /*       
+            $notBetween: [
+                       models.sequelize.where(models.sequelize.fn('HOUR', models.sequelize.col('createdAt')), '>=', 22),
+                       models.sequelize.where(models.sequelize.fn('HOUR', models.sequelize.col('createdAt')), '<=', 9)
+                   ] 
+                   */
+        }).then(function(row) {
+            //console.log('check connection : ', row);
+            callback(row, null);
+        }).catch(function(err) {
+            console.log('error : ', err.stack);
+            callback(null, err);
+        });
+    }
+    /*
+        test controllers
+     */
+    //check last data
+exports.test_check_connection = function(serial, callback) {
     models.seosan_data.find({
         where: {
             sd_serial: serial
@@ -154,12 +187,23 @@ exports.check_connection = function(serial, callback) {
             ['createdAt', 'DESC']
         ],
         attributes: ['sd_serial', 'createdAt'],
-        /*       
+        /*
+        $and:[ 
+                    models.sequelize.where(models.sequelize.fn('date', models.sequelize.col('createdAt')), '>=', camera_info.startDate), 
+                    models.sequelize.where(models.sequelize.fn('date', models.sequelize.col('createdAt')), '<=', camera_info.endDate)             
+            ],
+            */
+        /*
         $notBetween: [
-                   models.sequelize.where(models.sequelize.fn('HOUR', models.sequelize.col('createdAt')), '>=', 22),
-                   models.sequelize.where(models.sequelize.fn('HOUR', models.sequelize.col('createdAt')), '<=', 9)
-               ] 
-               */
+            models.sequelize.where(models.sequelize.fn('HOUR', models.sequelize.col('createdAt')), '<=', 22),
+            models.sequelize.where(models.sequelize.fn('HOUR', models.sequelize.col('createdAt')), '>=', 9)
+        ]
+        */
+        /*
+        $Between:[
+
+        ]
+        */
     }).then(function(row) {
         //console.log('check connection : ', row);
         callback(row, null);
