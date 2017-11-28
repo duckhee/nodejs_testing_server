@@ -102,7 +102,7 @@ io.sockets.on('connection', function(socket) {
     });
     //디바이스 정보 입력
     socket.on('device_setting_request', function(data) {
-        console.log(data);        
+        console.log(data);
         //처음 디바이스 등록일 경우
         if (data.msg == 0) {
             settingControllers.create_setting(data.info, function(row, err) {
@@ -171,7 +171,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser({}));
+app.use(cookieParser());
 app.use(session({
     secret: 'secret my key',
     resave: false,
@@ -206,6 +206,7 @@ app.use(function(err, req, res, next) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
     console.log('error : ', err.stack);
+    console.log('error code : ', err);
     // render the error page
     res.status(err.status || 500);
     res.render('./error/500');
