@@ -102,7 +102,7 @@ io.sockets.on('connection', function(socket) {
     });
     //디바이스 정보 입력
     socket.on('device_setting_request', function(data) {
-        //console.log(data);        
+        console.log(data);        
         //처음 디바이스 등록일 경우
         if (data.msg == 0) {
             settingControllers.create_setting(data.info, function(row, err) {
@@ -147,6 +147,10 @@ io.sockets.on('connection', function(socket) {
                 console.log('null');
             }
         });
+    });
+
+    socket.on('sensor_array_data_request', function(data) {
+        console.log("socket : " + data);
     });
 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
