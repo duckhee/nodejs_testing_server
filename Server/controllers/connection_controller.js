@@ -3,8 +3,9 @@ var dataController = require('./data_controller');
 
 //net work checking function callback(data_info, err) data_info = {"serial":, "createdAt":}
 exports.check_network = function(callback) {
+    var test = new Array();
+    var now_date = new Date();
     settingController.get_serial(function(row, err) {
-        var test = new Array();
         if (row) {
             for (var i in row) {
                 test[i] = row[i].st_serial;
@@ -22,7 +23,20 @@ exports.check_network = function(callback) {
                         "serial": row.dataValues.sd_serial,
                         "createdAt": row.dataValues.createdAt
                     }
-                    callback(data_info, null);
+
+                    var now_month = new Date().getMonth() + 1;
+                    var now_date = new Date().getDate();
+
+                    var get_month = new Date(data_info.createdAt).getMonth() + 1;
+                    var get_date = new Date(data_info.createdAt).getDate();
+
+                    if (now_month !== get_month || now_date >= get_date >= now_date - 1) {
+                        callback(null, null);
+                    } else {
+                        callback(data_info, null);
+                    }
+
+                    //callback(data_info, null);
                 } else if (err) {
                     console.log('error : ', err.stack);
                     callback(null, err);
