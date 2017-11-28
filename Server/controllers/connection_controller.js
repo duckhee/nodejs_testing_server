@@ -20,24 +20,23 @@ exports.check_network = function(callback) {
             dataController.check_connection(test[i], function(row, err) {
                 if (row) {
                     var data_info = {
-                            "serial": row.dataValues.sd_serial,
-                            "createdAt": row.dataValues.createdAt
-                        }
-                        /*
-                        var now_month = new Date().getMonth() + 1;
-                        var now_date = new Date().getDate();
+                        "serial": row.dataValues.sd_serial,
+                        "createdAt": row.dataValues.createdAt
+                    }
 
-                        var get_month = new Date(data_info.createdAt).getMonth() + 1;
-                        var get_date = new Date(data_info.createdAt).getDate();
+                    var now_month = new Date().getMonth() + 1;
+                    var now_date = new Date().getDate();
 
-                        if (now_month !== get_month || now_date >= get_date >= now_date - 1)
-                        {
-                            callback(data_info, null);
-                        }else{
-                            callback(null, null);
-                        }
-                        */
-                    callback(data_info, null);
+                    var get_month = new Date(data_info.createdAt).getMonth() + 1;
+                    var get_date = new Date(data_info.createdAt).getDate();
+
+                    if (now_month !== get_month || now_date >= get_date >= now_date - 1) {
+                        callback(null, null);
+                    } else {
+                        callback(data_info, null);
+                    }
+
+                    //callback(data_info, null);
                 } else if (err) {
                     console.log('error : ', err.stack);
                     callback(null, err);
