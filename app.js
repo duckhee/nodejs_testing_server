@@ -148,6 +148,19 @@ io.sockets.on('connection', function(socket) {
             }
         });
     });
+
+    socket.on('sensor_array_data_request', function(data) {
+        console.log("socket : " + data);
+        dataControllers.insert_array_data(data, function(row, err) {
+            if (row) {
+                io.emit('sensor_data_receive_' + data.sd_serial, { msg: 1 });
+            } else if (err) {
+                console.log('ajax data insert error : ', err.stack);
+            } else {
+                console.log('null');
+            }
+        });
+    });
 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
