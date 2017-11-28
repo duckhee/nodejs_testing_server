@@ -30,7 +30,7 @@ exports.check_network = function(callback) {
                     var get_month = new Date(data_info.createdAt).getMonth() + 1;
                     var get_date = new Date(data_info.createdAt).getDate();
 
-                    if (now_month !== get_month || now_date >= get_date >= now_date - 1) {
+                    if (now_month === get_month || now_date >= get_date >= now_date - 1) {
                         callback(null, null);
                     } else {
                         callback(data_info, null);
