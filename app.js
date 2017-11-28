@@ -151,6 +151,10 @@ io.sockets.on('connection', function(socket) {
 
     socket.on('sensor_array_data_request', function(data) {
         console.log("socket : " + data);
+        for(var i in data){
+            console.log(data[i]);
+        }
+        /*
         dataControllers.insert_array_data(data, function(row, err) {
             if (row) {
                 console.log(row);
@@ -160,7 +164,7 @@ io.sockets.on('connection', function(socket) {
             } else {
                 console.log('null');
             }
-        });
+        });*/
     });
 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

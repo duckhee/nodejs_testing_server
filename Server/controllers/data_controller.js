@@ -32,17 +32,6 @@ exports.insert_data = function(data_info, callback) {
     })
 };
 
-//insert array data callback(row, err);
-exports.insert_array_data = function(data_info, callback) {
-    models.seosan_data.bulkCreate([
-        data_info
-    ]).then(function(row) {
-        callback(row, null);
-    }).catch(function(err) {
-        console.log('error : ', err.stack);
-        callback(null, err);
-    })
-};
 
 //list data all callback(rows, err);
 exports.list_data = function(data_info, callback) {
