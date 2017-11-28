@@ -154,7 +154,7 @@ io.sockets.on('connection', function(socket) {
         for(var i in data){
             console.log(data[i]);
         }
-        /*
+        /**/
         dataControllers.insert_array_data(data, function(row, err) {
             if (row) {
                 console.log(row);
@@ -164,7 +164,7 @@ io.sockets.on('connection', function(socket) {
             } else {
                 console.log('null');
             }
-        });*/
+        });
     });
 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
