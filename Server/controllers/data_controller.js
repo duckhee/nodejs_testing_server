@@ -34,9 +34,7 @@ exports.insert_data = function(data_info, callback) {
 
 //insert array data callback(row, err);
 exports.insert_array_data = function(data_info, callback) {
-    models.seosan_data.bulkCreate([
-        data_info
-    ]).then(function() { // Notice: There are no arguments here, as of right now you'll have to...
+    models.seosan_data.bulkCreate(data_info).then(function() { // Notice: There are no arguments here, as of right now you'll have to...
         return models.seosan_data.findAll();
     }).then(function(seosan_data) {
         console.log(seosan_data) // ... in order to get the array of user objects
