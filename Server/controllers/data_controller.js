@@ -41,6 +41,7 @@ exports.insert_array_data = function(data_info, callback) {
     }).then(function(seosan_data) {
         console.log(seosan_data) // ... in order to get the array of user objects
     })
+};
 
 //list data all callback(rows, err);
 exports.list_data = function(data_info, callback) {
