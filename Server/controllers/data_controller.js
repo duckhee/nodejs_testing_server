@@ -16,6 +16,17 @@ exports.create_data = function(data_info, callback) {
 };
 
 
+
+//insert data callback(row, err);
+exports.insert_array_data = function(data_info, callback) {
+    models.seosan_data.bulkCreate(data_info).then(function(result) {
+        callback(row, null);
+    }).catch(function(err) {
+        console.log('error : ', err.stack);
+        callback(null, err);
+    });
+};
+
 //insert data callback(row, err);
 exports.insert_data = function(data_info, callback) {
     models.seosan_data.create({
