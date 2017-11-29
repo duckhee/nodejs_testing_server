@@ -22,6 +22,12 @@ exports.insert_array_data = function(data_info, callback) {
     models.seosan_data.bulkCreate(data_info,{
         where:{
             createdAt:data_info.createdAt
+        },
+        default:{
+            sd_data:data_info.sd_data,
+            sd_address:data_info.sd_address,
+            sd_serial:data_info.sd_serial,
+            createdAt:data_info.createdAt
         }
     }).then(function(result) {
         callback(result, null);
