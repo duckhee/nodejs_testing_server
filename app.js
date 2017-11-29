@@ -32,68 +32,48 @@ io.sockets.on('connection', function(socket) {
         var date_folder = moment().format('YYYYMM');
 
         //일별 폴더 유무 체크
-        fs.exists(process.cwd() + '/camera_images/' + params.serial + "/" + date_folder, function(exists) {
-            console.log(exists);
-            if (!exists) {
-                //채널 폴더 유무 체크
-                fs.exists(process.cwd() + '/camera_images/' + params.serial, function(exists) {
-                    if (!exists) {
-                        fs.mkdir(process.cwd() + '/camera_images/' + params.serial, '0777', function(err) {
-                            if (err) {
-                                console.log('mkdir first error');
-                                console.log(err.stack);
-                                throw err;
-                            }
-                            console.log('dir channel writed');
-                        });
-                    }
-                    fs.mkdir(process.cwd() + '/camera_images/' + params.serial + '/' + date_folder, '0777', function(err) {
-                        if (err) {
-                            console.log('mkdir seconde err');
-                            console.log(err.stack);
-                            throw err;
-                        } else {
-                            console.log('dir data writed');
-                        }
-
-                    });
-
-
-                });
+        if( !fs.existsSync(process.cwd() + '/camera_images/' + params.serial + "/" + date_folder) ) {
+           
+            //시리얼 번호 폴더 체크
+            if (!fs.existsSync(process.cwd() + '/camera_images/' + params.serial)) {
+                 //채널 폴더 유무 체크
+                fs.mkdirSync(process.cwd() + '/camera_images/' + params.serial, '0777');                    
             }
+            
+            //일별 폴더 없을 경우 생성
+            fs.mkdirSync(process.cwd() + '/camera_images/' + params.serial + '/' + date_folder, '0777');           
 
-            //이미지일 경우만 저장
-            console.log("image upload start");
-            fs.writeFile(process.cwd() + '/camera_images/' + params.serial + "/" + date_folder + "/" + params.filename, file.buffer, function(err) {
-                if (err) {
-                    console.log('File could not be saved: ' + err);
-                } else {
-                    var filename_arr = params.filename.split(".");
-                    console.log('image time :::::: ', filename_arr[0]);
-                    var camera_info = {
-                        "si_serial": params.serial,
-                        "si_path": date_folder,
-                        "si_filename": params.filename,
-                        "si_filesize": params.filesize,
-                        "createdAt": filename_arr[0],
-                        "updatedAt": filename_arr[0]
-                    };
-                    console.log(camera_info);
-                    cameraControllers.insert_image(camera_info, function(err, row) {
-                        if (err) {
-                            //console.log(err);
-                        } else if (row) {
-                            console.log(row.stack);
-                        } else {
-                            console.log('error');
-                        }
-                    });
-                    console.log('File ' + params.filename + " saved");
+        }
+
+        //이미지일 경우만 저장
+        console.log("image upload start");
+        fs.writeFile(process.cwd() + '/camera_images/' + params.serial + "/" + date_folder + "/" + params.filename, file.buffer, function(err) {
+            if (err) {
+                console.log('File could not be saved: ' + err);
+            } else {
+                var filename_arr = params.filename.split(".");
+                console.log('image time :::::: ', filename_arr[0]);
+                var camera_info = {
+                    "si_serial": params.serial,
+                    "si_path": date_folder,
+                    "si_filename": params.filename,
+                    "si_filesize": params.filesize,
+                    "createdAt": filename_arr[0],
+                    "updatedAt": filename_arr[0]
                 };
-            });
-
-        });
-
+                console.log(camera_info);
+                cameraControllers.insert_image(camera_info, function(err, row) {
+                    if (err) {
+                        //console.log(err);
+                    } else if (row) {
+                        console.log(row.stack);
+                    } else {
+                        console.log('error');
+                    }
+                });
+                console.log('File ' + params.filename + " saved");
+            };
+        });        
     });
 
     socket.on('disconnect', function() {
@@ -150,7 +130,7 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('sensor_array_data_request', function(data) {
-        console.log("socket : " + data);
+        console.log("socket arr: " + data);
         dataControllers.insert_array_data(data, function(row, err) {
             if (row) {
                 io.emit('sensor_data_receive_' + data.sd_serial, { msg: 1 });
