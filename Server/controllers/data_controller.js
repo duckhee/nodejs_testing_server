@@ -19,7 +19,11 @@ exports.create_data = function(data_info, callback) {
 
 //insert data callback(row, err);
 exports.insert_array_data = function(data_info, callback) {
-    models.seosan_data.bulkCreate(data_info).then(function(result) {
+    models.seosan_data.bulkCreate(data_info,{
+        where:{
+            createdAt:data_info.createdAt
+        }
+    }).then(function(result) {
         callback(result, null);
     }).catch(function(err) {
         console.log('error : ', err.stack);
