@@ -122,7 +122,7 @@ io.sockets.on('connection', function(socket) {
             if (row) {
                 io.emit('sensor_data_receive_' + data.sd_serial, { msg: 1 });
             } else if (err) {
-                console.log('ajax data insert error : ', err.stack);
+                console.log('socket data insert error : ', err.stack);
             } else {
                 console.log('null');
             }
@@ -136,13 +136,13 @@ io.sockets.on('connection', function(socket) {
                 io.emit('sensor_data_receive_' + data[0].sd_serial, { msg: 1 });
                 dataControllers.delete_reduplication_data(function(err) {
                     if (err) {
-                        console.log('ajax data insert error : ', err.stack);
+                        console.log('delete reduplication:', err);
                     } else {
                         console.log('null');
                     }
                 });
             } else if (err) {
-                console.log('ajax data insert error : ', err.stack);
+                console.log('sensor_array_data_request insert error : ', err.stack);
             } else {
                 console.log('null');
             }
