@@ -41,7 +41,9 @@ exports.insert_array_data = function(data_info, callback) {
 exports.insert_data = function(data_info, callback) {
     models.seosan_data.findOrCreate({
         where: {
-            createdAt: data_info.createdAt
+            createdAt: data_info.createdAt,
+            sd_serial: data_info.sd_serial,
+            sd_data: data_info.sd_data,
         },
         default: {
             sd_address: data_info.sd_address,
