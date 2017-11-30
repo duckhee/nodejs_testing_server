@@ -26,18 +26,7 @@ exports.delete_reduplication_data = function(callback) {
 
 //insert data callback(row, err); array insert
 exports.insert_array_data = function(data_info, callback) {
-    models.seosan_data.bulkCreate(data_info, {
-        where: {
-            sd_serial: data_info.sd_serial,
-            createdAt: data_info.createdAt
-        },
-        defaults: {
-            sd_data: data_info.sd_data,
-            sd_address: data_info.sd_address,
-            sd_serial: data_info.sd_serial,
-            createdAt: data_info.createdAt
-        }
-    }).then(function(result) {
+    models.seosan_data.bulkCreate(data_info).then(function(result) {
         callback(result, null);
     }).catch(function(err) {
         console.log('error : ', err.stack);
