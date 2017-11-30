@@ -21,9 +21,10 @@ exports.create_data = function(data_info, callback) {
 exports.insert_array_data = function(data_info, callback) {
     models.seosan_data.bulkCreate(data_info, {
         where: {
+            sd_serial: data_info.sd_serial,
             createdAt: data_info.createdAt
         },
-        default: {
+        defaults: {
             sd_data: data_info.sd_data,
             sd_address: data_info.sd_address,
             sd_serial: data_info.sd_serial,
@@ -41,11 +42,10 @@ exports.insert_array_data = function(data_info, callback) {
 exports.insert_data = function(data_info, callback) {
     models.seosan_data.findOrCreate({
         where: {
-            createdAt: data_info.createdAt,
             sd_serial: data_info.sd_serial,
-            sd_data: data_info.sd_data,
+            createdAt: data_info.createdAt            
         },
-        default: {
+        defaults: {
             sd_address: data_info.sd_address,
             sd_serial: data_info.sd_serial,
             sd_data: data_info.sd_data,
