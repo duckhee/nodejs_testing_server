@@ -243,6 +243,7 @@ exports.file_csv = function(file_info, callback) {
             for (var i in row) {
                 //column width setting
                 //for문 하나
+
                 //cell에 number type이 들어가야해서 변환 
                 var Num_i = parseInt(i);
                 for (var c = 1; c <= 8; c++) {
@@ -275,8 +276,11 @@ exports.file_csv = function(file_info, callback) {
                 for (var a in array) {
                     //string을 number type으로 변환 
                     var Num_a = parseInt(a);
+                    //깨진 데이터 처리 
+                    var testing_array = !isNaN(array[a]) ? array[a] : "000.0";
+
                     //write data
-                    first_sheet.cell(Num_i + 2, Num_a + 5).string(array[a].toString()).style(sheet_style);
+                    first_sheet.cell(Num_i + 2, Num_a + 5).string(testing_array).style(sheet_style);
                 }
 
                 //두번째 for문 끝
