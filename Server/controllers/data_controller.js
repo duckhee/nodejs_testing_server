@@ -17,17 +17,17 @@ exports.create_data = function(data_info, callback) {
 
 
 
-//insert data callback(row, err);
+//insert data callback(row, err); array insert
 exports.insert_array_data = function(data_info, callback) {
-    models.seosan_data.bulkCreate(data_info,{
-        where:{
-            createdAt:data_info.createdAt
+    models.seosan_data.bulkCreate(data_info, {
+        where: {
+            createdAt: data_info.createdAt
         },
-        default:{
-            sd_data:data_info.sd_data,
-            sd_address:data_info.sd_address,
-            sd_serial:data_info.sd_serial,
-            createdAt:data_info.createdAt
+        default: {
+            sd_data: data_info.sd_data,
+            sd_address: data_info.sd_address,
+            sd_serial: data_info.sd_serial,
+            createdAt: data_info.createdAt
         }
     }).then(function(result) {
         callback(result, null);
@@ -37,20 +37,20 @@ exports.insert_array_data = function(data_info, callback) {
     });
 };
 
-//insert data callback(row, err);
+//find and instert data callback(row, err);
 exports.insert_data = function(data_info, callback) {
     models.seosan_data.findOrCreate({
-        where:{
+        where: {
             createdAt: data_info.createdAt
         },
-        default:{
+        default: {
             sd_address: data_info.sd_address,
             sd_serial: data_info.sd_serial,
             sd_data: data_info.sd_data,
             createdAt: data_info.createdAt,
             updatedAt: data_info.updatedAt
         }
-        
+
     }).then(function(row) {
         callback(row, null);
     }).catch(function(err) {
