@@ -133,7 +133,14 @@ io.sockets.on('connection', function(socket) {
         console.log("socket arr: " + data);
         dataControllers.insert_array_data(data, function(row, err) {
             if (row) {
-                io.emit('sensor_data_receive_' + data.sd_serial, { msg: 1 });
+                io.emit('sensor_data_receive_' + data[0].sd_serial, { msg: 1 });
+                dataControllers.delete_reduplication_data(function(err) {
+                    if (err) {
+                        console.log('ajax data insert error : ', err.stack);
+                    } else {
+                        console.log('null');
+                    }
+                });
             } else if (err) {
                 console.log('ajax data insert error : ', err.stack);
             } else {

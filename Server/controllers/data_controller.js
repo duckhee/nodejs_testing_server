@@ -15,7 +15,15 @@ exports.create_data = function(data_info, callback) {
     });
 };
 
-
+//delete data of reduplication;
+exports.delete_reduplication_data = function(callback) {
+    models.sequelize.query("DELETE FROM seosan_data WHERE id not in ( SELECT id FROM ( SELECT id FROM seosan_data GROUP BY sd_serial, createdAt ) as b )").spread((results, metadata) => {
+        // Results will be an empty array and metadata will contain the number of affected rows.
+        console.log(results);
+        console.log(metadata);
+        callback(metadata);
+    });
+};
 
 //insert data callback(row, err); array insert
 exports.insert_array_data = function(data_info, callback) {
