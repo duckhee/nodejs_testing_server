@@ -59,7 +59,29 @@ router.get('/ajax_get_images', function(req, res, next) {
     }
 });
 
-//get data ajax
+//get data ajax limit 3
+router.get('/ajax_get_stick_data', function(req, res, next) {
+    var serial_info = req.query.serial_Num || req.params.serial_Num;
+    data_info = { "sd_serial": serial_info };
+    if (serial_info) {
+        var data = datacontroller.list_3_limit(data_info, function(rows, err) {
+            if (rows) {
+                res.json(rows);
+            } else if (err) {
+                console.log('ajax get limit 3 data error : ', err.stack);
+                res.json(0);
+            } else {
+                console.log('could not get ajax data limit 3');
+                res.json(0);
+            }
+        });
+    } else {
+        console.log('not serial');
+        res.json(0);
+    }
+});
+
+//get data ajax limit 10
 router.get('/ajax_get_data', function(req, res, next) {
     var serial_info = req.query.serial_Num || req.params.serial_Num;
     data_info = { "sd_serial": serial_info };
