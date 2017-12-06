@@ -197,7 +197,7 @@
             //날짜에서 시간과분만 추출
             function getDateFromJSON(str) {
                 var date = new Date(str);
-                return (date.getHours() + 9) + ':' + date.getMinutes();
+                return (date.getHours()) + ':' + date.getMinutes();
             }
             //날짜에서 하루 빼기
             function getMinusOneDate(str) {
