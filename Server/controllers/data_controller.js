@@ -39,7 +39,7 @@ exports.insert_data = function(data_info, callback) {
     models.seosan_data.findOrCreate({
         where: {
             sd_serial: data_info.sd_serial,
-            createdAt: data_info.createdAt            
+            createdAt: data_info.createdAt
         },
         defaults: {
             sd_address: data_info.sd_address,
@@ -72,6 +72,24 @@ exports.list_data = function(data_info, callback) {
         console.log('error : ', err.stack);
         callback(null, err);
     })
+};
+
+//view web limit stick graph callback(rows, err)
+exports.list_3_limit = function(data_info, callback) {
+    models.seosan_data.findAll({
+        where: {
+            sd_serial: data_info.sd_serial
+        },
+        order: [
+            ['createdAt', 'DESC']
+        ],
+        limit: 3,
+    }).then(function(rows) {
+        callback(rows, null);
+    }).catch(function(err) {
+        console.log('error : ', err.stack);
+        callback(null, err);
+    });
 };
 
 //view web limit show data callback(rows, err);
