@@ -105,9 +105,13 @@ function onListening() {
     console.log(addresses + ':' + app.get('port'));
 
     //report connection function here
-    // setInterval(report.connection_report(function(row, err) {
-
-    // }), 1000 * 60 * 60 * 24);
+    setInterval(report.connection_report(function(row, err) {
+        if (row) {
+            console.log('success');
+        } else {
+            console.log('failed');
+        }
+    }), 1000 * 60 * 60 * 24);
 
 
 
