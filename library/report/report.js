@@ -47,14 +47,14 @@ exports.send_connection = function(callback) {
                     console.log("could not send report : ");
                     console.log(server_error);
                     transporter.close();
-                    callback(null, err);
+                    callback(err);
                 } else if (info) {
                     console.log("message %s and :%s", info.messageId, info.response);
                     transporter.close();
-                    callback(info, null);
+                    callback(null);
                 } else {
                     console.log('null');
-                    callback(null, null);
+                    callback(null);
                 }
             });
         } else if (row) {
@@ -65,19 +65,19 @@ exports.send_connection = function(callback) {
                     console.log("could not send report : ");
                     console.log(server_error);
                     transporter.close();
-                    callback(null, err);
+                    callback(err);
                 } else if (info) {
                     console.log("message %s and :%s", info.messageId, info.response);
                     transporter.close();
-                    callback(info, null);
+                    callback(null);
                 } else {
                     console.log('null');
-                    callback(null, null);
+                    callback(null);
                 }
             })
         } else {
             console.log('null');
-            callback(null, null);
+            callback(null);
         }
     });
 };
