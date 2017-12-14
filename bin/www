@@ -13,8 +13,8 @@ var report = require('../library/report/report.js');
 /**
  * Get port from environment and store in Express.
  */
-if (cluster.isMaster) {
-    var port = normalizePort(process.env.PORT || '8080');
+
+    var port = normalizePort(process.env.PORT || '80');
     app.set('port', port);
 
     /**
@@ -120,6 +120,3 @@ if (cluster.isMaster) {
         // });
 
     }
-} else {
-    console.log('not cluster');
-}
