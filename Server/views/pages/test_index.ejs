@@ -199,6 +199,14 @@
             //날짜에서 시간과분만 추출
             function getDateFromJSON(str) {
                 var date = new Date(str);
+                var con_mindate = date.getMinutes();
+                if((0<= con_mindate && con_mindate  <= 15 ) || ( 45<= con_mindate && con_mindate<= 60))
+                {
+                    date.setMinutes(00);
+                }else{
+                    date.setMinutes(30);                    
+                }  
+
                 return (date.getHours()) + ':' + date.getMinutes();
             }
             //날짜에서 하루 빼기
@@ -493,11 +501,7 @@
                             }
                         }
                        
-<<<<<<< HEAD
-                        var color_arr = ["#3c8dbc","#ac8dbc","#ac8dd","#acsdbc","#3c77bc","#3c88bc","#3c03bc","#398dbc"];
-=======
                         var color_arr = ["#000000","#FF0000","#00FF00","#0000FF","#FFFF00","#00FFFF","#FF00FF","#C0C0C0"];
->>>>>>> b75e51b74354f56632c272a8e65663470dbdce55
                         var ec_data_line = new Array();
                         var temp_data_line = new Array();
                         var moist_data_line = new Array();
