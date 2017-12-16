@@ -220,6 +220,7 @@
                 return hour;
             }
             // chart end
+            // get limit 10 data start
             var get_Data = function() {
                 $.ajax({
                     type: "GET",
@@ -231,14 +232,8 @@
                     },
                     success: function(data) {
                         var chart_data;
-                        //ajax_data = JSON.stringify(data);
                         chart_data = data;
                         var get_data = chart_data;
-                        
-                        //  for (var i = 0, max_data = get_data.length; i < max_data; i++) {
-                        //      show_data.push([getDateFromJSON(get_data[i].createdAt), get_data[i].value]);
-                        //  }
-                         //var test_array = new Array();
                         var ec_data = new Array();
                         var temp_data = new Array();
                         var moist_data = new Array();
@@ -285,7 +280,6 @@
                             },
                             lines: {
                                 fill: false
-                                // color: ["#3c8dbc", "#f56954"]
                             },
                             yaxis: {
                                 min: 0,
@@ -321,7 +315,45 @@
                     }
                 });
             }
-            // chart end
+            //get chart 10 limit end
+/*
+            var stick_data = function(){
+                $.ajax({
+                    type:"get",
+                    url:"",
+                    dataType:"json",
+                    error:function(){
+                        var stick_data;
+                        stick_data = 0;
+                    },
+                    success: function(data){
+                        var stick_data = data;
+                        var stick_ec = new Array();
+                        var stick_mc = new Array();
+                        var stick_temp = new Array();
+                        //split data 
+                             for ( var i in data){   
+                            var array1 = data[i].sd_data.split(','); 
+                            for (var j in array1) {
+                                if(i == 0 && j < 8){
+                                    stick_ec[j] = new Array();
+                                    stick_temp[j] = new Array();
+                                    stick_mc[j] = new Array();
+                                }
+                                if( j < 8 ){
+                                    stick_ec[j][i] = [getDateFromJSON(data[i].createdAt), array1[j]];                                    
+                                } else if( j < 16 ) {
+                                    stick_temp[j-8][i] = [getDateFromJSON(data[i].createdAt), array1[j]];
+                                } else if( j < 24 ) {
+                                    stick_mc[j-16][i] = [getDateFromJSON(data[i].createdAt), array1[j]];
+                                }
+                            }
+                        }
+                   
+                    }
+                })
+            };
+*/
             var get_image = function() {
                 $.ajax({
                     type: "GET",
