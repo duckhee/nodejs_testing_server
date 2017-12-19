@@ -96,7 +96,7 @@
                                     <!--<button class="pull-right" id="value_download" name="value_download"><i class="fa fa-fw fa-download"></i>download</button>-->
                                 </div>
                                 <div class="box-body">                                    
-                                    <div id="chartLegend" ></div>
+                                    <div id="ec-chartLegend" ></div>
                                     <div id="ec-chart" style="height: 300px;"></div>    
                                 </div>
                                 <!-- /.box-body-->
@@ -114,6 +114,7 @@
                                 </div>
                                 
                                 <div class="box-body">
+                                    <div id="temp-chartLegend" ></div>
                                     <div id="temp-chart" style="height: 300px;"></div>
                                 </div>
                                 <!-- /.box-body-->
@@ -131,6 +132,7 @@
                                     <!--<button class="pull-right" id="value_download" name="value_download"><i class="fa fa-fw fa-download"></i>download</button> -->
                                 </div>
                                 <div class="box-body">
+                                    <div id="moist-chartLegend" ></div>
                                     <div id="moist-chart" style="height: 300px;"></div>
     
                                 </div>
@@ -271,7 +273,7 @@
                             legend: {
                                 show: true,
                                 noColumns: 0,
-                                container: $("#chartLegend")
+                                container: $("#ec-chartLegend")
                             }
                         });
                         //Initialize tooltip on hover
@@ -334,7 +336,8 @@
                             },
                             legend: {
                                 show: true,
-                                noColumns: 0       
+                                noColumns: 0,
+                                container: $("#moist-chartLegend")       
                             }
                         });
                         //Initialize tooltip on hover
@@ -396,7 +399,8 @@
                             },
                             legend: {
                                 show: true,
-                                noColumns: 0       
+                                noColumns: 0,
+                                container: $("#temp-chartLegend")       
                             }
                         });
                         //Initialize tooltip on hover
