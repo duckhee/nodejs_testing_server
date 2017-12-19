@@ -95,9 +95,9 @@
                                     <h3 class="box-title">EC Value (dS/m ECe)</h3>
                                     <!--<button class="pull-right" id="value_download" name="value_download"><i class="fa fa-fw fa-download"></i>download</button>-->
                                 </div>
-                                <div class="box-body">
-                                    <div id="ec-chart" style="height: 300px;"></div>
-    
+                                <div class="box-body">                                    
+                                    <div id="ec-chartLegend" ></div>
+                                    <div id="ec-chart" style="height: 300px;"></div>    
                                 </div>
                                 <!-- /.box-body-->
                             </div>
@@ -114,6 +114,7 @@
                                 </div>
                                 
                                 <div class="box-body">
+                                    <div id="temp-chartLegend" ></div>
                                     <div id="temp-chart" style="height: 300px;"></div>
                                 </div>
                                 <!-- /.box-body-->
@@ -131,6 +132,7 @@
                                     <!--<button class="pull-right" id="value_download" name="value_download"><i class="fa fa-fw fa-download"></i>download</button> -->
                                 </div>
                                 <div class="box-body">
+                                    <div id="moist-chartLegend" ></div>
                                     <div id="moist-chart" style="height: 300px;"></div>
     
                                 </div>
@@ -212,7 +214,10 @@
                     date.setMinutes(30);
                 return (date.getHours()) + ':' + date.getMinutes();
                 }  
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3f50a145ac3db6e8c57dfd6ef064ec6dc77133d7
             }
             //날짜에서 하루 빼기
             function getMinusOneDate(str) {
@@ -271,7 +276,8 @@
                             },
                             legend: {
                                 show: true,
-                                noColumns: 0       
+                                noColumns: 0,
+                                container: $("#ec-chartLegend")
                             }
                         });
                         //Initialize tooltip on hover
@@ -334,7 +340,8 @@
                             },
                             legend: {
                                 show: true,
-                                noColumns: 0       
+                                noColumns: 0,
+                                container: $("#moist-chartLegend")       
                             }
                         });
                         //Initialize tooltip on hover
@@ -390,13 +397,14 @@
                                 show: true
                             },
                             xaxis: {
-                                // 이 설정은 x축의 보여지는 것이 날짜 기준으로 하기 위해서 있는 것이다.                                
+                                // 이 설정은 x축의 보여지는 것이 날짜 기준으로 하기 위해서 있는 것이다.
                                 mode: "categories",
                                 show: true
                             },
                             legend: {
                                 show: true,
-                                noColumns: 0       
+                                noColumns: 0,
+                                container: $("#temp-chartLegend")       
                             }
                         });
                         //Initialize tooltip on hover
