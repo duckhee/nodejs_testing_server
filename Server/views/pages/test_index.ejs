@@ -95,9 +95,9 @@
                                     <h3 class="box-title">EC Value (dS/m ECe)</h3>
                                     <!--<button class="pull-right" id="value_download" name="value_download"><i class="fa fa-fw fa-download"></i>download</button>-->
                                 </div>
-                                <div class="box-body">
-                                    <div id="ec-chart" style="height: 300px;"></div>
-    
+                                <div class="box-body">                                    
+                                    <div id="chartLegend" ></div>
+                                    <div id="ec-chart" style="height: 300px;"></div>    
                                 </div>
                                 <!-- /.box-body-->
                             </div>
@@ -270,7 +270,8 @@
                             },
                             legend: {
                                 show: true,
-                                noColumns: 0       
+                                noColumns: 0,
+                                container: $("#chartLegend")
                             }
                         });
                         //Initialize tooltip on hover
