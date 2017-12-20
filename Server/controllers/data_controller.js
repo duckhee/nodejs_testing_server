@@ -98,7 +98,7 @@ exports.list_limit = function(data_info, callback) {
         where: {
             sd_serial: data_info.sd_serial //'01171030130408'
         },
-        limit: 10,
+        limit: 12,
         order: [
             ['createdAt', 'DESC']
         ],
