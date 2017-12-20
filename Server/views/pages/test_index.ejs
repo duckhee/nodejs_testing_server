@@ -92,7 +92,14 @@
                             <div class="box box-primary">
                                 <div class="box-header with-border">
                                     <i class="fa fa-bar-chart-o"></i>
-                                    <h3 class="box-title">EC Value (dS/m ECe)</h3>
+                                    <h3 class="box-title">EC Value (dS/m ECe) <%
+                                            var d = new Date(createdAt); 
+                                            var str = "";
+                                            if(createdAt){
+                                                str = d.getFullYear() + "-" + (d.getMonth() + 1 ) + "-" + d.getDate() ;
+                                            }                                           
+                                        %>
+                                            </h3><div class="box-tools pull-right"><%= str %></div>     
                                     <!--<button class="pull-right" id="value_download" name="value_download"><i class="fa fa-fw fa-download"></i>download</button>-->
                                 </div>
                                 <div class="box-body">                                    
@@ -109,10 +116,17 @@
                             <div class="box box-primary">
                                 <div class="box-header with-border">
                                     <i class="fa fa-bar-chart-o"></i>
-                                    <h3 class="box-title">Temperature Value (degC) </h3>                                    
+                                    <h3 class="box-title">Temperature Value (degC) <%
+                                            var d = new Date(createdAt); 
+                                            var str = "";
+                                            if(createdAt){
+                                                str = d.getFullYear() + "-" + (d.getMonth() + 1 ) + "-" + d.getDate();
+                                            }                                           
+                                        %>
+                                           </h3><div class="box-tools pull-right"><%= str %></div>                                    
                                     <!-- <button class="pull-right" id="value_download" name="value_download"><i class="fa fa-fw fa-download"></i>download</button> -->
                                 </div>
-                                
+
                                 <div class="box-body">
                                     <div id="temp-chartLegend" ></div>
                                     <div id="temp-chart" style="height: 300px;"></div>
@@ -123,18 +137,25 @@
                         </div>
                         <!-- chart end -->
                         <div class = "col-md-6">
-                            
+
                             <!-- Line chart -->
                             <div class="box box-primary">
                                 <div class="box-header with-border">
                                     <i class="fa fa-bar-chart-o"></i>
-                                    <h3 class="box-title">Moisture Value (%VWC)</h3>
+                                    <h3 class="box-title">Moisture Value (%VWC)<%
+                                            var d = new Date(createdAt); 
+                                            var str = "";
+                                            if(createdAt){
+                                                str = d.getFullYear() + "-" + (d.getMonth() + 1 ) + "-" + d.getDate();
+                                            }
+                                        %>
+                                            </h3><div class="box-tools pull-right"><%= str %></div>     
                                     <!--<button class="pull-right" id="value_download" name="value_download"><i class="fa fa-fw fa-download"></i>download</button> -->
                                 </div>
                                 <div class="box-body">
                                     <div id="moist-chartLegend" ></div>
                                     <div id="moist-chart" style="height: 300px;"></div>
-    
+
                                 </div>
                                 <!-- /.box-body-->
                             </div>
@@ -142,7 +163,7 @@
                         </div>
                         <!-- chart end -->
                     <!--</div>
-    
+
                     <div class="row"> -->
                         <div class="col-md-6">
                             <div class="box box-primary">
@@ -154,7 +175,7 @@
                                             var str = "";
                                             if(createdAt){
                                                 str = d.getFullYear() + "-" + (d.getMonth() + 1 ) + "-" + d.getDate() + "-" + d.getHours() + "-" + d.getMinutes();
-                                            }                                           
+                                            }
                                         %>
                                             <%= str %>
                                     </div>
