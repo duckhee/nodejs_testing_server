@@ -280,14 +280,14 @@
                             },
                             lines: {
                                 fill: false
-                                        
+
                             },
                             yaxis: {
 
                                 show: true
                             },
                             xaxis: {
-                                // 이 설정은 x축의 보여지는 것이 날짜 기준으로 하기 위해서 있는 것이다.                                
+                                // 이 설정은 x축의 보여지는 것이 날짜 기준으로 하기 위해서 있는 것이다.
                                 mode: "categories",
                                 show: true
                             },
@@ -344,14 +344,14 @@
                             },
                             lines: {
                                 fill: false
-                                        
+
                             },
                             yaxis: {
 
                                 show: true
                             },
                             xaxis: {
-                                // 이 설정은 x축의 보여지는 것이 날짜 기준으로 하기 위해서 있는 것이다.                                
+                                // 이 설정은 x축의 보여지는 것이 날짜 기준으로 하기 위해서 있는 것이다.
                                 mode: "categories",
                                 show: true
                             },
@@ -408,7 +408,7 @@
                             },
                             lines: {
                                 fill: false
-                                        
+
                             },
                             yaxis: {
                                 show: true
@@ -449,7 +449,6 @@
             };
             //limit 10 chart end
 
-         
             /*
            //BAR CHART limit 3
             var bar = new Morris.Bar({
@@ -508,11 +507,11 @@
                         //ajax_data = JSON.stringify(data);
                         chart_data = data;
                         var get_data = chart_data;
-                        
+
                         var ec_data = new Array();
                         var temp_data = new Array();
                         var moist_data = new Array();
-                            
+
                         for ( var i in data){   
                             var array1 = data[i].sd_data.split(','); 
                             for (var j in array1) {
@@ -522,7 +521,7 @@
                                     moist_data[j] = new Array();
                                 }
                                 if( j < 8 ){
-                                    ec_data[j][i] = [getDateFromJSON(data[i].createdAt), array1[j]];                                    
+                                    ec_data[j][i] = [getDateFromJSON(data[i].createdAt), array1[j]];
                                 } else if( j < 16 ) {
                                     temp_data[j-8][i] = [getDateFromJSON(data[i].createdAt), array1[j]];
                                 } else if( j < 24 ) {
@@ -530,7 +529,7 @@
                                 }
                             }
                         }
-                       
+
                         var color_arr = ["#000000","#FF0000","#00FF00","#0000FF","#FFFF00","#00FFFF","#FF00FF","#C0C0C0"];
                         var ec_data_line = new Array();
                         var temp_data_line = new Array();
@@ -548,7 +547,7 @@
                             moist_data_line[i] = { data: moist_data[i].reverse(), color: color_arr[i] , label:(i+1)*10};
                         }
 
-                        
+
                         if(ec_chart.cnt == 0){
                             ec_chart.init(ec_data_line);
                             temp_chart.init(temp_data_line);
@@ -589,7 +588,6 @@
                         var d = new Date(ajax_data.createdAt);
                         var dateStr = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes();
 
-                        console.log(data);
                         if (ajax_data.createdAt == "") dateStr = "";
                         img_path = '/images/' + ajax_data.si_serial + '/' + ajax_data.si_path + '/' + ajax_data.si_filename;
                         $("#camera-info").find("img").attr("src", img_path);
