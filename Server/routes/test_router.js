@@ -220,6 +220,7 @@ router.get('/', function(req, res, next) {
                         path = '/images' + rows.si_serial + '/' + rows.si_path + '/' + rows.si_filename;
                     }
 
+
                     res.render('./pages/test_index', {
                         serial_Num: serial,
                         img_path: path,
