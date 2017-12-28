@@ -29,7 +29,10 @@
                             }
             %>    
                 <li class="<%= class_active %>">
-                    <a href="/?serial_Num=<%=myObj[i].st_serial%>"><i class="fa fa-circle-o"></i><%= myObj[i].st_serial %></a>
+                    <a href="/?serial_Num=<%=myObj[i].st_serial%>">
+                        <i class="fa fa-circle-o"></i>
+                        <%= myObj[i].st_serial %>(<% if(i == 0) { %> 5 site <% } %> <% if(i == 1) { %> 3 site <% } %> <% if(i == 2) { %> 2 site <% } %>)
+                    </a>
                 </li>
             <%         
                      } 
