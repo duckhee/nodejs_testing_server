@@ -210,7 +210,7 @@ exports.file_csv = function(file_info, callback) {
     */
 
     //data 모두 가져오기 
-    valueControllers.download_data(file_info, function(row, err) {
+    valueControllers.download_data(file_info.sd_serial, function(row, err) {
         if (row) {
             //setting title
             //console.log(row);
