@@ -156,6 +156,7 @@ exports.download_data = function(data_info, callback) {
     });
 };
 
+
 exports.get_address_data = function(data_info, callback) {
     models.seosan_data.findAll({
         where: {
