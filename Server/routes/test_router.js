@@ -167,6 +167,7 @@ router.post('/process/download_csv', function(req, res, next) {
     settingcontroller.group_device(function(group_row, err) {
         var devices = group_row;
         if (devices) {
+            console.log(csv_info.sd_serial);
             downloader.file_csv(csv_info, function(row, err) {
                 if (row) {
                     console.log('success : ', row);
