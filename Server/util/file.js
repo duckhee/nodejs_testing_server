@@ -290,7 +290,7 @@ exports.file_csv = function(file_info, callback) {
             console.log('success ! ');
 
             //make csv file or download file 
-            csvfile.write('download_date ' + date + '.csv', file_info.response);
+            csvfile.write(file_info.sd_serial + '_download_date ' + date + '.csv', file_info.response);
             //만약 서버에 파일을 생성을 하고 싶으면 밑에 주석 풀고 위에 주석 처리
             //csvfile.write('download_date'+date+'.csv);
             callback(row, null);
