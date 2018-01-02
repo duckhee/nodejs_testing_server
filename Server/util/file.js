@@ -269,6 +269,7 @@ exports.file_csv = function(file_info, callback) {
 
                 //date 넣어주기
                 first_sheet.cell(Num_i + 2, 4).string(row[i].dataValues.createdAt.toString()).style(sheet_style);
+                //first_sheet.cell(Num_i + 2, 4).date(row[i].dataValues.createdAt.toString()).style({ numberFormat: 'yyyy-mm-dd hh:mm:ss' });                
                 //data parser
                 var array = row[i].dataValues.sd_data.split(',');
                 //write data 
@@ -291,6 +292,7 @@ exports.file_csv = function(file_info, callback) {
 
             //make csv file or download file 
             csvfile.write(file_info.sd_serial + '_download_date ' + date + '.csv', file_info.response);
+            //csvfile.write(file_info.sd_serial + '_download_date ' + date + '.xlsl', file_info.response);
             //만약 서버에 파일을 생성을 하고 싶으면 밑에 주석 풀고 위에 주석 처리
             //csvfile.write('download_date'+date+'.csv);
             callback(row, null);
