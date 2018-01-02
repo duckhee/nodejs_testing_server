@@ -236,6 +236,22 @@
                 return (date.getHours()) + ':' + date.getMinutes();
                 }  
             }
+
+            //날짜에서 시간과분만 추출
+            function getDateFromJSON(str, cnt) {
+                var date = new Date(str);
+                var con_mindate = date.getMinutes();
+                var date_arr;
+                var flag_m = 0; //분을 0으로 시작 할지 30분으로 시작할지 설정할 기준값
+
+                if( con_mindate  < 30 ) {
+                    date.setMinutes(00);
+                    return (date.getHours()) + ':0' + date.getMinutes();
+                } else {
+                    date.setMinutes(30);
+                    return (date.getHours()) + ':' + date.getMinutes();
+                }  
+            }
             //날짜에서 하루 빼기
             function getMinusOneDate(str) {
                 var date = new Date(str);
