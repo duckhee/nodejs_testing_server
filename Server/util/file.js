@@ -268,8 +268,49 @@ exports.file_csv = function(file_info, callback) {
                 first_sheet.cell(Num_i + 2, 3).string(row[i].dataValues.sd_address.toString()).style(sheet_style);
 
                 //date 넣어주기
-                first_sheet.cell(Num_i + 2, 4).string(row[i].dataValues.createdAt.toString()).style(sheet_style);
-                //first_sheet.cell(Num_i + 2, 4).date(row[i].dataValues.createdAt.toString()).style({ numberFormat: 'yyyy-mm-dd hh:mm:ss' });                
+                //first_sheet.cell(Num_i + 2, 4).string(row[i].dataValues.createdAt.toString()).style(sheet_style);
+                var origin_date = new Date(row[i].dataValues.createdAt.toString());
+                var con_mindate = origin_date.getMinutes();
+                //var last_date;
+
+                if( con_mindate  < 30 ) {
+                    origin_date.setMinutes(00);
+                    //last_date = origin_date.getFullYear() + "-" + origin_date.getMonth() + "-" + origin_date.getDay() + " " + origin_date.getHours() + ':0' + origin_date.getMinutes();
+                } else {
+                    origin_date.setMinutes(30);
+                    //last_date = origin_date.getFullYear() + "-" + origin_date.getMonth() + "-" + origin_date.getDay() + " " + origin_date.getHours() + ':' + origin_date.getMinutes();
+                }
+                //first_sheet.cell(Num_i + 2, 4).string(last_date).style(sheet_style);
+
+                first_sheet.cell(Num_i + 2, 4).date(origin_date).style({ 
+                    alignment: {
+                        horizontal: ['center'],
+                        vertical: ['center']
+                    },
+                    font: {
+                        size: 10,
+                        bold: false,
+                    },
+                    border: {
+                        left: {
+                            style: 'thin',
+                            color: '#000000'
+                        },
+                        right: {
+                            style: 'thin',
+                            color: '#000000'
+                        },
+                        top: {
+                            style: 'thin',
+                            color: '#000000'
+                        },
+                        bottom: {
+                            style: 'thin',
+                            color: '#000000'
+                        }
+                    },
+                    numberFormat: 'yyyy-mm-dd hh:mm' }
+                );                
                 //data parser
                 var array = row[i].dataValues.sd_data.split(',');
                 //write data 
