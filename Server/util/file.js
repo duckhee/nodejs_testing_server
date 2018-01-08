@@ -240,12 +240,12 @@ exports.file_csv = function(file_info, callback) {
                     }
                 }
             }
+            var Num_i = 0;
             for (var i in row) {
                 //column width setting
                 //for문 하나
 
                 //cell에 number type이 들어가야해서 변환 
-                var Num_i = parseInt(i);
                 for (var c = 1; c <= 8; c++) {
                     if (c === 4) {
                         first_sheet.column(c).setWidth(44);
@@ -257,6 +257,94 @@ exports.file_csv = function(file_info, callback) {
                 //row height setting
                 //first_sheet.row(ii + 1).setHeight(10);
 
+                //date 넣어주기
+                //first_sheet.cell(Num_i + 2, 4).string(row[i].dataValues.createdAt.toString()).style(sheet_style);
+                var origin_date = new Date(row[i].dataValues.createdAt.toString());                
+                var con_mindate = origin_date.getMinutes();
+                //var last_date;
+
+                //현재 데이터 시간 설정
+                if( con_mindate  < 30 ) {
+                    origin_date.setMinutes(00);
+                    origin_date.setSeconds(00);
+                    //last_date = origin_date.getFullYear() + "-" + origin_date.getMonth() + "-" + origin_date.getDay() + " " + origin_date.getHours() + ':0' + origin_date.getMinutes();
+                } else {
+                    origin_date.setMinutes(30);
+                    origin_date.setSeconds(00);
+                    //last_date = origin_date.getFullYear() + "-" + origin_date.getMonth() + "-" + origin_date.getDay() + " " + origin_date.getHours() + ':' + origin_date.getMinutes();
+                }
+
+                //데이터가 30분 간격을 벗어나면 빈칸을 추가
+                if(i > 0){
+                    //이전 데이터 설정
+                    var pre_date = new Date(row[i-1].dataValues.createdAt.toString());
+                    con_mindate = pre_date.getMinutes();
+                    
+                    if( con_mindate  < 30 ) {
+                        pre_date.setMinutes(00);
+                        pre_date.setSeconds(00);
+                        //last_date = origin_date.getFullYear() + "-" + origin_date.getMonth() + "-" + origin_date.getDay() + " " + origin_date.getHours() + ':0' + origin_date.getMinutes();
+                    } else {
+                        pre_date.setMinutes(30);
+                        pre_date.setSeconds(00);
+                        //last_date = origin_date.getFullYear() + "-" + origin_date.getMonth() + "-" + origin_date.getDay() + " " + origin_date.getHours() + ':' + origin_date.getMinutes();
+                    }
+
+                    var tmp = (pre_date.getTime() - origin_date.getTime()) / 60000; // 분 단위로 변경.
+
+                    //30분 간격보다 크면 데이터 손실이 있었던것으로 간주 그만큼 빈행을 넣어준다.
+                    if(tmp > 30){
+                        for( var n = 1; n < tmp/30; n++){
+                            //번호 넣어주기
+                            first_sheet.cell(Num_i + 2, 1).number(Num_i + 1).style(sheet_style);
+
+                            //serial 넣어주기
+                            first_sheet.cell(Num_i + 2, 2).string(row[i].dataValues.sd_serial.toString()).style(sheet_style);
+
+                            //address 넣어주기
+                            first_sheet.cell(Num_i + 2, 3).string(row[i].dataValues.sd_address.toString()).style(sheet_style);
+                            
+                            first_sheet.cell(Num_i + 2, 4).date(pre_date.setTime(pre_date.getTime() - (30* 60 * 1000))).style({ 
+                                alignment: {
+                                    horizontal: ['center'],
+                                    vertical: ['center']
+                                },
+                                font: {
+                                    size: 10,
+                                    bold: false,
+                                },
+                                border: {
+                                    left: {
+                                        style: 'thin',
+                                        color: '#000000'
+                                    },
+                                    right: {
+                                        style: 'thin',
+                                        color: '#000000'
+                                    },
+                                    top: {
+                                        style: 'thin',
+                                        color: '#000000'
+                                    },
+                                    bottom: {
+                                        style: 'thin',
+                                        color: '#000000'
+                                    }
+                                },
+                                numberFormat: 'yyyy-mm-dd hh:mm' }
+                            );
+
+                            for (var a = 0; a < 24; a++) {
+                                //write data
+                                first_sheet.cell(Num_i + 2, Num_a + 5).string("-").style(sheet_style);
+                            }
+
+                            Num_i++;
+                        }
+                        
+                    }
+                }
+                
                 ////////////////for 문 제어 필요///////
                 //번호 넣어주기
                 first_sheet.cell(Num_i + 2, 1).number(Num_i + 1).style(sheet_style);
@@ -267,21 +355,8 @@ exports.file_csv = function(file_info, callback) {
                 //address 넣어주기
                 first_sheet.cell(Num_i + 2, 3).string(row[i].dataValues.sd_address.toString()).style(sheet_style);
 
-                //date 넣어주기
-                //first_sheet.cell(Num_i + 2, 4).string(row[i].dataValues.createdAt.toString()).style(sheet_style);
-                var origin_date = new Date(row[i].dataValues.createdAt.toString());
-                var con_mindate = origin_date.getMinutes();
-                //var last_date;
-
-                if( con_mindate  < 30 ) {
-                    origin_date.setMinutes(00);
-                    //last_date = origin_date.getFullYear() + "-" + origin_date.getMonth() + "-" + origin_date.getDay() + " " + origin_date.getHours() + ':0' + origin_date.getMinutes();
-                } else {
-                    origin_date.setMinutes(30);
-                    //last_date = origin_date.getFullYear() + "-" + origin_date.getMonth() + "-" + origin_date.getDay() + " " + origin_date.getHours() + ':' + origin_date.getMinutes();
-                }
                 //first_sheet.cell(Num_i + 2, 4).string(last_date).style(sheet_style);
-
+                //date 넣어주기
                 first_sheet.cell(Num_i + 2, 4).date(origin_date).style({ 
                     alignment: {
                         horizontal: ['center'],
@@ -325,6 +400,8 @@ exports.file_csv = function(file_info, callback) {
                 }
 
                 //두번째 for문 끝
+                
+                Num_i++;
             }
 
             ////////////여기 까지 ////////////////

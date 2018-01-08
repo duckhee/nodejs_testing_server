@@ -167,10 +167,11 @@ router.post('/process/download_csv', function(req, res, next) {
     settingcontroller.group_device(function(group_row, err) {
         var devices = group_row;
         if (devices) {
-            console.log(csv_info.sd_serial);
+            //console.log(csv_info.sd_serial);
             downloader.file_csv(csv_info, function(row, err) {
                 if (row) {
-                    console.log('success : ', row);
+                    //console.log('success : ', row);
+                    console.log('success : download ');
                 } else if (err) {
                     console.log('down load csv file error : ', err.stack);
                     res.render('./error/500', {
